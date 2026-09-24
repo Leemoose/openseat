@@ -1,0 +1,218 @@
+[
+ {
+  "id": "vintage-instruments",
+  "name": "Vintage Instruments",
+  "hobby": "guitar",
+  "address": "Philadelphia, PA",
+  "url": "https://www.vintage-instruments.com",
+  "lat": 39.9527237,
+  "lng": -75.1635262
+ },
+ {
+  "id": "dipinto",
+  "name": "DiPinto Guitars",
+  "hobby": "guitar",
+  "address": "407 E Girard Ave, Philadelphia, PA 19125",
+  "url": "https://www.dipintoguitars.com/philly-store",
+  "lat": 39.970508,
+  "lng": -75.1303068
+ },
+ {
+  "id": "russo",
+  "name": "Russo Music Philadelphia",
+  "hobby": "guitar",
+  "address": "1030 N 2nd St, Philadelphia, PA 19123",
+  "url": "https://www.russomusic.com/pages/guitar-store-philadelphia-pa",
+  "lat": 39.9669981,
+  "lng": -75.1402585
+ },
+ {
+  "id": "classical-guitar-store",
+  "name": "The Classical Guitar Store",
+  "hobby": "guitar",
+  "address": "2038 Sansom St, Philadelphia, PA 19103",
+  "url": "http://www.classicalguitarstore.com/",
+  "lat": 39.9513533,
+  "lng": -75.1748464
+ },
+ {
+  "id": "settlement",
+  "name": "Settlement Music School (Queen Village)",
+  "hobby": "guitar",
+  "address": "416 Queen St, Philadelphia, PA 19147",
+  "url": "https://www.settlementmusic.org",
+  "lat": 39.9375819,
+  "lng": -75.1507175
+ },
+ {
+  "id": "clay-studio",
+  "name": "The Clay Studio",
+  "hobby": "pottery",
+  "address": "1425 N American St, Philadelphia, PA 19122",
+  "url": "https://www.theclaystudio.org",
+  "lat": 39.9790561,
+  "lng": -75.1389113
+ },
+ {
+  "id": "pottery-gym",
+  "name": "The Pottery Gym",
+  "hobby": "pottery",
+  "address": "1319 N Randolph St, Philadelphia, PA 19122",
+  "url": "https://www.thepotterygym.com",
+  "lat": 39.9717942,
+  "lng": -75.1454313
+ },
+ {
+  "id": "yayclay",
+  "name": "YAY!Clay",
+  "hobby": "pottery",
+  "address": "3237 Amber St, Philadelphia, PA 19134",
+  "url": "https://yayclay.com",
+  "lat": 39.9925865,
+  "lng": -75.1090384
+ },
+ {
+  "id": "fleisher",
+  "name": "Fleisher Art Memorial",
+  "hobby": "pottery",
+  "address": "719 Catharine St, Philadelphia, PA 19147",
+  "url": "https://fleisher.org",
+  "lat": 39.9390857,
+  "lng": -75.1549984
+ },
+ {
+  "id": "old-city-first-friday",
+  "name": "Old City First Friday",
+  "hobby": "art",
+  "address": "145 N 2nd St, Philadelphia, PA 19106",
+  "url": "https://www.oldcitydistrict.org/first-friday",
+  "lat": 39.9531457,
+  "lng": -75.1426877
+ },
+ {
+  "id": "pentimenti",
+  "name": "Pentimenti Gallery",
+  "hobby": "art",
+  "address": "145 N 2nd St, Philadelphia, PA 19106",
+  "url": "https://www.pentimenti.com",
+  "lat": 39.9531457,
+  "lng": -75.1426877
+ },
+ {
+  "id": "arch-enemy",
+  "name": "Arch Enemy Arts",
+  "hobby": "art",
+  "address": "109 Arch St, Philadelphia, PA 19106",
+  "url": "https://www.archenemyarts.com",
+  "lat": 39.9519075,
+  "lng": -75.1421452
+ },
+ {
+  "id": "art-in-wood",
+  "name": "Museum for Art in Wood",
+  "hobby": "art",
+  "address": "141 N 3rd St, Philadelphia, PA 19106",
+  "url": "https://museumforartinwood.org",
+  "lat": 39.9533851,
+  "lng": -75.1448564
+ },
+ {
+  "id": "five-iron-fishtown",
+  "name": "Five Iron Golf Fishtown",
+  "hobby": "golf",
+  "address": "1209 Frankford Ave, Philadelphia, PA 19125",
+  "url": "https://fiveirongolf.com/locations/philadelphia-fishtown",
+  "lat": 39.9692812,
+  "lng": -75.1343233
+ },
+ {
+  "id": "five-iron-rittenhouse",
+  "name": "Five Iron Golf Rittenhouse",
+  "hobby": "golf",
+  "address": "1500 Walnut St, Philadelphia, PA 19102",
+  "url": "https://fiveirongolf.com/locations/philadelphia-rittenhouse",
+  "lat": 39.9493923,
+  "lng": -75.166186
+ },
+ {
+  "id": "prg-fishtown",
+  "name": "Philadelphia Rock Gym Fishtown",
+  "hobby": "climbing",
+  "address": "2360 E Cumberland St, Philadelphia, PA 19125",
+  "url": "https://www.philarockgym.com",
+  "lat": 39.9798867,
+  "lng": -75.1229943
+ },
+ {
+  "id": "prg-wyncote",
+  "name": "Philadelphia Rock Gym Wyncote",
+  "hobby": "climbing",
+  "address": "1 E Glenside Ave, Wyncote, PA 19095",
+  "url": "https://www.philarockgym.com",
+  "lat": 40.100578,
+  "lng": -75.153299
+ },
+ {
+  "id": "reach",
+  "name": "Reach Climbing & Fitness",
+  "hobby": "climbing",
+  "address": "100 Front St, Bridgeport, PA 19405",
+  "url": "https://reachclimbing.com",
+  "lat": 40.1063415,
+  "lng": -75.3394813
+ },
+ {
+  "id": "philly-game-shop",
+  "name": "The Philly Game Shop",
+  "hobby": "boardgames",
+  "address": "519 S 5th St, Philadelphia, PA 19147",
+  "url": "https://phillygameshop.com",
+  "lat": 39.9421928,
+  "lng": -75.1505726
+ },
+ {
+  "id": "queen-rook",
+  "name": "Queen & Rook Game Cafe",
+  "hobby": "boardgames",
+  "address": "607 S 2nd St, Philadelphia, PA 19147",
+  "url": "https://www.queenandrookcafe.com",
+  "lat": 39.9408759,
+  "lng": -75.145524
+ },
+ {
+  "id": "redcaps",
+  "name": "Redcap's Corner",
+  "hobby": "boardgames",
+  "address": "3850 Lancaster Ave, Philadelphia, PA 19104",
+  "url": "https://redcapscorner.com",
+  "lat": 39.9613241,
+  "lng": -75.1992107
+ },
+ {
+  "id": "dark-depths",
+  "name": "Dark Depths Games",
+  "hobby": "boardgames",
+  "address": "732 S 4th St, Philadelphia, PA 19147",
+  "url": "https://darkdepthsgames.com",
+  "lat": 39.9396712,
+  "lng": -75.1497697
+ },
+ {
+  "id": "trophy-bikes",
+  "name": "Trophy Bikes",
+  "hobby": "cycling",
+  "address": "133 S 23rd St, Philadelphia, PA 19103",
+  "url": "https://trophybikes.com",
+  "lat": 39.9515487,
+  "lng": -75.1782023
+ },
+ {
+  "id": "bicycle-therapy",
+  "name": "Bicycle Therapy",
+  "hobby": "cycling",
+  "address": "2211 South St, Philadelphia, PA 19146",
+  "url": "https://bicycletherapy.com",
+  "lat": 39.9454,
+  "lng": -75.1791
+ }
+]
