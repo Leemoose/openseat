@@ -93,6 +93,8 @@ for (const pl of RICH) {
   for (const s of pl.sessions || []) {
     const days = parseDays(s.day); const time = parseTime(s.time)
     if (!days.length || !time) continue
+    // Seasonal camps and closed enrollment series are programs, not weekly sessions.
+    if (/seasonal|camp|closed|summer|june|july/i.test(`${s.title} ${s.note || ''}`)) continue
     T.push({ v: pl.id, title: s.title, days, time, mins: 90, price: priceNum(s.price), cap: 999, level: /beginner|intro|clinic|learn|new/i.test(s.title + ' ' + (s.note || '')) ? 'First time welcome' : 'Some experience', source: 'snapshot', note: [s.note, pl.verified && `Read from ${new URL(pl.url || 'https://x.invalid').hostname.replace('www.', '')} on ${pl.verified}.`].filter(Boolean).join(' '), url: pl.url })
   }
 }

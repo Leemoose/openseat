@@ -117,7 +117,7 @@ export default function Place() {
             </div>
           )}
           {p.sources?.length > 0 && (
-            <div className="small muted">Checked {p.verified || 'recently'} against {p.sources.slice(0, 3).map((u, i) => <span key={u}>{i > 0 && ', '}<a href={u} target="_blank" rel="noreferrer">{new URL(u).hostname.replace('www.', '')}</a></span>)}. Rates change; the venue's site wins.</div>
+            <div className="small muted">Checked {p.verified || 'recently'} against {[...new Map(p.sources.map((u) => [new URL(u).hostname.replace('www.', ''), u])).entries()].slice(0, 3).map(([h, u], i) => <span key={u}>{i > 0 && ', '}<a href={u} target="_blank" rel="noreferrer">{h}</a></span>)}. Rates change; the venue's site wins.</div>
           )}
         </div>
       </div>
