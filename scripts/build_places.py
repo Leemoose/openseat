@@ -52,8 +52,17 @@ def num(x):
         return float(m.group(1)) if m else None
     return None
 
-def from_price(fees):
-    vals = [num(f.get('price')) for f in (fees or []) if isinstance(f, dict)]
+ROUND = re.compile(r'hole|twilight|round|green fee|short course', re.I)
+def from_price(fees, kind=None):
+    fs = [f for f in (fees or []) if isinstance(f, dict)]
+    if kind == 'course':
+        # A course's "from" price is its cheapest round, not its cheapest range bucket.
+        skip = re.compile(r'cart|bucket|rental|lesson|junior|\b[36] holes\b|clinic|series|bay', re.I)
+        rounds = [num(f.get('price')) for f in fs if ROUND.search(f.get('label') or '') and not skip.search(f.get('label') or '')]
+        rounds = [v for v in rounds if v]
+        if rounds: return min(rounds)
+        return None
+    vals = [num(f.get('price')) for f in fs]
     vals = [v for v in vals if v is not None and v > 0]
     return min(vals) if vals else None
 
@@ -81,7 +90,7 @@ for hobby, files in SOURCES.items():
                     dup[k] += [v for v in (it.get(k) or []) if isinstance(v, (dict, str)) and json.dumps(v, sort_keys=True) not in have and (not isinstance(v, dict) or v.get('label') or v.get('name') or v.get('title'))]
                 if not dup['hours'] and it.get('hours'): dup['hours'] = it['hours']
                 if not dup['services'] and it.get('services'): dup['services'] = it['services']
-                dup['fromPrice'] = from_price(dup['fees'])
+                dup['fromPrice'] = from_price(dup['fees'], dup['kind'])
                 print('  merged', it['name'], 'into', dup['id']); continue
             if iid in seen: iid += '-2'
             seen.add(iid)
@@ -95,7 +104,7 @@ for hobby, files in SOURCES.items():
                 'holes': it.get('holes'), 'par': it.get('par'), 'access': it.get('access'),
                 'services': it.get('services'),
                 'fees': [f for f in (it.get('fees') or []) if isinstance(f, dict) and f.get('label')],
-                'fromPrice': from_price(it.get('fees')),
+                'fromPrice': from_price(it.get('fees'), it.get('kind')),
                 'hours': it.get('hours'), 'range': it.get('range'), 'rangeNote': it.get('rangeNote'),
                 'pros': [p for p in (it.get('pros') or []) if isinstance(p, dict) and p.get('name')],
                 'sessions': [s for s in (it.get('sessions') or []) if isinstance(s, dict) and s.get('title')],

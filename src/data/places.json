@@ -1,6 +1,127 @@
 {
  "golf": [
   {
+   "id": "cobbs-creek-golf-campus",
+   "hobby": "golf",
+   "name": "Cobbs Creek Golf Campus",
+   "kind": "course",
+   "address": "7403 Lansdowne Avenue, Philadelphia, PA 19151",
+   "url": "https://www.cobbscreekgolf.org/",
+   "phone": "267-900-3740",
+   "lat": 39.9697916,
+   "lng": -75.2630398,
+   "holes": 9,
+   "par": 27,
+   "access": "Public (municipal, run by the Cobbs Creek Foundation)",
+   "services": null,
+   "fees": [
+    {
+     "label": "Q School short course, non-resident, weekday",
+     "price": 35,
+     "note": "9-hole par-3 course by TGR Design; rate includes a replay option; walking only"
+    },
+    {
+     "label": "Q School short course, non-resident, weekend",
+     "price": 45,
+     "note": "Walking only"
+    },
+    {
+     "label": "Q School, Philadelphia resident",
+     "price": 25,
+     "note": "$10 off the non-resident rate with proof of residency (weekday $25, weekend $35)"
+    },
+    {
+     "label": "Q School, junior under 18",
+     "price": 15,
+     "note": "Weekday or weekend"
+    },
+    {
+     "label": "Reserved Toptracer bay, Mon-Thu, per hour",
+     "price": 50,
+     "note": "Up to 4 guests, unlimited balls"
+    },
+    {
+     "label": "Reserved Toptracer bay, Fri-Sun and holidays, per hour",
+     "price": 60,
+     "note": "Up to 4 guests, unlimited balls"
+    },
+    {
+     "label": "Range bucket, small",
+     "price": 10,
+     "note": "Walk-up"
+    },
+    {
+     "label": "Range bucket, medium",
+     "price": 15,
+     "note": null
+    },
+    {
+     "label": "Range bucket, large",
+     "price": 20,
+     "note": null
+    },
+    {
+     "label": "Private lesson, adult, 60 min",
+     "price": 125,
+     "note": "6-pack $625"
+    },
+    {
+     "label": "Private lesson, adult, 30 min",
+     "price": 70,
+     "note": "6-pack $350"
+    },
+    {
+     "label": "Private lesson, junior, 60 min",
+     "price": 100,
+     "note": "30 min $60"
+    },
+    {
+     "label": "Adult beginner clinic",
+     "price": 30,
+     "note": "Single session"
+    },
+    {
+     "label": "Adult beginner group, 4 classes",
+     "price": 179,
+     "note": "Tee It Up levels 1 and 2"
+    }
+   ],
+   "fromPrice": 35.0,
+   "hours": {
+    "daily": "7 AM - 9 PM",
+    "note": "Driving range and pro shop; range closed until 10 AM on Tuesdays for maintenance"
+   },
+   "range": true,
+   "rangeNote": "Lincoln Financial Center: 68 covered Toptracer bays, 20 reservable and heated",
+   "pros": [],
+   "sessions": [
+    {
+     "title": "Adult beginner clinic",
+     "day": null,
+     "time": null,
+     "price": 30,
+     "note": "Run by the campus PGA staff; dates on the booking system"
+    },
+    {
+     "title": "Adult Tee It Up beginner group (4 classes)",
+     "day": null,
+     "time": null,
+     "price": 179,
+     "note": "Levels 1 and 2"
+    }
+   ],
+   "booking": "GolfWithAccess (non-residents), EZLinks (residents), uSchedule for bays",
+   "notes": "Reopened April 20, 2026 with the Q School short course and the Lincoln Financial Center range. The restored 18-hole course is slated for 2027 and the 9-hole Karakung for 2028, per press coverage; the campus site says only 'coming soon'. Tee times open 14 days out.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://www.cobbscreekgolf.org/",
+    "https://www.cobbscreekgolf.org/tee-times/",
+    "https://www.cobbscreekgolf.org/bay-reservations/",
+    "https://www.cobbscreekgolf.org/instruction/",
+    "https://delco.today/2026/03/cobbs-creek-golf-course-open/"
+   ]
+  },
+  {
    "id": "walnut-lane-golf-club",
    "hobby": "golf",
    "name": "Walnut Lane Golf Club",
@@ -12,74 +133,9 @@
    "lng": -75.2037356,
    "holes": 18,
    "par": 62,
-   "access": "municipal",
+   "access": "Public (city course operated by First Tee Greater Philadelphia)",
    "services": null,
    "fees": [
-    {
-     "label": "Weekday (Mon-Thurs) 18 walking",
-     "price": 40,
-     "note": "2026 rates"
-    },
-    {
-     "label": "Weekday (Mon-Thurs) 18 riding",
-     "price": 45,
-     "note": "2026 rates"
-    },
-    {
-     "label": "Weekday senior walking",
-     "price": 30,
-     "note": null
-    },
-    {
-     "label": "Weekday senior riding",
-     "price": 35,
-     "note": null
-    },
-    {
-     "label": "Weekday 9 hole walking",
-     "price": 30,
-     "note": null
-    },
-    {
-     "label": "Weekday 9 hole riding",
-     "price": 35,
-     "note": null
-    },
-    {
-     "label": "Friday walking",
-     "price": 47,
-     "note": null
-    },
-    {
-     "label": "Friday riding",
-     "price": 52,
-     "note": null
-    },
-    {
-     "label": "Friday senior",
-     "price": 48,
-     "note": null
-    },
-    {
-     "label": "Weekend (Sat-Sun) + holidays walking",
-     "price": 52,
-     "note": null
-    },
-    {
-     "label": "Weekend (Sat-Sun) + holidays riding",
-     "price": 58,
-     "note": null
-    },
-    {
-     "label": "Member cart fee",
-     "price": 18,
-     "note": "listed on rates page"
-    },
-    {
-     "label": "Club rental",
-     "price": 32,
-     "note": "listed on rates page"
-    },
     {
      "label": "Small bucket (40-45 balls)",
      "price": 5,
@@ -121,26 +177,12 @@
      "note": null
     }
    ],
-   "fromPrice": 5.0,
+   "fromPrice": null,
    "hours": "Not published as a day-by-day list on the site. Range is roughly 45 yards into a net from a turf tee line and 'may be temporarily closed for First Tee classes or clinics', so the site asks you to check with the pro shop first.",
    "range": true,
-   "rangeNote": "Small bucket (40-45 balls) $5; large bucket (90-100 balls) $10. Range may be temporarily closed for First Tee classes or clinics, check with pro shop.",
+   "rangeNote": "Short net range, about 45 yards, turf tee line; buckets $5 small / $10 large",
    "pros": [],
    "sessions": [
-    {
-     "title": "Wednesday Spark 2025 league",
-     "day": "Wednesday",
-     "time": null,
-     "price": null,
-     "note": "Sign-up via spark.golf link on leagues page"
-    },
-    {
-     "title": "Thursday Spark Ladies 2025 league",
-     "day": "Thursday",
-     "time": null,
-     "price": null,
-     "note": "Sign-up via spark.golf link on leagues page"
-    },
     {
      "title": "Wednesday Spark league",
      "day": "Wednesday",
@@ -156,17 +198,984 @@
      "note": "Listed as 'Thursday Spark Ladies 2025', links to spark.golf"
     }
    ],
-   "booking": "Lightspeed",
-   "notes": "18-hole executive length course, 4,509 yards, course rating 61.2 / slope 107, designed by Alex Findlay, in Wissahickon Valley Park. Site describes it as a municipal course open to the public. Operated in association with First Tee Greater Philadelphia (firstteephiladelphia.org linked from homepage). Lesson rates: 1 hour individual $90, 45 min $75, 30 min $50, groups of 3 or more $40 per person per hour. No instructors named on the site. No hours of operation published on the site. 2026 rate sheet is a PNG image on the rates page; values read from that image. No public tee-time booking URL exposed in page HTML; site is built on Lightspeed Golf.",
+   "booking": "Lightspeed Golf on the club site; GolfNow",
+   "notes": "4,509 yards, par 62, Alex Findlay design from 1935. 2026 green fees are published only as an image on the club's rates page; call (215) 482-3370. Range, lesson and cart prices are listed.",
    "verified": "2026-09-24",
    "sources": [
     "https://walnutlanegolf.com/",
-    "https://walnutlanegolf.com/course-details/",
+    "https://www.golflink.com/golf-courses/pa/philadelphia/walnut-lane-golf-club-989845/rates-tee-times",
     "https://walnutlanegolf.com/rates/",
-    "https://walnutlanegolf.com/wp-content/uploads/sites/252/2026/04/WalnuteLane_2026-Golf-Rates.png",
     "https://walnutlanegolf.com/practice-facility/",
     "https://walnutlanegolf.com/lessons/",
     "https://walnutlanegolf.com/leagues/"
+   ]
+  },
+  {
+   "id": "john-f-byrne-golf-course",
+   "hobby": "golf",
+   "name": "John F. Byrne Golf Course",
+   "kind": "course",
+   "address": "9550 Leon Street, Philadelphia, PA 19114",
+   "url": "https://jfbgolf.com/rates/",
+   "phone": "(215) 632-8666",
+   "lat": 40.0600102,
+   "lng": -74.9977909,
+   "holes": 18,
+   "par": null,
+   "access": "Public (city course operated by First Tee Greater Philadelphia)",
+   "services": null,
+   "fees": [
+    {
+     "label": "18 holes riding, Mon-Thu",
+     "price": 45,
+     "note": "2026 rate; senior $35"
+    },
+    {
+     "label": "18 holes riding, Friday",
+     "price": 52,
+     "note": "2026 rate"
+    },
+    {
+     "label": "18 holes riding, Sat-Sun",
+     "price": 58,
+     "note": "2026 rate"
+    },
+    {
+     "label": "Driving range bucket",
+     "price": null,
+     "note": "NOT FOUND. No range pricing appears on the rates page and the site does not confirm a practice range"
+    },
+    {
+     "label": "18 holes riding, Mon-Thu",
+     "price": 45,
+     "note": "2026 rate; $35 senior"
+    },
+    {
+     "label": "18 holes riding, Sat/Sun",
+     "price": 58,
+     "note": "2026 rate"
+    }
+   ],
+   "fromPrice": 45.0,
+   "hours": "In season 6:00am to dusk; off season 7:00am to dusk. Closed January 1 through March.",
+   "range": null,
+   "rangeNote": null,
+   "pros": [],
+   "sessions": [],
+   "booking": "Own site tee times; GolfNow",
+   "notes": null,
+   "verified": "2026-09-24",
+   "sources": [
+    "https://jfbgolf.com/rates/",
+    "https://firstteephiladelphia.org/golf-courses/john-f-byrne-golf-club/",
+    "https://firstteephiladelphia.org/golf-courses/"
+   ]
+  },
+  {
+   "id": "juniata-golf-course",
+   "hobby": "golf",
+   "name": "Juniata Golf Course",
+   "kind": "course",
+   "address": "1391 E Cayuga St, Philadelphia, PA 19124",
+   "url": "https://juniatagolfcourse.com/",
+   "phone": "215-743-4060",
+   "lat": 40.014658,
+   "lng": -75.1068659,
+   "holes": 18,
+   "par": 66,
+   "access": "Public (municipal)",
+   "services": null,
+   "fees": [],
+   "fromPrice": null,
+   "hours": "7:30 AM - 7:00 PM",
+   "range": null,
+   "rangeNote": null,
+   "pros": [],
+   "sessions": [],
+   "booking": "Phone; also listed on GolfNow and Chronogolf",
+   "notes": "5,275 yards, par 66, Edmund Ault design from 1965. Tee times required on weekends and holidays. The site's rates page is an image, so no fees are captured here; call or check GolfNow.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://juniatagolfcourse.com/",
+    "https://juniatagolfcourse.com/rates",
+    "https://www.chronogolf.com/club/juniata-golf-club"
+   ]
+  },
+  {
+   "id": "island-green-country-club",
+   "hobby": "golf",
+   "name": "Island Green Country Club",
+   "kind": "course",
+   "address": "1 Red Lion Rd, Philadelphia, PA 19115",
+   "url": "https://www.chronogolf.com/club/island-green-country-club",
+   "phone": "215-677-3500",
+   "lat": 40.1069253,
+   "lng": -75.0364684,
+   "holes": 18,
+   "par": null,
+   "access": "Public",
+   "services": null,
+   "fees": [],
+   "fromPrice": null,
+   "hours": null,
+   "range": null,
+   "rangeNote": null,
+   "pros": [],
+   "sessions": [],
+   "booking": "Chronogolf",
+   "notes": "Northeast Philadelphia, about 6,520 yards from the back tees. No first-party rates page found; book through Chronogolf or call. Collared shirts required, no jeans.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://www.chronogolf.com/club/island-green-country-club",
+    "https://www.golfnow.com/courses/1504808-island-green-country-club-details"
+   ]
+  },
+  {
+   "id": "paxon-hollow-country-club",
+   "hobby": "golf",
+   "name": "Paxon Hollow Country Club",
+   "kind": "course",
+   "address": "850 Paxon Hollow Road, Media, PA 19063",
+   "url": "https://www.paxonhollowgolf.com/",
+   "phone": "610-353-0220",
+   "lat": 39.9141268,
+   "lng": -75.3946984,
+   "holes": 18,
+   "par": null,
+   "access": "Public (municipal, Marple Township)",
+   "services": null,
+   "fees": [
+    {
+     "label": "18 holes with cart, Mon-Thu",
+     "price": 55,
+     "note": "Same price walking or riding; cart or pull cart included"
+    },
+    {
+     "label": "18 holes with cart, Fri-Sun and holidays",
+     "price": 70,
+     "note": null
+    },
+    {
+     "label": "9 holes with cart, weekdays only",
+     "price": 40,
+     "note": null
+    },
+    {
+     "label": "Twilight with cart, any day",
+     "price": 40,
+     "note": null
+    },
+    {
+     "label": "Range bucket, small (30 balls)",
+     "price": 7,
+     "note": null
+    },
+    {
+     "label": "Range bucket, medium (40 balls)",
+     "price": 9,
+     "note": null
+    },
+    {
+     "label": "Range bucket, large (50 balls)",
+     "price": 11,
+     "note": null
+    },
+    {
+     "label": "Private lesson, adult, 40 min",
+     "price": 70,
+     "note": "First two lessons $70, then $60"
+    },
+    {
+     "label": "Private lesson, junior, 30 min",
+     "price": 50,
+     "note": "16 and under"
+    },
+    {
+     "label": "Group clinic, 1 hour",
+     "price": 40,
+     "note": "Per person, three or more students"
+    }
+   ],
+   "fromPrice": null,
+   "hours": null,
+   "range": true,
+   "rangeNote": "Practice range on site",
+   "pros": [
+    {
+     "name": "Tom Fairlie",
+     "title": "Director of Instruction",
+     "lessonPrice": 70,
+     "url": "https://www.paxonhollowgolf.com/-private-lessons"
+    },
+    {
+     "name": "Steve Ashworth",
+     "title": "Teaching Professional",
+     "lessonPrice": 70,
+     "url": "https://www.paxonhollowgolf.com/-private-lessons"
+    },
+    {
+     "name": "Jim Bradley",
+     "title": "Teaching Professional",
+     "lessonPrice": 70,
+     "url": "https://www.paxonhollowgolf.com/-private-lessons"
+    },
+    {
+     "name": "Dan Malley",
+     "title": "Director of Golf Operations, PGA Member",
+     "lessonPrice": null,
+     "url": "https://www.paxonhollowgolf.com/-staff-contacts"
+    }
+   ],
+   "sessions": [
+    {
+     "title": "Tuesday Men's League (9 holes)",
+     "day": "Tuesday",
+     "time": "after 3:00pm",
+     "price": 270,
+     "note": "Spring league early April, fall league early August; tee times assigned weekly"
+    },
+    {
+     "title": "Wednesday Men's League (9 holes)",
+     "day": "Wednesday",
+     "time": "after 3:00pm",
+     "price": 220,
+     "note": "Spring league early April, fall league early August"
+    },
+    {
+     "title": "Paxon Hollow Men's Club (18 holes)",
+     "day": "Sunday",
+     "time": "9:00am",
+     "price": null,
+     "note": "2026 season from March 29"
+    },
+    {
+     "title": "PH Ladies Golf Association",
+     "day": "Tuesday",
+     "time": "8:00am",
+     "price": null,
+     "note": "9- and 18-hole groups; April 21 to October 13, 2026"
+    }
+   ],
+   "booking": "GolfRev tee times, 7 days in advance",
+   "notes": "Holiday rates match weekend pricing. Lessons booked directly with the instructor and paid at the golf shop.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://www.paxonhollowgolf.com/",
+    "https://www.paxonhollowgolf.com/-daily-golf-rates(2)",
+    "https://www.paxonhollowgolf.com/-private-lessons",
+    "https://www.paxonhollowgolf.com/-staff-contacts",
+    "https://www.paxonhollowgolf.com/-golf-leagues",
+    "https://www.paxonhollowgolf.com/-practice-range",
+    "https://paxonhollowgolf.com/-home"
+   ]
+  },
+  {
+   "id": "springfield-country-club",
+   "hobby": "golf",
+   "name": "Springfield Country Club",
+   "kind": "course",
+   "address": "400 West Sproul Road, Springfield, PA 19064",
+   "url": "https://www.springfieldgolf.org/",
+   "phone": "(610) 543-9860",
+   "lat": 39.9226465,
+   "lng": -75.3557194,
+   "holes": 18,
+   "par": 70,
+   "access": "Public, 7 days a week",
+   "services": null,
+   "fees": [
+    {
+     "label": "18 holes, Mon-Thu, full rate",
+     "price": 70,
+     "note": "2026"
+    },
+    {
+     "label": "18 holes, Mon-Thu, after 2pm",
+     "price": 58,
+     "note": null
+    },
+    {
+     "label": "18 holes, Mon-Thu, twilight after 5pm",
+     "price": 46,
+     "note": null
+    },
+    {
+     "label": "18 holes, Fri-Sun and holidays, full rate",
+     "price": 79,
+     "note": null
+    },
+    {
+     "label": "18 holes, Fri-Sun, after 2pm",
+     "price": 68,
+     "note": null
+    },
+    {
+     "label": "18 holes, Fri-Sun, twilight after 5pm",
+     "price": 52,
+     "note": null
+    },
+    {
+     "label": "Senior days, Mon and Thu",
+     "price": 55,
+     "note": "Age 65+, proof required; from April 6"
+    }
+   ],
+   "fromPrice": 46.0,
+   "hours": {
+    "daily": "7:00 am - 5:00 pm"
+   },
+   "range": null,
+   "rangeNote": null,
+   "pros": [],
+   "sessions": [
+    {
+     "title": "Men's and Ladies leagues",
+     "day": null,
+     "time": null,
+     "price": null,
+     "note": "Enroll through events@springfieldgolf.org; no schedule published"
+    }
+   ],
+   "booking": "Own site; GolfNow. Tee times 7 days out.",
+   "notes": "6,018 yards, par 70. Resident, senior (65+) and junior (12-17) discounts on weekdays. Minimum age 12.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://www.springfieldgolf.org/course/rates",
+    "https://www.springfieldgolf.org/course/course-details",
+    "https://www.springfieldgolf.org/programs/leagues"
+   ]
+  },
+  {
+   "id": "makefield-highlands-golf-club",
+   "hobby": "golf",
+   "name": "Makefield Highlands Golf Club",
+   "kind": "course",
+   "address": "1418 Woodside Road, Yardley, PA 19067",
+   "url": "https://makefieldhighlandsgolf.com/",
+   "phone": "215-321-7000",
+   "lat": 40.2603416,
+   "lng": -74.8671648,
+   "holes": 18,
+   "par": null,
+   "access": "Public (Lower Makefield Township, managed by Spirit Golf)",
+   "services": null,
+   "fees": [
+    {
+     "label": "18 holes, Mon-Thu, non-resident",
+     "price": 58,
+     "note": "April 28 to November 2, 2026; resident $43"
+    },
+    {
+     "label": "18 holes, Mon-Thu, senior non-resident",
+     "price": 34,
+     "note": "Resident $26"
+    },
+    {
+     "label": "Twilight, Mon-Thu, non-resident",
+     "price": 37,
+     "note": "Resident $29"
+    },
+    {
+     "label": "9 holes after 2pm, Mon-Thu, non-resident",
+     "price": 31,
+     "note": "Resident $25"
+    },
+    {
+     "label": "18 holes, Fri-Sun, non-resident, cart included",
+     "price": 88,
+     "note": "Resident $73"
+    },
+    {
+     "label": "18 holes, Fri-Sun, senior non-resident",
+     "price": 43,
+     "note": "Resident $38"
+    },
+    {
+     "label": "Twilight, Fri-Sun, non-resident",
+     "price": 48,
+     "note": "Resident $40"
+    },
+    {
+     "label": "9 holes after 2pm, Fri-Sun, non-resident",
+     "price": 38,
+     "note": "Resident $30"
+    },
+    {
+     "label": "Junior 18 holes after 12pm",
+     "price": 32,
+     "note": "Weekday; weekend $34"
+    },
+    {
+     "label": "3 holes after 6pm",
+     "price": 11,
+     "note": "6 holes $20"
+    },
+    {
+     "label": "Cart, 18 holes, per player",
+     "price": 22,
+     "note": "When not included; 9 holes $14"
+    },
+    {
+     "label": "Range bucket, medium",
+     "price": 8,
+     "note": "Large $13; packages $75, $130, $210"
+    },
+    {
+     "label": "Toptracer bay, Mon-Thu 9am-4pm, per hour",
+     "price": 30,
+     "note": "Up to 4 players; weekday evening $35, weekend $40, weekend evening $45"
+    },
+    {
+     "label": "Private lesson, 45 min",
+     "price": 95,
+     "note": "60 min $135; 3-lesson series $360; 3-hole playing lesson $150"
+    },
+    {
+     "label": "Junior lesson, 30 min",
+     "price": 55,
+     "note": "60 min $100"
+    }
+   ],
+   "fromPrice": 31.0,
+   "hours": {
+    "pro_shop": "7:15am - 6:30pm",
+    "driving_range": "7:30am - 6:00pm, closes 4pm Mondays and reopens by 11am Tuesdays",
+    "tee_times": "from 7:30am daily"
+   },
+   "range": true,
+   "rangeNote": "GRAA Top 50 range with Toptracer bays",
+   "pros": [
+    {
+     "name": "Ed Gibson",
+     "title": "PGA Head Golf Professional",
+     "lessonPrice": 95,
+     "url": "https://makefieldhighlandsgolf.com/makefield-golf-instruction/"
+    },
+    {
+     "name": "Joe Garstka",
+     "title": "Assistant Golf Professional and Junior Golf Coordinator",
+     "lessonPrice": 95,
+     "url": "https://makefieldhighlandsgolf.com/makefield-golf-instruction/"
+    },
+    {
+     "name": "Howard Hirsch",
+     "title": "PGA Teaching and Playing Professional",
+     "lessonPrice": 95,
+     "url": "https://makefieldhighlandsgolf.com/makefield-golf-instruction/"
+    }
+   ],
+   "sessions": [
+    {
+     "title": "LAG: Learning Adult Golf clinic series",
+     "day": null,
+     "time": "2-4pm or 5-7pm",
+     "price": 325,
+     "note": "Typically $325 for 5 hours; spring, summer and fall sessions"
+    },
+    {
+     "title": "Get Golf Ready junior clinic (ages 7-13)",
+     "day": null,
+     "time": "6:00pm",
+     "price": 120,
+     "note": "Seasonal, June to August"
+    },
+    {
+     "title": "Friday Academy (ages 11-16)",
+     "day": "Friday",
+     "time": "5:00pm",
+     "price": 300,
+     "note": "Seasonal"
+    }
+   ],
+   "booking": "Club Caddie",
+   "notes": "Rick Jacobson links-style design, up to 7,058 yards, five sets of tees.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://makefieldhighlandsgolf.com/",
+    "https://makefieldhighlandsgolf.com/makefield-best-golf-course/",
+    "https://makefieldhighlandsgolf.com/makefield-golf-instruction/"
+   ]
+  },
+  {
+   "id": "jeffersonville-golf-club",
+   "hobby": "golf",
+   "name": "Jeffersonville Golf Club",
+   "kind": "course",
+   "address": "2400 W. Main Street, Jeffersonville, PA 19403",
+   "url": "https://jeffersonvillegolfclub.org/",
+   "phone": "(610) 539-0422",
+   "lat": 40.1361033,
+   "lng": -75.3883983,
+   "holes": 18,
+   "par": 70,
+   "access": "Public (municipal, West Norriton Township)",
+   "services": null,
+   "fees": [
+    {
+     "label": "18 holes, Mon-Thu, walk or ride",
+     "price": 65,
+     "note": "2026, April 1 to November 30"
+    },
+    {
+     "label": "18 holes, Mon-Thu, senior 60+ or junior",
+     "price": 55,
+     "note": null
+    },
+    {
+     "label": "Twilight, Mon-Thu",
+     "price": 45,
+     "note": null
+    },
+    {
+     "label": "18 holes, Friday, walk or ride",
+     "price": 75,
+     "note": "Twilight $55"
+    },
+    {
+     "label": "18 holes, Sat-Sun, walk or ride",
+     "price": 90,
+     "note": "Twilight $60"
+    }
+   ],
+   "fromPrice": 45.0,
+   "hours": "Open daily",
+   "range": null,
+   "rangeNote": "Six Trackman simulators at The Stables with the Bunker Bar",
+   "pros": [],
+   "sessions": [],
+   "booking": "Own site, 0-8 days standard; 9-30 days carries a 15% advance fee",
+   "notes": "1931 Donald Ross design. Resident, military and annual-pass discounts exist on the township site.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://jeffersonvillegolfclub.org/green-fees/",
+    "https://pa-jeffersonvillegolfcourse.civicplus.com/93/Green-Fees"
+   ]
+  },
+  {
+   "id": "bensalem-township-country-club",
+   "hobby": "golf",
+   "name": "Bensalem Township Country Club",
+   "kind": "course",
+   "address": "2000 Brown Avenue, Bensalem, PA 19020",
+   "url": "https://bensalemtownshipcc.com/golf/",
+   "phone": "(215) 639-5556",
+   "lat": 40.0960557,
+   "lng": -74.9500087,
+   "holes": 18,
+   "par": 70,
+   "access": "Public (municipal)",
+   "services": null,
+   "fees": [
+    {
+     "label": "18 holes, Mon-Fri, ride",
+     "price": 63,
+     "note": "Walk $40; resident $55 / $35; in season from March 30, 2026"
+    },
+    {
+     "label": "18 holes, Mon-Fri, senior 60+, ride",
+     "price": 50,
+     "note": "Walk $27; senior resident $45 / $25"
+    },
+    {
+     "label": "18 holes, weekend afternoon, ride",
+     "price": 70,
+     "note": "Walk $46; resident $62 / $40"
+    },
+    {
+     "label": "Twilight, ride",
+     "price": 47,
+     "note": "Walk $30; resident $45 / $27"
+    },
+    {
+     "label": "9 holes, ride",
+     "price": 35,
+     "note": "Walk $25; resident $30 / $21; senior $27 / $19"
+    },
+    {
+     "label": "Junior 18 holes, ride",
+     "price": 35,
+     "note": "Walk $20; 9 holes $20 / $15"
+    }
+   ],
+   "fromPrice": 35.0,
+   "hours": null,
+   "range": null,
+   "rangeNote": null,
+   "pros": [
+    {
+     "name": "James Bogan",
+     "title": "Director of Golf",
+     "lessonPrice": null,
+     "url": "https://bensalemtownshipcc.com/golf/"
+    }
+   ],
+   "sessions": [],
+   "booking": "Phone, tee times one week out; GolfNow",
+   "notes": null,
+   "verified": "2026-09-24",
+   "sources": [
+    "https://bensalemtownshipcc.com/golf/rates/",
+    "https://bensalemtownshipcc.com/"
+   ]
+  },
+  {
+   "id": "pennsauken-country-club",
+   "hobby": "golf",
+   "name": "Pennsauken Country Club",
+   "kind": "course",
+   "address": "3800 Haddonfield Road, Pennsauken, NJ 08109",
+   "url": "https://www.pennsaukencc.com/",
+   "phone": "(856) 662-4961",
+   "lat": 39.959162,
+   "lng": -75.025386,
+   "holes": 18,
+   "par": null,
+   "access": "Public (municipal, Township of Pennsauken)",
+   "services": null,
+   "fees": [
+    {
+     "label": "18 holes, Mon-Thu, before 3pm",
+     "price": 53,
+     "note": "2026 summer rates, April 1 to November 30; resident $41"
+    },
+    {
+     "label": "18 holes, Mon-Thu, after 3pm",
+     "price": 46,
+     "note": null
+    },
+    {
+     "label": "9 holes, Mon-Thu, after 1pm",
+     "price": 40,
+     "note": null
+    },
+    {
+     "label": "18 holes, Fri-Sun and holidays, before 3pm",
+     "price": 68,
+     "note": "Resident $46"
+    },
+    {
+     "label": "18 holes, Fri-Sun, after 3pm",
+     "price": 56,
+     "note": null
+    },
+    {
+     "label": "9 holes, Fri-Sun, after 1pm",
+     "price": 45,
+     "note": null
+    },
+    {
+     "label": "Junior (17 and under), 18 holes",
+     "price": 23,
+     "note": "$18 after 3pm"
+    },
+    {
+     "label": "Cart, public, 18 holes, per rider",
+     "price": 16,
+     "note": "9 holes $12; carts mandatory before 2pm"
+    },
+    {
+     "label": "Club rental",
+     "price": 30,
+     "note": null
+    }
+   ],
+   "fromPrice": 40.0,
+   "hours": null,
+   "range": null,
+   "rangeNote": null,
+   "pros": [],
+   "sessions": [],
+   "booking": "Own site; GolfNow",
+   "notes": "Ride-alongs prohibited. Nine-hole play only after 1pm.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://www.pennsaukencc.com/rates/",
+    "https://ecode360.com/38062084"
+   ]
+  },
+  {
+   "id": "ramblewood-country-club",
+   "hobby": "golf",
+   "name": "Ramblewood Country Club",
+   "kind": "course",
+   "address": "200 Country Club Parkway, Mount Laurel, NJ 08054",
+   "url": "https://ramblewoodcc.com/",
+   "phone": "(856) 235-2118",
+   "lat": 39.9212812,
+   "lng": -74.9333408,
+   "holes": 27,
+   "par": null,
+   "access": "Semi-private, open to the public",
+   "services": null,
+   "fees": [],
+   "fromPrice": null,
+   "hours": null,
+   "range": null,
+   "rangeNote": null,
+   "pros": [],
+   "sessions": [],
+   "booking": "Chronogolf",
+   "notes": "Three nine-hole loops. Rates are not published on the site; they show in the Chronogolf booking flow. Seven Tap Tavern on site.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://ramblewoodcc.com/"
+   ]
+  },
+  {
+   "id": "indian-spring-country-club",
+   "hobby": "golf",
+   "name": "Indian Spring Country Club",
+   "kind": "course",
+   "address": "115 South Elmwood Road, Marlton, NJ 08053",
+   "url": "https://www.indianspringgolf.com/",
+   "phone": "856.983.6580",
+   "lat": 39.8792137,
+   "lng": -74.8857201,
+   "holes": 18,
+   "par": 70,
+   "access": "Public",
+   "services": null,
+   "fees": [
+    {
+     "label": "Range bucket, small",
+     "price": 8,
+     "note": null
+    },
+    {
+     "label": "Range bucket, medium",
+     "price": 10,
+     "note": null
+    },
+    {
+     "label": "Range bucket, large",
+     "price": 13,
+     "note": null
+    },
+    {
+     "label": "Private lesson, 30 min",
+     "price": 60,
+     "note": null
+    },
+    {
+     "label": "Private lesson, 45 min",
+     "price": 90,
+     "note": "Most popular"
+    },
+    {
+     "label": "Private lesson, 60 min",
+     "price": 120,
+     "note": null
+    },
+    {
+     "label": "Junior lesson, 45 min",
+     "price": 80,
+     "note": "18 and under"
+    },
+    {
+     "label": "Small bucket",
+     "price": 8,
+     "note": null
+    },
+    {
+     "label": "Medium bucket",
+     "price": 10,
+     "note": null
+    },
+    {
+     "label": "Large bucket",
+     "price": 13,
+     "note": null
+    }
+   ],
+   "fromPrice": null,
+   "hours": {
+    "Monday": "9:00 AM - 8:30 PM (range)",
+    "Tuesday": "9:00 AM - 8:30 PM (range)",
+    "Wednesday": "9:00 AM - 8:30 PM (range)",
+    "Thursday": "9:00 AM - 8:30 PM (range)",
+    "Friday": "8:00 AM - 8:30 PM (range)",
+    "Saturday": "8:00 AM - 8:30 PM (range)",
+    "Sunday": "8:00 AM - 8:30 PM (range)"
+   },
+   "range": true,
+   "rangeNote": "40 stalls, 16 covered, grass area, lit until 9 PM, year round",
+   "pros": [
+    {
+     "name": "Ryan Dick",
+     "title": "Director of Instruction",
+     "lessonPrice": 60,
+     "url": "https://www.indianspringgolf.com/golf-academy"
+    }
+   ],
+   "sessions": [
+    {
+     "title": "Group clinics (beginners, ladies)",
+     "day": null,
+     "time": null,
+     "price": null,
+     "note": "Offered through the year in 3-, 5- or 7-week runs; schedule by request"
+    },
+    {
+     "title": "Golf Academy",
+     "day": null,
+     "time": null,
+     "price": null,
+     "note": "Named on the site; no schedule or price on the driving range page"
+    },
+    {
+     "title": "Leagues",
+     "day": null,
+     "time": null,
+     "price": null,
+     "note": "Named on the site; no detail on the driving range page"
+    }
+   ],
+   "booking": "Prophet Services tee sheet",
+   "notes": "6,328 yards from the blue tees. Green fees are published only as a screenshot on the site, so they are not captured here; GolfLink estimates about $75 for 18.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://www.indianspringgolf.com/course-rates",
+    "https://www.indianspringgolf.com/golf-course",
+    "https://www.indianspringgolf.com/golf-academy",
+    "https://www.indianspringgolf.com/driving-range"
+   ]
+  },
+  {
+   "id": "valleybrook-country-club",
+   "hobby": "golf",
+   "name": "Valleybrook Country Club",
+   "kind": "course",
+   "address": "200 Golfview Drive, Blackwood, NJ 08012",
+   "url": "https://valleybrookgolf.com/",
+   "phone": "856-227-3171",
+   "lat": 39.819097,
+   "lng": -75.0544397,
+   "holes": 18,
+   "par": 72,
+   "access": "Public",
+   "services": null,
+   "fees": [
+    {
+     "label": "Junior, 18 and under, walking",
+     "price": 30,
+     "note": "Off-season weekdays anytime, weekends after 11am"
+    },
+    {
+     "label": "Non-golfer ride-along",
+     "price": 25,
+     "note": null
+    },
+    {
+     "label": "Private lesson, Brad Miller, 30 min",
+     "price": 60,
+     "note": "45 min $85, 60 min $105; junior 30 min $45"
+    },
+    {
+     "label": "Private lesson, Luke Farquhar, 30 min",
+     "price": 50,
+     "note": "45 min $70, 60 min $85; junior 30 min $35"
+    },
+    {
+     "label": "Intro to Golf series (4 Tuesdays)",
+     "price": 200,
+     "note": "Adult/child pair series $250"
+    }
+   ],
+   "fromPrice": null,
+   "hours": null,
+   "range": true,
+   "rangeNote": "Range, putting green and short-game area; range balls sold separately",
+   "pros": [
+    {
+     "name": "Brad Miller",
+     "title": "PGA Director of Golf",
+     "lessonPrice": 60,
+     "url": "https://valleybrookgolf.com/golf-lessons/"
+    },
+    {
+     "name": "Luke Farquhar",
+     "title": "PGA Associate, Assistant Director of Golf",
+     "lessonPrice": 50,
+     "url": "https://valleybrookgolf.com/golf-lessons/"
+    },
+    {
+     "name": "Tyler McDonnell",
+     "title": "First Assistant, leads the intro series",
+     "lessonPrice": null,
+     "url": "https://valleybrookgolf.com/golf-lessons/"
+    }
+   ],
+   "sessions": [
+    {
+     "title": "Intro to Golf series (men and women)",
+     "day": "Tuesday",
+     "time": "5:00pm",
+     "price": 200,
+     "note": "Four sessions; the September 2026 run is full, next run to be posted"
+    },
+    {
+     "title": "Intro to Golf, adult and child",
+     "day": "Thursday",
+     "time": "5:00pm",
+     "price": 250,
+     "note": "Per pair, four sessions; September run closed"
+    }
+   ],
+   "booking": "Chronogolf; non-members 14 days out",
+   "notes": "Dynamic green fees on the tee sheet (Jaws Player Pass takes 25% off). Cart included in the green fee. Ron Jaworski Golf.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://valleybrookgolf.com/faq/",
+    "https://valleybrookgolf.com/golf-lessons/",
+    "https://valleybrookgolf.com/course-details/"
+   ]
+  },
+  {
+   "id": "riverwinds-golf-tennis-club",
+   "hobby": "golf",
+   "name": "RiverWinds Golf & Tennis Club",
+   "kind": "course",
+   "address": "270 Eagle Point Road, West Deptford, NJ 08086",
+   "url": "https://riverwindsgolfandtennis.com/",
+   "phone": "856-848-5700",
+   "lat": 39.8575139,
+   "lng": -75.206842,
+   "holes": 18,
+   "par": 72,
+   "access": "Public",
+   "services": null,
+   "fees": [
+    {
+     "label": "Private lesson, 1 hour",
+     "price": 95,
+     "note": "30 min $50; tandem (2 players, 1 hour) $125"
+    },
+    {
+     "label": "Junior private lesson, 1 hour",
+     "price": 85,
+     "note": "18 and under"
+    }
+   ],
+   "fromPrice": null,
+   "hours": null,
+   "range": true,
+   "rangeNote": "Driving range and short-game area",
+   "pros": [
+    {
+     "name": "Vince Campagna",
+     "title": "PGA Director of Golf",
+     "lessonPrice": 95,
+     "url": "https://riverwindsgolfandtennis.com/golf-lessons/"
+    }
+   ],
+   "sessions": [],
+   "booking": "Chronogolf; GolfNow",
+   "notes": "7,086 yards from the tour tees. Green fees are not on the club site; third-party listings put them at roughly $80-130 with cart. Ron Jaworski Golf.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://riverwindsgolfandtennis.com/",
+    "https://riverwindsgolfandtennis.com/golf-lessons/",
+    "https://riverwindsgolfandtennis.com/course-details/"
    ]
   },
   {
@@ -529,74 +1538,6 @@
    "verified": "2026-09-24",
    "sources": [
     "https://tgp.golf/fd/"
-   ]
-  },
-  {
-   "id": "indian-spring-driving-range",
-   "hobby": "golf",
-   "name": "Indian Spring Golf Club Driving Range",
-   "kind": "range",
-   "address": "115 South Elmwood Road, Marlton, NJ 08053",
-   "url": "https://www.indianspringgolf.com/driving-range",
-   "phone": "856.983.6580",
-   "lat": 39.8792137,
-   "lng": -74.8857201,
-   "holes": null,
-   "par": null,
-   "access": null,
-   "services": null,
-   "fees": [
-    {
-     "label": "Small bucket",
-     "price": 8,
-     "note": null
-    },
-    {
-     "label": "Medium bucket",
-     "price": 10,
-     "note": null
-    },
-    {
-     "label": "Large bucket",
-     "price": 13,
-     "note": null
-    }
-   ],
-   "fromPrice": 8.0,
-   "hours": {
-    "Monday": "9:00 AM - 8:30 PM",
-    "Tuesday": "9:00 AM - 8:30 PM",
-    "Wednesday": "9:00 AM - 8:30 PM",
-    "Thursday": "9:00 AM - 8:30 PM",
-    "Friday": "8:00 AM - 8:30 PM",
-    "Saturday": "8:00 AM - 8:30 PM",
-    "Sunday": "8:00 AM - 8:30 PM",
-    "note": "Lights turn off at 9:00 PM. Open year round, weather permitting."
-   },
-   "range": null,
-   "rangeNote": null,
-   "pros": [],
-   "sessions": [
-    {
-     "title": "Golf Academy",
-     "day": null,
-     "time": null,
-     "price": null,
-     "note": "Named on the site; no schedule or price on the driving range page"
-    },
-    {
-     "title": "Leagues",
-     "day": null,
-     "time": null,
-     "price": null,
-     "note": "Named on the site; no detail on the driving range page"
-    }
-   ],
-   "booking": "Walk-up for the range; no online range booking found",
-   "notes": "40 hitting stalls, 16 covered, plus a grass hitting area. No Toptracer mentioned. About 14 miles from Center City.",
-   "verified": "2026-09-24",
-   "sources": [
-    "https://www.indianspringgolf.com/driving-range"
    ]
   },
   {
@@ -991,117 +1932,6 @@
    "sources": [
     "https://playxgolf.com/locations/garnet-valley/",
     "https://playxgolf.com/locations/"
-   ]
-  },
-  {
-   "id": "john-f-byrne-golf-course",
-   "hobby": "golf",
-   "name": "John F. Byrne Golf Course",
-   "kind": "range",
-   "address": "9550 Leon Street, Philadelphia, PA 19114",
-   "url": "https://jfbgolf.com/rates/",
-   "phone": "(215) 632-8666",
-   "lat": 40.0600102,
-   "lng": -74.9977909,
-   "holes": null,
-   "par": null,
-   "access": null,
-   "services": null,
-   "fees": [
-    {
-     "label": "Driving range bucket",
-     "price": null,
-     "note": "NOT FOUND. No range pricing appears on the rates page and the site does not confirm a practice range"
-    },
-    {
-     "label": "18 holes riding, Mon-Thu",
-     "price": 45,
-     "note": "2026 rate; $35 senior"
-    },
-    {
-     "label": "18 holes riding, Friday",
-     "price": 52,
-     "note": "2026 rate"
-    },
-    {
-     "label": "18 holes riding, Sat/Sun",
-     "price": 58,
-     "note": "2026 rate"
-    }
-   ],
-   "fromPrice": 45.0,
-   "hours": "In season 6:00am - dusk; off season 7:00am - dusk",
-   "range": null,
-   "rangeNote": null,
-   "pros": [],
-   "sessions": [],
-   "booking": "Own site tee times; operated by First Tee Greater Philadelphia (contact email is @firsteephila.org)",
-   "notes": "One of the two city courses First Tee Greater Philadelphia operates (the other is Walnut Lane). Whether JFB has a public practice range is not stated on its own site; treat as unconfirmed. About 13 miles from Center City.",
-   "verified": "2026-09-24",
-   "sources": [
-    "https://jfbgolf.com/rates/",
-    "https://firstteephiladelphia.org/golf-courses/"
-   ]
-  },
-  {
-   "id": "paxon-hollow-country-club",
-   "hobby": "golf",
-   "name": "Paxon Hollow Country Club",
-   "kind": "range",
-   "address": "850 Paxon Hollow Road, Media, PA 19063",
-   "url": "https://paxonhollowgolf.com/-home",
-   "phone": "610-353-0220",
-   "lat": 39.9141268,
-   "lng": -75.3946984,
-   "holes": null,
-   "par": null,
-   "access": null,
-   "services": null,
-   "fees": [
-    {
-     "label": "Driving range bucket",
-     "price": null,
-     "note": "A practice range is listed in the site navigation but no bucket prices appear on the pages read"
-    },
-    {
-     "label": "Private lesson",
-     "price": null,
-     "note": "Offered; price not published"
-    }
-   ],
-   "fromPrice": null,
-   "hours": null,
-   "range": null,
-   "rangeNote": null,
-   "pros": [],
-   "sessions": [
-    {
-     "title": "Junior Clinics",
-     "day": null,
-     "time": null,
-     "price": null,
-     "note": "Named on the site without schedule or price"
-    },
-    {
-     "title": "Adult Clinics",
-     "day": null,
-     "time": null,
-     "price": null,
-     "note": "Named on the site without schedule or price"
-    },
-    {
-     "title": "Golf Leagues",
-     "day": null,
-     "time": null,
-     "price": null,
-     "note": "A leagues page is referenced; contents not read"
-    }
-   ],
-   "booking": "Own site",
-   "notes": "Municipal course in Marple Township, Delaware County, about 13 miles from Center City. Thinnest entry in this file: address and phone verified, practice range confirmed only as a nav item, no prices found.",
-   "verified": "2026-09-24",
-   "sources": [
-    "https://paxonhollowgolf.com/-home"
    ]
   },
   {
