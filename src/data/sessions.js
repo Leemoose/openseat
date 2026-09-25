@@ -4,6 +4,7 @@
 //   snapshot read from the venue's site or scheduler on 2026-09-24, then hand-entered
 //   sample   plausible for this venue, not verified; replace when the adapter runs
 import venues from './venues.json'
+import places from './places.json'
 
 // weekday: 0=Sun ... 6=Sat. time is "HH:MM" local. price 0 = free.
 const T = [
@@ -43,9 +44,6 @@ const T = [
 
   // Art, golf, cycling (thinner on purpose)
   { v: 'art-in-wood', title: 'Intro to woodturning', days: [6], time: '10:00', mins: 180, price: 95, cap: 6, level: 'First time welcome', source: 'sample', url: 'https://museumforartinwood.org' },
-  { v: 'five-iron-fishtown', title: 'Beginner league night', days: [2], time: '19:00', mins: 90, price: 35, cap: 12, level: 'First time welcome', source: 'sample', url: 'https://fiveirongolf.com/locations/philadelphia-fishtown' },
-  { v: 'five-iron-fishtown', title: 'Open sim hour', days: [0], time: '11:00', mins: 60, price: 25, cap: 6, level: 'First time welcome', source: 'sample', url: 'https://fiveirongolf.com/locations/philadelphia-fishtown' },
-  { v: 'five-iron-rittenhouse', title: 'Beginner clinic', days: [4], time: '18:30', mins: 60, price: 40, cap: 8, level: 'First time welcome', source: 'sample', url: 'https://fiveirongolf.com/locations/philadelphia-rittenhouse' },
   { v: 'trophy-bikes', title: 'Fix-a-flat clinic', days: [6], time: '10:00', mins: 60, price: 0, cap: 10, level: 'First time welcome', source: 'sample', url: 'https://trophybikes.com' },
   { v: 'bicycle-therapy', title: 'Sunday shop ride', days: [0], time: '08:00', mins: 120, price: 0, cap: 20, level: 'Some experience', source: 'sample', url: 'https://bicycletherapy.com' },
 ]
@@ -58,7 +56,46 @@ const ONE_OFFS = [
   { v: 'arch-enemy', title: 'First Friday opening reception', date: '2026-10-02', time: '18:00', mins: 180, price: 0, cap: 999, level: 'First time welcome', source: 'sample', url: 'https://www.archenemyarts.com' },
 ]
 
-const venueById = Object.fromEntries(venues.map((v) => [v.id, v]))
+const RICH = Object.values(places).flat()
+const venueById = Object.fromEntries([...venues, ...RICH].map((v) => [v.id, v]))
+
+// Parse "Tuesdays", "Tue/Thu", "Mon-Fri", "Weekends" into weekday indices.
+const DAYNAMES = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
+function parseDays(str) {
+  if (!str) return []
+  const t = String(str).toLowerCase()
+  if (/daily|every ?day/.test(t)) return [0, 1, 2, 3, 4, 5, 6]
+  const out = new Set()
+  if (/weekend/.test(t)) { out.add(0); out.add(6) }
+  if (/weekday/.test(t)) [1, 2, 3, 4, 5].forEach((d) => out.add(d))
+  const range = /(sun|mon|tue|wed|thu|fri|sat)[a-z]*\s*(?:-|–|to|through)\s*(sun|mon|tue|wed|thu|fri|sat)/.exec(t)
+  if (range) { let a = DAYNAMES.indexOf(range[1]); const b = DAYNAMES.indexOf(range[2]); for (let i = 0; i < 7; i++) { out.add(a); if (a === b) break; a = (a + 1) % 7 } }
+  else for (const m of t.matchAll(/(sun|mon|tue|wed|thu|fri|sat)/g)) out.add(DAYNAMES.indexOf(m[1]))
+  return [...out]
+}
+// "6:30pm", "6 pm", "6:30 PM - 8:30 PM" -> "18:30" (first time only)
+function parseTime(str) {
+  if (!str) return null
+  const m = /(\d{1,2})(?::(\d{2}))?\s*(a\.?m\.?|p\.?m\.?)?/i.exec(String(str))
+  if (!m) return null
+  let h = +m[1]; const min = m[2] || '00'; const ap = (m[3] || '').toLowerCase().replace(/\./g, '')
+  if (ap === 'pm' && h < 12) h += 12
+  if (ap === 'am' && h === 12) h = 0
+  if (!ap && h <= 6) h += 12
+  return `${String(h).padStart(2, '0')}:${min}`
+}
+function priceNum(p) {
+  if (typeof p === 'number') return p
+  if (typeof p === 'string') { const m = /(\d+(?:\.\d+)?)/.exec(p); return m ? +m[1] : null }
+  return null
+}
+for (const pl of RICH) {
+  for (const s of pl.sessions || []) {
+    const days = parseDays(s.day); const time = parseTime(s.time)
+    if (!days.length || !time) continue
+    T.push({ v: pl.id, title: s.title, days, time, mins: 90, price: priceNum(s.price), cap: 999, level: /beginner|intro|clinic|learn|new/i.test(s.title + ' ' + (s.note || '')) ? 'First time welcome' : 'Some experience', source: 'snapshot', note: [s.note, pl.verified && `Read from ${new URL(pl.url || 'https://x.invalid').hostname.replace('www.', '')} on ${pl.verified}.`].filter(Boolean).join(' '), url: pl.url })
+  }
+}
 
 function pad(n) { return String(n).padStart(2, '0') }
 function localDate(d) { return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}` }

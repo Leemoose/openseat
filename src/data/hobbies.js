@@ -5,7 +5,7 @@ export const HOBBIES = [
   { id: 'boardgames', name: 'Board games', blurb: 'Open tables, Magic, weekly D&D.', tint: '#2f4f8f', glyph: '⚄', primary: true },
   { id: 'guitar', name: 'Guitar', blurb: 'Group classes, jams, used gear.', tint: '#8a5a1f', glyph: '♪', primary: true },
   { id: 'art', name: 'Art & galleries', blurb: 'First Friday, workshops, openings.', tint: '#7a3e6b', glyph: '✦', primary: false },
-  { id: 'golf', name: 'Golf', blurb: 'Sim leagues and beginner clinics.', tint: '#4a6b2f', glyph: '⛳', primary: false },
+  { id: 'golf', name: 'Golf', blurb: 'Courses, ranges, sims, lessons, with real rates.', tint: '#4a6b2f', glyph: '⛳', primary: true },
   { id: 'cycling', name: 'Cycling', blurb: 'Shop rides and repair clinics.', tint: '#2c6e7a', glyph: '◎', primary: false },
 ]
 

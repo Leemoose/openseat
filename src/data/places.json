@@ -1,0 +1,2079 @@
+{
+ "golf": [
+  {
+   "id": "walnut-lane-golf-club",
+   "hobby": "golf",
+   "name": "Walnut Lane Golf Club",
+   "kind": "course",
+   "address": "800 Walnut Lane, Philadelphia, PA 19128",
+   "url": "https://walnutlanegolf.com/",
+   "phone": "(215) 482-3370",
+   "lat": 40.032061,
+   "lng": -75.2037356,
+   "holes": 18,
+   "par": 62,
+   "access": "municipal",
+   "services": null,
+   "fees": [
+    {
+     "label": "Weekday (Mon-Thurs) 18 walking",
+     "price": 40,
+     "note": "2026 rates"
+    },
+    {
+     "label": "Weekday (Mon-Thurs) 18 riding",
+     "price": 45,
+     "note": "2026 rates"
+    },
+    {
+     "label": "Weekday senior walking",
+     "price": 30,
+     "note": null
+    },
+    {
+     "label": "Weekday senior riding",
+     "price": 35,
+     "note": null
+    },
+    {
+     "label": "Weekday 9 hole walking",
+     "price": 30,
+     "note": null
+    },
+    {
+     "label": "Weekday 9 hole riding",
+     "price": 35,
+     "note": null
+    },
+    {
+     "label": "Friday walking",
+     "price": 47,
+     "note": null
+    },
+    {
+     "label": "Friday riding",
+     "price": 52,
+     "note": null
+    },
+    {
+     "label": "Friday senior",
+     "price": 48,
+     "note": null
+    },
+    {
+     "label": "Weekend (Sat-Sun) + holidays walking",
+     "price": 52,
+     "note": null
+    },
+    {
+     "label": "Weekend (Sat-Sun) + holidays riding",
+     "price": 58,
+     "note": null
+    },
+    {
+     "label": "Member cart fee",
+     "price": 18,
+     "note": "listed on rates page"
+    },
+    {
+     "label": "Club rental",
+     "price": 32,
+     "note": "listed on rates page"
+    },
+    {
+     "label": "Small bucket (40-45 balls)",
+     "price": 5,
+     "note": "Purchased at the pro shop"
+    },
+    {
+     "label": "Large bucket (90-100 balls)",
+     "price": 10,
+     "note": "Purchased at the pro shop"
+    },
+    {
+     "label": "Private lesson, 1 hour",
+     "price": 90,
+     "note": "2026 rate"
+    },
+    {
+     "label": "Private lesson, 45 minutes",
+     "price": 75,
+     "note": "2026 rate"
+    },
+    {
+     "label": "Private lesson, 30 minutes",
+     "price": 50,
+     "note": "2026 rate"
+    },
+    {
+     "label": "Group lesson, 3 or more, 1 hour",
+     "price": 40,
+     "note": "per person per hour"
+    },
+    {
+     "label": "Member cart fee",
+     "price": 18,
+     "note": null
+    },
+    {
+     "label": "Club rental",
+     "price": 32,
+     "note": null
+    }
+   ],
+   "fromPrice": 5.0,
+   "hours": "Not published as a day-by-day list on the site. Range is roughly 45 yards into a net from a turf tee line and 'may be temporarily closed for First Tee classes or clinics', so the site asks you to check with the pro shop first.",
+   "range": true,
+   "rangeNote": "Small bucket (40-45 balls) $5; large bucket (90-100 balls) $10. Range may be temporarily closed for First Tee classes or clinics, check with pro shop.",
+   "pros": [],
+   "sessions": [
+    {
+     "title": "Wednesday Spark 2025 league",
+     "day": "Wednesday",
+     "time": null,
+     "price": null,
+     "note": "Sign-up via spark.golf link on leagues page"
+    },
+    {
+     "title": "Thursday Spark Ladies 2025 league",
+     "day": "Thursday",
+     "time": null,
+     "price": null,
+     "note": "Sign-up via spark.golf link on leagues page"
+    },
+    {
+     "title": "Wednesday Spark league",
+     "day": "Wednesday",
+     "time": null,
+     "price": null,
+     "note": "Listed on the leagues page as an image ('Wednesday Spark 2025') linking out to spark.golf; no time or price in the page text"
+    },
+    {
+     "title": "Thursday Spark Ladies league",
+     "day": "Thursday",
+     "time": null,
+     "price": null,
+     "note": "Listed as 'Thursday Spark Ladies 2025', links to spark.golf"
+    }
+   ],
+   "booking": "Lightspeed",
+   "notes": "18-hole executive length course, 4,509 yards, course rating 61.2 / slope 107, designed by Alex Findlay, in Wissahickon Valley Park. Site describes it as a municipal course open to the public. Operated in association with First Tee Greater Philadelphia (firstteephiladelphia.org linked from homepage). Lesson rates: 1 hour individual $90, 45 min $75, 30 min $50, groups of 3 or more $40 per person per hour. No instructors named on the site. No hours of operation published on the site. 2026 rate sheet is a PNG image on the rates page; values read from that image. No public tee-time booking URL exposed in page HTML; site is built on Lightspeed Golf.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://walnutlanegolf.com/",
+    "https://walnutlanegolf.com/course-details/",
+    "https://walnutlanegolf.com/rates/",
+    "https://walnutlanegolf.com/wp-content/uploads/sites/252/2026/04/WalnuteLane_2026-Golf-Rates.png",
+    "https://walnutlanegolf.com/practice-facility/",
+    "https://walnutlanegolf.com/lessons/",
+    "https://walnutlanegolf.com/leagues/"
+   ]
+  },
+  {
+   "id": "five-iron-fishtown",
+   "hobby": "golf",
+   "name": "Five Iron Golf Fishtown",
+   "kind": "sim",
+   "address": "27 E Allen St., Philadelphia, PA 19123",
+   "url": "https://www.fiveirongolf.com/locations/philadelphia-fishtown",
+   "phone": "1 (800) 513-5153",
+   "lat": 39.9655313,
+   "lng": -75.1352047,
+   "holes": null,
+   "par": null,
+   "access": null,
+   "services": null,
+   "fees": [
+    {
+     "label": "Membership (Philadelphia), starting",
+     "price": 289,
+     "note": "per month; no initiation fee, cancel anytime; includes 90 min daily golf, walk-in privileges, 20% off lessons/league/food/events"
+    },
+    {
+     "label": "Simulator bay rental (hourly)",
+     "price": null,
+     "note": "Site links to 'Sim Rental Pricing' but no rate is shown on the public page; rates appear only inside the booking widget"
+    }
+   ],
+   "fromPrice": 289.0,
+   "hours": "Sun-Thu 6 AM - 11 PM; Fri-Sat 6 AM - 1 AM. Member benefit hours Mon-Fri 6 AM-4 PM, Sat 6-8 AM, Sun 6-8 AM and 8 PM-close",
+   "range": null,
+   "rangeNote": null,
+   "pros": [],
+   "sessions": [
+    {
+     "title": "Weekly league play",
+     "day": null,
+     "time": null,
+     "price": null,
+     "note": "Location page cites weekly leagues in various course formats, plus weekly drink specials and closest-to-the-pin contests; no day/time/price published"
+    }
+   ],
+   "booking": "Own system (fiveirongolf.com booking widget)",
+   "notes": "Trackman simulators. Callaway Tour fitting offered, price not listed. Three Philadelphia locations share one 800 number.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://www.fiveirongolf.com/locations/philadelphia-fishtown",
+    "https://www.fiveirongolf.com/locations",
+    "https://www.fiveirongolf.com/locations/philadelphia-fishtown/pricing"
+   ]
+  },
+  {
+   "id": "five-iron-rittenhouse",
+   "hobby": "golf",
+   "name": "Five Iron Golf Rittenhouse",
+   "kind": "sim",
+   "address": "2116 Chestnut St., Philadelphia, PA 19103",
+   "url": "https://www.fiveirongolf.com/locations/philadelphia-rittenhouse",
+   "phone": "1 (800) 513-5153",
+   "lat": 39.9520611,
+   "lng": -75.1765532,
+   "holes": null,
+   "par": null,
+   "access": null,
+   "services": null,
+   "fees": [
+    {
+     "label": "Membership (Philadelphia), starting",
+     "price": 289,
+     "note": "per month; no initiation fees, cancel anytime"
+    },
+    {
+     "label": "Simulator bay rental (hourly)",
+     "price": null,
+     "note": "'Sim Rental Pricing' link only; no rate published on the location page"
+    }
+   ],
+   "fromPrice": 289.0,
+   "hours": "Sun-Thu 6 AM - 11 PM; Fri-Sat 6 AM - 1 AM. Member benefit hours Mon-Fri 6 AM-4 PM, Sat 6-8 AM, Sun 6-8 AM and 8 PM-close",
+   "range": null,
+   "rangeNote": null,
+   "pros": [],
+   "sessions": [
+    {
+     "title": "Fall Junior League",
+     "day": "Saturdays (team match play) plus a weekly practice day chosen at registration",
+     "time": null,
+     "price": null,
+     "note": "5 weeks starting the week of November 2nd, ages 7-13"
+    }
+   ],
+   "booking": "Own system (fiveirongolf.com booking widget)",
+   "notes": "Page has a 'Meet the Coaches' section but no coach is named in the page text.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://www.fiveirongolf.com/locations/philadelphia-rittenhouse",
+    "https://www.fiveirongolf.com/locations"
+   ]
+  },
+  {
+   "id": "five-iron-logan-square",
+   "hobby": "golf",
+   "name": "Five Iron Golf Logan Square",
+   "kind": "sim",
+   "address": "1717 Arch Street, Suite 140, Philadelphia, PA 19103",
+   "url": "https://www.fiveirongolf.com/locations/philadelphia-logan-square",
+   "phone": "1 (800) 513-5153",
+   "lat": 39.9554164,
+   "lng": -75.1690292,
+   "holes": null,
+   "par": null,
+   "access": null,
+   "services": null,
+   "fees": [
+    {
+     "label": "Membership (Philadelphia), starting",
+     "price": 289,
+     "note": "per month; includes 90 min free daily golf, 20% off lessons/league/food/events, free swing evaluation, club storage, member nights"
+    },
+    {
+     "label": "Simulator bay rental (hourly)",
+     "price": null,
+     "note": "Not published on the location page"
+    }
+   ],
+   "fromPrice": 289.0,
+   "hours": "Sun-Thu 6 AM - 11 PM; Fri-Sat 6 AM - 1 AM. Member benefit hours Mon-Fri 6 AM-4 PM, Sat-Sun 6-8 AM and 8 PM-close",
+   "range": null,
+   "rangeNote": null,
+   "pros": [],
+   "sessions": [
+    {
+     "title": "Leagues (various formats)",
+     "day": null,
+     "time": null,
+     "price": null,
+     "note": "Mentioned with weekly drink specials; no day/time/price published"
+    }
+   ],
+   "booking": "Own system (fiveirongolf.com booking widget)",
+   "notes": null,
+   "verified": "2026-09-24",
+   "sources": [
+    "https://www.fiveirongolf.com/locations/philadelphia-logan-square",
+    "https://www.fiveirongolf.com/locations"
+   ]
+  },
+  {
+   "id": "topgolf-king-of-prussia",
+   "hobby": "golf",
+   "name": "Topgolf King of Prussia",
+   "kind": "range",
+   "address": "588 N Gulph Rd, King of Prussia, PA 19406",
+   "url": "https://www.topgolf.com/us/king-of-prussia/",
+   "phone": "(484) 806-2491",
+   "lat": 40.0937414,
+   "lng": -75.4146109,
+   "holes": null,
+   "par": null,
+   "access": null,
+   "services": null,
+   "fees": [
+    {
+     "label": "Hitting bay (hourly)",
+     "price": null,
+     "note": "Site states 'Prices are per hour, per hitting bay' for up to 6 players and that rates vary by date; no number is shown until a date is selected. 'Walk-in rates may be higher than pricing displayed online.'"
+    },
+    {
+     "label": "Account activation fee (new players)",
+     "price": 6,
+     "note": "One-time, required for new players"
+    }
+   ],
+   "fromPrice": 6.0,
+   "hours": {
+    "Monday": "10AM - 11PM",
+    "Tuesday": "10AM - 11PM",
+    "Wednesday": "10AM - 11PM",
+    "Thursday": "10AM - 11PM",
+    "Friday": "10AM - 1AM",
+    "Saturday": "9AM - 1AM",
+    "Sunday": "9AM - 11PM"
+   },
+   "range": null,
+   "rangeNote": null,
+   "pros": [],
+   "sessions": [
+    {
+     "title": "Sunday Funday / Topgolf Nights promotions",
+     "day": null,
+     "time": null,
+     "price": null,
+     "note": "Named on the location page without day, time or price detail"
+    }
+   ],
+   "booking": "Own system (topgolf.com reservations)",
+   "notes": "Toptracer-style ball tracking range. About 18 miles from Center City.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://www.topgolf.com/us/king-of-prussia/"
+   ]
+  },
+  {
+   "id": "topgolf-mount-laurel",
+   "hobby": "golf",
+   "name": "Topgolf Mount Laurel",
+   "kind": "range",
+   "address": "104 Centerton Rd., Mount Laurel, NJ 08054",
+   "url": "https://www.topgolf.com/us/mount-laurel/",
+   "phone": "(856) 793-4086",
+   "lat": 39.9731295,
+   "lng": -74.9060338,
+   "holes": null,
+   "par": null,
+   "access": null,
+   "services": null,
+   "fees": [
+    {
+     "label": "Hitting bay (hourly)",
+     "price": null,
+     "note": "'Prices are per hour, per hitting bay', up to 6 players; rate only appears after choosing a date. Walk-in rates may be higher than online pricing."
+    },
+    {
+     "label": "Account activation fee (new players)",
+     "price": 6,
+     "note": "One-time"
+    }
+   ],
+   "fromPrice": 6.0,
+   "hours": {
+    "Monday": "10AM - 11PM",
+    "Tuesday": "10AM - 11PM",
+    "Wednesday": "10AM - 11PM",
+    "Thursday": "10AM - 11PM",
+    "Friday": "10AM - 1AM",
+    "Saturday": "9AM - 1AM",
+    "Sunday": "9AM - 12AM"
+   },
+   "range": null,
+   "rangeNote": null,
+   "pros": [],
+   "sessions": [],
+   "booking": "Own system (topgolf.com reservations)",
+   "notes": "About 17 miles from Center City via I-295.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://www.topgolf.com/us/mount-laurel/"
+   ]
+  },
+  {
+   "id": "camden-county-driving-range",
+   "hobby": "golf",
+   "name": "Camden County Driving Range at Cooper River Park",
+   "kind": "range",
+   "address": "8001 South Route 130, Pennsauken, NJ 08109",
+   "url": "https://www.camdencounty.com/service/parks/camden-county-driving-range/",
+   "phone": "(856) 661-3636",
+   "lat": 39.9562238,
+   "lng": -75.0579502,
+   "holes": null,
+   "par": null,
+   "access": null,
+   "services": null,
+   "fees": [
+    {
+     "label": "Bucket of balls (70-75 balls)",
+     "price": 10,
+     "note": "Only bucket size listed"
+    }
+   ],
+   "fromPrice": 10.0,
+   "hours": {
+    "note": "Starting Oct. 1",
+    "Monday": "10 AM - 7 PM (last bucket 6 PM)",
+    "Tuesday": "10 AM - 7 PM (last bucket 6 PM)",
+    "Wednesday": "10 AM - 7 PM (last bucket 6 PM)",
+    "Thursday": "10 AM - 7 PM (last bucket 6 PM)",
+    "Friday": "10 AM - 7 PM (last bucket 6 PM)",
+    "Saturday": "10 AM - 5 PM (last bucket 4 PM)",
+    "Sunday": "10 AM - 5 PM (last bucket 4 PM)"
+   },
+   "range": null,
+   "rangeNote": null,
+   "pros": [],
+   "sessions": [],
+   "booking": "Walk-up; no online booking listed",
+   "notes": "60-station lighted double-decker range over water, plus a short game area with putting green and sand trap. Groups and parties on request. Range manager listed as Julie Rienzi. No lessons, leagues or clinics on the county page.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://www.camdencounty.com/service/parks/camden-county-driving-range/"
+   ]
+  },
+  {
+   "id": "fairways-and-dreams",
+   "hobby": "golf",
+   "name": "Fairways & Dreams Indoor Golf",
+   "kind": "sim",
+   "address": "200 Ridge Pike, Suite 206, Conshohocken, PA 19428",
+   "url": "https://tgp.golf/fd/",
+   "phone": null,
+   "lat": 40.0959369,
+   "lng": -75.2874141,
+   "holes": null,
+   "par": null,
+   "access": null,
+   "services": null,
+   "fees": [
+    {
+     "label": "Bay rental, off-peak",
+     "price": 50,
+     "note": "per hour per bay; Mon-Fri 10AM-4PM with some evening exceptions"
+    },
+    {
+     "label": "Bay rental, peak",
+     "price": 75,
+     "note": "per hour per bay; Wed-Sun afternoons and evenings"
+    },
+    {
+     "label": "Club membership",
+     "price": 180,
+     "note": "per month"
+    },
+    {
+     "label": "Unlimited membership",
+     "price": 299,
+     "note": "per month"
+    }
+   ],
+   "fromPrice": 50.0,
+   "hours": {
+    "Monday": "10AM-10PM",
+    "Tuesday": "10AM-10PM",
+    "Wednesday": "10AM-10PM",
+    "Thursday": "10AM-10PM",
+    "Friday": "10AM-11PM",
+    "Saturday": "9AM-11PM",
+    "Sunday": "9AM-7PM"
+   },
+   "range": null,
+   "rangeNote": null,
+   "pros": [
+    {
+     "name": "Logan Buell",
+     "title": "PGA Professional",
+     "lessonPrice": null,
+     "url": "https://tgp.golf/fd/"
+    }
+   ],
+   "sessions": [
+    {
+     "title": "Leagues (scramble and best ball formats)",
+     "day": null,
+     "time": null,
+     "price": null,
+     "note": "Two formats named on the site; no schedule or price published"
+    }
+   ],
+   "booking": "tgp.golf hosted booking ('Book Now'); underlying platform not named on the page",
+   "notes": "Six bays. Food and drink delivered to the bay from PJ Whelihan's via QR code. About 13 miles from Center City.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://tgp.golf/fd/"
+   ]
+  },
+  {
+   "id": "indian-spring-driving-range",
+   "hobby": "golf",
+   "name": "Indian Spring Golf Club Driving Range",
+   "kind": "range",
+   "address": "115 South Elmwood Road, Marlton, NJ 08053",
+   "url": "https://www.indianspringgolf.com/driving-range",
+   "phone": "856.983.6580",
+   "lat": 39.8792137,
+   "lng": -74.8857201,
+   "holes": null,
+   "par": null,
+   "access": null,
+   "services": null,
+   "fees": [
+    {
+     "label": "Small bucket",
+     "price": 8,
+     "note": null
+    },
+    {
+     "label": "Medium bucket",
+     "price": 10,
+     "note": null
+    },
+    {
+     "label": "Large bucket",
+     "price": 13,
+     "note": null
+    }
+   ],
+   "fromPrice": 8.0,
+   "hours": {
+    "Monday": "9:00 AM - 8:30 PM",
+    "Tuesday": "9:00 AM - 8:30 PM",
+    "Wednesday": "9:00 AM - 8:30 PM",
+    "Thursday": "9:00 AM - 8:30 PM",
+    "Friday": "8:00 AM - 8:30 PM",
+    "Saturday": "8:00 AM - 8:30 PM",
+    "Sunday": "8:00 AM - 8:30 PM",
+    "note": "Lights turn off at 9:00 PM. Open year round, weather permitting."
+   },
+   "range": null,
+   "rangeNote": null,
+   "pros": [],
+   "sessions": [
+    {
+     "title": "Golf Academy",
+     "day": null,
+     "time": null,
+     "price": null,
+     "note": "Named on the site; no schedule or price on the driving range page"
+    },
+    {
+     "title": "Leagues",
+     "day": null,
+     "time": null,
+     "price": null,
+     "note": "Named on the site; no detail on the driving range page"
+    }
+   ],
+   "booking": "Walk-up for the range; no online range booking found",
+   "notes": "40 hitting stalls, 16 covered, plus a grass hitting area. No Toptracer mentioned. About 14 miles from Center City.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://www.indianspringgolf.com/driving-range"
+   ]
+  },
+  {
+   "id": "libertee-grounds",
+   "hobby": "golf",
+   "name": "Libertee Grounds",
+   "kind": "sim",
+   "address": "1600 W. Girard Ave, Philadelphia, PA 19130",
+   "url": "https://liberteegrounds.com/golf-simulator",
+   "phone": "267-324-3487",
+   "lat": 39.9715501,
+   "lng": -75.1632551,
+   "holes": null,
+   "par": null,
+   "access": null,
+   "services": null,
+   "fees": [
+    {
+     "label": "Golf sim, peak",
+     "price": 55,
+     "note": "per hour; Fri 4pm-12am, Sat 2pm-12am, Sun 1pm-9pm"
+    },
+    {
+     "label": "Golf sim, off-peak",
+     "price": 45,
+     "note": "per hour; Tue-Thu 5pm-11pm"
+    },
+    {
+     "label": "Lifetime membership",
+     "price": null,
+     "note": "Offered on the site; price not published"
+    }
+   ],
+   "fromPrice": 45.0,
+   "hours": "Not published as a day-by-day list. Sim availability is stated only through its booking windows: Tue-Thu 5pm-11pm, Fri 4pm-12am, Sat 2pm-12am, Sun 1pm-9pm.",
+   "range": null,
+   "rangeNote": null,
+   "pros": [],
+   "sessions": [
+    {
+     "title": "Frankenstein's Cocktail Lab",
+     "day": null,
+     "time": null,
+     "price": null,
+     "note": "Seasonal themed mini golf event, October 1-31; not a golf instruction session"
+    }
+   ],
+   "booking": "Own site reservation page (liberteegrounds.com/reserve), Squarespace-hosted",
+   "notes": "Uneekor Eyexo simulator in a single 14-seat lounge, not individual bays. 21+ to use the sim. Two 9-hole mini golf courses, one free round included with a sim booking. Brewerytown, about 2 miles from Center City.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://liberteegrounds.com/golf-simulator",
+    "https://liberteegrounds.com/"
+   ]
+  },
+  {
+   "id": "play-a-round-golf-ardmore",
+   "hobby": "golf",
+   "name": "Play-a-Round Golf Ardmore",
+   "kind": "sim",
+   "address": "56 Greenfield Ave., Ardmore, PA 19003",
+   "url": "https://playaroundgolf.net/",
+   "phone": "610-228-2814",
+   "lat": 40.0087729,
+   "lng": -75.2972971,
+   "holes": null,
+   "par": null,
+   "access": null,
+   "services": null,
+   "fees": [
+    {
+     "label": "Simulator bay (hourly)",
+     "price": null,
+     "note": "Site states 'the hourly price is the same no matter how many people are playing per simulator' but does not publish the rate; it appears only in the uSchedule booking flow"
+    },
+    {
+     "label": "Membership (annual subscription)",
+     "price": 40,
+     "note": "per week with an annual subscription; includes up to two hours on one simulator per weekday before 4 PM"
+    }
+   ],
+   "fromPrice": 40.0,
+   "hours": null,
+   "range": null,
+   "rangeNote": null,
+   "pros": [
+    {
+     "name": "Brian Mullin",
+     "title": "Director of Golf Instruction, Ardmore PA; PGA certified, 10+ years teaching, SuperSpeed Golf and Swing Catalyst certified",
+     "lessonPrice": null,
+     "url": "https://playaroundgolf.net/learn/"
+    }
+   ],
+   "sessions": [
+    {
+     "title": "Operation 36 Golf",
+     "day": null,
+     "time": null,
+     "price": null,
+     "note": "Beginner program for juniors 6+ and adults; weekly classes plus on-course play; enrollment via operation36golf.com"
+    },
+    {
+     "title": "Winter leagues",
+     "day": null,
+     "time": null,
+     "price": null,
+     "note": "9-hole and 18-hole formats, 10 rounds with the 10th as the championship, handicapped scoring, forming quarterly; no day, time or price published"
+    },
+    {
+     "title": "Break 85 and Break 100 programs, group classes, junior camps",
+     "day": null,
+     "time": null,
+     "price": null,
+     "note": "Named on the learn page without prices"
+    }
+   ],
+   "booking": "uSchedule (clients.uschedule.com/playaroundgolf/booking); aboutGolf simulators with a separate player login",
+   "notes": "Sister location in Malvern, PA (245 Lancaster Ave), outside the 20-mile radius. Custom club fitting also offered. About 8 miles from Center City.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://playaroundgolf.net/",
+    "https://playaroundgolf.net/play/",
+    "https://playaroundgolf.net/learn/",
+    "https://playaroundgolf.net/leagues/"
+   ]
+  },
+  {
+   "id": "golf-science-center-ballers",
+   "hobby": "golf",
+   "name": "Golf Science Center at Ballers Philadelphia",
+   "kind": "sim",
+   "address": "1325 North Beach Street, Philadelphia, PA 19125",
+   "url": "https://www.golfsciencecenter.com/",
+   "phone": "215-779-9993",
+   "lat": 39.967324,
+   "lng": -75.128193,
+   "holes": null,
+   "par": null,
+   "access": null,
+   "services": null,
+   "fees": [
+    {
+     "label": "Simulator bay, peak",
+     "price": 85,
+     "note": "per hour"
+    },
+    {
+     "label": "Simulator bay, off-peak",
+     "price": 50,
+     "note": "per hour"
+    },
+    {
+     "label": "Short game area, peak",
+     "price": 20,
+     "note": "per 30 minutes"
+    },
+    {
+     "label": "Short game area, off-peak",
+     "price": 10,
+     "note": "per 30 minutes"
+    },
+    {
+     "label": "Lessons",
+     "price": null,
+     "note": "By appointment; price not published"
+    }
+   ],
+   "fromPrice": 10.0,
+   "hours": "Simulators available for rounds or practice 7 AM to 10 PM every day",
+   "range": null,
+   "rangeNote": null,
+   "pros": [
+    {
+     "name": "Christian Dahl",
+     "title": "Level-1 Certified Golf Biomechanics Instructor",
+     "lessonPrice": null,
+     "url": "https://www.golfsciencecenter.com/"
+    }
+   ],
+   "sessions": [],
+   "booking": "book.ballers-us.com/book/ballersphiladelphia (Ballers own system), plus iOS and Android apps",
+   "notes": "Located inside Ballers Philadelphia at The Battery in Fishtown/Port Richmond, about 3 miles from Center City. Video swing analysis and shot analysis offered. A third-party directory lists a 211 N 13th St address for Golf Science Center; the venue's own site gives 1325 N Beach St, which is what is recorded here.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://www.golfsciencecenter.com/"
+   ]
+  },
+  {
+   "id": "dogleg-golf-cinnaminson",
+   "hobby": "golf",
+   "name": "Dogleg Golf",
+   "kind": "sim",
+   "address": "155 US-130, Suite C, Cinnaminson, NJ 08077",
+   "url": "https://dogleggolfnj.com/",
+   "phone": null,
+   "lat": 39.9860708,
+   "lng": -75.0131389,
+   "holes": null,
+   "par": null,
+   "access": null,
+   "services": null,
+   "fees": [
+    {
+     "label": "Simulator bay (hourly)",
+     "price": null,
+     "note": "Not published on the site; rates appear only in the booking flow"
+    },
+    {
+     "label": "Club rental",
+     "price": 10,
+     "note": "per round"
+    }
+   ],
+   "fromPrice": 10.0,
+   "hours": "Sunday-Thursday 9am to 9pm; Friday and Saturday 9am to 11pm. Outside regular hours available by request.",
+   "range": null,
+   "rangeNote": null,
+   "pros": [],
+   "sessions": [
+    {
+     "title": "Leagues",
+     "day": null,
+     "time": null,
+     "price": null,
+     "note": "Referenced on the site with no day, time or price"
+    }
+   ],
+   "booking": "Your Golf Booking and TrackMan Golf booking systems, linked from the site",
+   "notes": "TrackMan bays, up to 4 players per bay. BYOB, 21+. Walk-ins welcome, reservations encouraged. Street address comes from a simulator directory, not the venue site, and was not confirmed on dogleggolfnj.com. About 11 miles from Center City.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://dogleggolfnj.com/",
+    "https://localgolfsims.com/pa/philadelphia/near-me"
+   ]
+  },
+  {
+   "id": "golfcave-marlton",
+   "hobby": "golf",
+   "name": "GolfCave Marlton",
+   "kind": "sim",
+   "address": "230 N Maple Avenue, Marlton, NJ 08053",
+   "url": "https://www.golfcave.com/locations/marlton/",
+   "phone": "856-594-2283",
+   "lat": 39.9157715,
+   "lng": -74.926047,
+   "holes": null,
+   "par": null,
+   "access": null,
+   "services": null,
+   "fees": [
+    {
+     "label": "Simulator bay, non-member",
+     "price": 75,
+     "note": "per hour"
+    },
+    {
+     "label": "Simulator bay, member",
+     "price": 45,
+     "note": "per hour after the 2 hours included each month"
+    },
+    {
+     "label": "Membership",
+     "price": 110,
+     "note": "per month plus a $150 one-time initiation fee; includes 2 hours monthly, 1 free hour each weekday May 1 - Sept 1, unused hours roll over up to 25 hours, 24/7 access"
+    },
+    {
+     "label": "CaveKey setup (24/7 access)",
+     "price": 50,
+     "note": "one-time"
+    },
+    {
+     "label": "Lesson, adult",
+     "price": 150,
+     "note": "per hour; packages available"
+    },
+    {
+     "label": "Lesson, junior",
+     "price": 120,
+     "note": "per hour; packages available"
+    }
+   ],
+   "fromPrice": 45.0,
+   "hours": "Open every day 9 AM - 9:15 PM; members have 24/7 access",
+   "range": null,
+   "rangeNote": null,
+   "pros": [
+    {
+     "name": "Alex Bottrell",
+     "title": "Golf instructor",
+     "lessonPrice": 150,
+     "url": "https://www.golfcave.com/locations/marlton/"
+    }
+   ],
+   "sessions": [],
+   "booking": "uSchedule (clients.uschedule.com/golfcave)",
+   "notes": "About 15 miles from Center City.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://www.golfcave.com/locations/marlton/"
+   ]
+  },
+  {
+   "id": "x-golf-garnet-valley",
+   "hobby": "golf",
+   "name": "X-Golf Garnet Valley",
+   "kind": "sim",
+   "address": "176-178 Painters' Crossing, West Chester, PA 19382",
+   "url": "https://playxgolf.com/locations/garnet-valley/",
+   "phone": "(484) 574-8528",
+   "lat": 39.8818599,
+   "lng": -75.5490068,
+   "holes": null,
+   "par": null,
+   "access": null,
+   "services": null,
+   "fees": [
+    {
+     "label": "Bay rental, Mon-Thu 9am-4pm",
+     "price": 55,
+     "note": "per bay per hour"
+    },
+    {
+     "label": "Bay rental, Mon-Thu 4pm-close",
+     "price": 70,
+     "note": "per bay per hour"
+    },
+    {
+     "label": "Bay rental, Fri-Sun all day",
+     "price": 70,
+     "note": "per bay per hour"
+    },
+    {
+     "label": "Membership",
+     "price": 200,
+     "note": "per month; 2 hours free play per day Mon-Thu before 4pm, plus 25% off Fri-Sun"
+    },
+    {
+     "label": "Lesson, 30 minutes",
+     "price": 75,
+     "note": null
+    },
+    {
+     "label": "Lesson, 60 minutes",
+     "price": 130,
+     "note": null
+    },
+    {
+     "label": "Lesson, two 60-minute pack",
+     "price": 240,
+     "note": null
+    }
+   ],
+   "fromPrice": 55.0,
+   "hours": {
+    "Monday": "9am-11pm",
+    "Tuesday": "9am-11pm",
+    "Wednesday": "9am-11pm",
+    "Thursday": "9am-11pm",
+    "Friday": "9am-2am",
+    "Saturday": "8am-2am",
+    "Sunday": "8am-11pm"
+   },
+   "range": null,
+   "rangeNote": null,
+   "pros": [
+    {
+     "name": "Mark Riggs",
+     "title": "PGA Professional, 27+ years experience",
+     "lessonPrice": 130,
+     "url": "https://playxgolf.com/locations/garnet-valley/"
+    }
+   ],
+   "sessions": [
+    {
+     "title": "2-Person League",
+     "day": null,
+     "time": null,
+     "price": 600,
+     "note": "10 weeks, $600 per team, $300 per person"
+    },
+    {
+     "title": "3-Person League",
+     "day": null,
+     "time": "7:00-10:15pm match window",
+     "price": 1100,
+     "note": "13 weeks, $1,100 per team, about $366 per player"
+    }
+   ],
+   "booking": "uSchedule (clients.uschedule.com/xgolfgarnetvalley/booking)",
+   "notes": "OUTSIDE the ~20 mile radius: Painters Crossing is roughly 24 miles from Center City. This is the closest X-Golf to Philadelphia; the other PA X-Golf locations (Chester Springs, Easton, Wexford) and the one NJ location (Denville) are all farther. Included because X-Golf was named in the task.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://playxgolf.com/locations/garnet-valley/",
+    "https://playxgolf.com/locations/"
+   ]
+  },
+  {
+   "id": "john-f-byrne-golf-course",
+   "hobby": "golf",
+   "name": "John F. Byrne Golf Course",
+   "kind": "range",
+   "address": "9550 Leon Street, Philadelphia, PA 19114",
+   "url": "https://jfbgolf.com/rates/",
+   "phone": "(215) 632-8666",
+   "lat": 40.0600102,
+   "lng": -74.9977909,
+   "holes": null,
+   "par": null,
+   "access": null,
+   "services": null,
+   "fees": [
+    {
+     "label": "Driving range bucket",
+     "price": null,
+     "note": "NOT FOUND. No range pricing appears on the rates page and the site does not confirm a practice range"
+    },
+    {
+     "label": "18 holes riding, Mon-Thu",
+     "price": 45,
+     "note": "2026 rate; $35 senior"
+    },
+    {
+     "label": "18 holes riding, Friday",
+     "price": 52,
+     "note": "2026 rate"
+    },
+    {
+     "label": "18 holes riding, Sat/Sun",
+     "price": 58,
+     "note": "2026 rate"
+    }
+   ],
+   "fromPrice": 45.0,
+   "hours": "In season 6:00am - dusk; off season 7:00am - dusk",
+   "range": null,
+   "rangeNote": null,
+   "pros": [],
+   "sessions": [],
+   "booking": "Own site tee times; operated by First Tee Greater Philadelphia (contact email is @firsteephila.org)",
+   "notes": "One of the two city courses First Tee Greater Philadelphia operates (the other is Walnut Lane). Whether JFB has a public practice range is not stated on its own site; treat as unconfirmed. About 13 miles from Center City.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://jfbgolf.com/rates/",
+    "https://firstteephiladelphia.org/golf-courses/"
+   ]
+  },
+  {
+   "id": "paxon-hollow-country-club",
+   "hobby": "golf",
+   "name": "Paxon Hollow Country Club",
+   "kind": "range",
+   "address": "850 Paxon Hollow Road, Media, PA 19063",
+   "url": "https://paxonhollowgolf.com/-home",
+   "phone": "610-353-0220",
+   "lat": 39.9141268,
+   "lng": -75.3946984,
+   "holes": null,
+   "par": null,
+   "access": null,
+   "services": null,
+   "fees": [
+    {
+     "label": "Driving range bucket",
+     "price": null,
+     "note": "A practice range is listed in the site navigation but no bucket prices appear on the pages read"
+    },
+    {
+     "label": "Private lesson",
+     "price": null,
+     "note": "Offered; price not published"
+    }
+   ],
+   "fromPrice": null,
+   "hours": null,
+   "range": null,
+   "rangeNote": null,
+   "pros": [],
+   "sessions": [
+    {
+     "title": "Junior Clinics",
+     "day": null,
+     "time": null,
+     "price": null,
+     "note": "Named on the site without schedule or price"
+    },
+    {
+     "title": "Adult Clinics",
+     "day": null,
+     "time": null,
+     "price": null,
+     "note": "Named on the site without schedule or price"
+    },
+    {
+     "title": "Golf Leagues",
+     "day": null,
+     "time": null,
+     "price": null,
+     "note": "A leagues page is referenced; contents not read"
+    }
+   ],
+   "booking": "Own site",
+   "notes": "Municipal course in Marple Township, Delaware County, about 13 miles from Center City. Thinnest entry in this file: address and phone verified, practice range confirmed only as a nav item, no prices found.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://paxonhollowgolf.com/-home"
+   ]
+  },
+  {
+   "id": "pga-tour-superstore-plymouth-meeting",
+   "hobby": "golf",
+   "name": "PGA TOUR Superstore - Plymouth Meeting",
+   "kind": "shop",
+   "address": "2410 Chemical Rd, Plymouth Meeting, PA 19462",
+   "url": "https://www.pgatoursuperstore.com/stores/detail?StoreID=1232",
+   "phone": "570-719-5322",
+   "lat": 40.1056796,
+   "lng": -75.2942786,
+   "holes": null,
+   "par": null,
+   "access": null,
+   "services": [
+    "new clubs and equipment retail",
+    "STUDIO club fitting",
+    "golf lessons with PGA-certified instructors",
+    "club repair (drop-off)",
+    "practice bay rental",
+    "free monthly clinics"
+   ],
+   "fees": [
+    {
+     "label": "Golf lessons (adult)",
+     "price": 79.99,
+     "note": "listed as 'starting at' on the store page; per-lesson rate not broken out"
+    },
+    {
+     "label": "STUDIO fitting",
+     "price": 99.99,
+     "note": "listed as 'starting at' on the store page"
+    }
+   ],
+   "fromPrice": 79.99,
+   "hours": {
+    "monday": "9:00 AM - 8:00 PM",
+    "tuesday": "9:00 AM - 8:00 PM",
+    "wednesday": "9:00 AM - 8:00 PM",
+    "thursday": "9:00 AM - 8:00 PM",
+    "friday": "9:00 AM - 8:00 PM",
+    "saturday": "9:00 AM - 8:00 PM",
+    "sunday": "10:00 AM - 6:00 PM"
+   },
+   "range": null,
+   "rangeNote": null,
+   "pros": [],
+   "sessions": [
+    {
+     "title": "Free monthly clinics / 'Saturdays at the Superstore'",
+     "day": "Saturday",
+     "time": null,
+     "price": 0,
+     "note": "store page describes free monthly clinics; specific dates and times not published on the store page"
+    }
+   ],
+   "booking": "https://www.pgatoursuperstore.com/stores/detail?StoreID=1232",
+   "notes": "Closest PGA TOUR Superstore on the PA side, roughly 15 miles from Center City. No Philadelphia city location exists.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://www.pgatoursuperstore.com/stores",
+    "https://www.pgatoursuperstore.com/stores/detail?StoreID=1232"
+   ]
+  },
+  {
+   "id": "pga-tour-superstore-cherry-hill",
+   "hobby": "golf",
+   "name": "PGA TOUR Superstore - Cherry Hill",
+   "kind": "shop",
+   "address": "2232 Route 70 West Suite C, Cherry Hill, NJ 08002",
+   "url": "https://www.pgatoursuperstore.com/stores/detail?StoreID=1260",
+   "phone": "609-696-5660",
+   "lat": 39.9348351,
+   "lng": -75.0307264,
+   "holes": null,
+   "par": null,
+   "access": null,
+   "services": [
+    "new clubs and equipment retail",
+    "club fitting",
+    "golf lessons",
+    "club repair",
+    "practice bays"
+   ],
+   "fees": [],
+   "fromPrice": null,
+   "hours": null,
+   "range": null,
+   "rangeNote": null,
+   "pros": [],
+   "sessions": [],
+   "booking": "https://www.pgatoursuperstore.com/stores/detail?StoreID=1260",
+   "notes": "Address and phone confirmed from the chain store locator; the individual store detail page was not fetched in this run, so hours and local pricing are unverified. Chain-level pricing at the Plymouth Meeting store was lessons from $79.99 and STUDIO fitting from $99.99. About 8 miles from Center City.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://www.pgatoursuperstore.com/stores"
+   ]
+  },
+  {
+   "id": "golf-galaxy-berwyn",
+   "hobby": "golf",
+   "name": "Golf Galaxy - Berwyn",
+   "kind": "shop",
+   "address": "Swedesford Plaza, 470 West Swedesford Road, Berwyn, PA 19312",
+   "url": "https://stores.golfgalaxy.com/pa/berwyn/3122/",
+   "phone": "484-320-5000",
+   "lat": 40.0477701,
+   "lng": -75.4421325,
+   "holes": null,
+   "par": null,
+   "access": null,
+   "services": [
+    "new clubs and equipment retail",
+    "pre-owned club program",
+    "club trade-in",
+    "TrackMan club fitting",
+    "golf ball fitting",
+    "full-service club repair (regripping, loft/lie, shaft installation)",
+    "lessons with PGA and LPGA professionals",
+    "simulator rental",
+    "wedge and ball marker stamping"
+   ],
+   "fees": [
+    {
+     "label": "Wedge and ball marker stamping / paint fill",
+     "price": 15,
+     "note": "stated as 'starting at just $15'"
+    }
+   ],
+   "fromPrice": 15.0,
+   "hours": null,
+   "range": null,
+   "rangeNote": null,
+   "pros": [],
+   "sessions": [],
+   "booking": "https://stores.golfgalaxy.com/pa/berwyn/3122/",
+   "notes": "Hours are rendered by JavaScript on the store page and were not readable in the raw HTML, so they are left null rather than guessed. No fitting or lesson prices are published on the store page. Roughly 18 miles from Center City.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://stores.golfgalaxy.com/pa/",
+    "https://stores.golfgalaxy.com/pa/berwyn/3122/"
+   ]
+  },
+  {
+   "id": "golf-galaxy-mount-laurel",
+   "hobby": "golf",
+   "name": "Golf Galaxy - Mount Laurel",
+   "kind": "shop",
+   "address": "56 Centerton Road, Mount Laurel, NJ 08054",
+   "url": "https://stores.golfgalaxy.com/nj/mount-laurel/3038/",
+   "phone": "856-793-0557",
+   "lat": 39.9695833,
+   "lng": -74.9105745,
+   "holes": null,
+   "par": null,
+   "access": null,
+   "services": [
+    "new clubs and equipment retail",
+    "pre-owned club program",
+    "club trade-in",
+    "TrackMan swing analysis and club fitting",
+    "golf ball fitting",
+    "full-service club repair (regripping, loft/lie, shaft installation)",
+    "lessons with PGA and LPGA professionals and associates",
+    "simulator rental",
+    "wedge and ball marker stamping"
+   ],
+   "fees": [
+    {
+     "label": "Wedge and ball marker stamping / paint fill",
+     "price": 15,
+     "note": "stated as 'starting at $15'"
+    }
+   ],
+   "fromPrice": 15.0,
+   "hours": null,
+   "range": null,
+   "rangeNote": null,
+   "pros": [],
+   "sessions": [],
+   "booking": "https://stores.golfgalaxy.com/nj/mount-laurel/3038/",
+   "notes": "Hours are JavaScript-rendered and were not readable, left null. Closest Golf Galaxy on the NJ side, roughly 15 miles from Center City. There is no Golf Galaxy in Cherry Hill or King of Prussia: the PA store list is Berwyn, Langhorne, Mechanicsburg, North Wales, Pittsburgh, Whitehall; the NJ list is East Hanover, Holmdel, Mount Laurel, Paramus.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://stores.golfgalaxy.com/nj/",
+    "https://stores.golfgalaxy.com/nj/mount-laurel/3038/"
+   ]
+  },
+  {
+   "id": "club-champion-cherry-hill",
+   "hobby": "golf",
+   "name": "Club Champion - Cherry Hill",
+   "kind": "fitter",
+   "address": "706 Haddonfield Road, Cherry Hill, NJ 08002",
+   "url": "https://www.clubchampion.com/locations/cherry-hill",
+   "phone": "856-486-0150",
+   "lat": 39.9293307,
+   "lng": -75.0315081,
+   "holes": null,
+   "par": null,
+   "access": null,
+   "services": [
+    "brand-agnostic club fitting",
+    "driver fitting",
+    "iron and wedge fitting",
+    "fairway wood and hybrid fitting",
+    "putter fitting",
+    "full bag fitting",
+    "golf ball fitting",
+    "custom club building",
+    "trade-in"
+   ],
+   "fees": [
+    {
+     "label": "Full bag fitting (3 hours)",
+     "price": 400,
+     "note": "$100 promotional price with a custom equipment purchase, per the chain pricing page"
+    },
+    {
+     "label": "Full bag minus putter (2.5 hours)",
+     "price": 325,
+     "note": "$100 promotional price with purchase"
+    },
+    {
+     "label": "Long game fitting (2 hours)",
+     "price": 250,
+     "note": "$50 promotional price with purchase"
+    },
+    {
+     "label": "Driver fitting (1.5 hours)",
+     "price": 175,
+     "note": "$50 promotional price with purchase"
+    },
+    {
+     "label": "Iron + wedge fitting (1.5 hours)",
+     "price": 175,
+     "note": "$50 promotional price with purchase"
+    },
+    {
+     "label": "Fairway wood / hybrid fitting (1 hour)",
+     "price": 125,
+     "note": "$50 promotional price with purchase"
+    },
+    {
+     "label": "Putter fitting (1 hour)",
+     "price": 125,
+     "note": "$50 promotional price with purchase"
+    },
+    {
+     "label": "Wedge fitting (1 hour)",
+     "price": 100,
+     "note": "$50 promotional price with purchase"
+    }
+   ],
+   "fromPrice": 100.0,
+   "hours": {
+    "monday": "8:00 AM - 8:00 PM",
+    "tuesday": "10:00 AM - 6:00 PM",
+    "wednesday": "10:00 AM - 6:00 PM",
+    "thursday": "10:00 AM - 6:00 PM",
+    "friday": "8:00 AM - 8:00 PM",
+    "saturday": "8:00 AM - 5:00 PM",
+    "sunday": "9:00 AM - 5:00 PM"
+   },
+   "range": null,
+   "rangeNote": null,
+   "pros": [],
+   "sessions": [],
+   "booking": "https://www.clubchampion.com/locations/cherry-hill",
+   "notes": "Fitting only, no lessons. Prices are chain-wide from clubchampion.com/pricing, not location-specific. Closest Club Champion to Center City, about 7 miles.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://www.clubchampion.com/locations/cherry-hill",
+    "https://www.clubchampion.com/pricing",
+    "https://www.clubchampion.com/locations/"
+   ]
+  },
+  {
+   "id": "club-champion-spring-house",
+   "hobby": "golf",
+   "name": "Club Champion - Spring House",
+   "kind": "fitter",
+   "address": "1105 B North Bethlehem Pike, Suite B, Spring House, PA 19477",
+   "url": "https://www.clubchampion.com/locations/spring-house",
+   "phone": "215-539-2833",
+   "lat": 40.1743636,
+   "lng": -75.2245117,
+   "holes": null,
+   "par": null,
+   "access": null,
+   "services": [
+    "brand-agnostic club fitting",
+    "driver fitting",
+    "iron and wedge fitting",
+    "fairway wood and hybrid fitting",
+    "putter fitting",
+    "full bag fitting",
+    "golf ball fitting",
+    "custom club building",
+    "trade-in"
+   ],
+   "fees": [
+    {
+     "label": "Full bag fitting (3 hours)",
+     "price": 400,
+     "note": "$100 promotional price with a custom equipment purchase, per the chain pricing page"
+    },
+    {
+     "label": "Driver fitting (1.5 hours)",
+     "price": 175,
+     "note": "$50 promotional price with purchase"
+    },
+    {
+     "label": "Iron + wedge fitting (1.5 hours)",
+     "price": 175,
+     "note": "$50 promotional price with purchase"
+    },
+    {
+     "label": "Putter fitting (1 hour)",
+     "price": 125,
+     "note": "$50 promotional price with purchase"
+    },
+    {
+     "label": "Wedge fitting (1 hour)",
+     "price": 100,
+     "note": "$50 promotional price with purchase"
+    }
+   ],
+   "fromPrice": 100.0,
+   "hours": {
+    "monday": "10:00 AM - 6:00 PM",
+    "tuesday": "10:00 AM - 6:00 PM",
+    "wednesday": "10:00 AM - 6:00 PM",
+    "thursday": "10:00 AM - 6:00 PM",
+    "friday": "9:00 AM - 5:00 PM",
+    "saturday": "9:00 AM - 5:00 PM",
+    "sunday": "Closed"
+   },
+   "range": null,
+   "rangeNote": null,
+   "pros": [],
+   "sessions": [],
+   "booking": "https://www.clubchampion.com/locations/spring-house",
+   "notes": "Only PA-side Club Champion near Philadelphia and it is about 22 miles from Center City, slightly outside the 20-mile ring. The page footer contains a stray 'Cary, NC' directions caption, a template error on Club Champion's site.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://www.clubchampion.com/locations/spring-house",
+    "https://www.clubchampion.com/pricing"
+   ]
+  },
+  {
+   "id": "golftec-springfield",
+   "hobby": "golf",
+   "name": "GOLFTEC Springfield",
+   "kind": "academy",
+   "address": "783 W. Sproul Rd., Springfield, PA 19064",
+   "url": "https://www.golftec.com/golf-lessons/springfield",
+   "phone": "484-222-2151",
+   "lat": 39.9373313,
+   "lng": -75.3502429,
+   "holes": null,
+   "par": null,
+   "access": null,
+   "services": [
+    "indoor golf lessons",
+    "swing evaluation",
+    "club fitting",
+    "practice bay rental",
+    "video swing analysis"
+   ],
+   "fees": [],
+   "fromPrice": null,
+   "hours": {
+    "monday": "10:00 AM - 8:00 PM",
+    "tuesday": "8:00 AM - 8:00 PM",
+    "wednesday": "8:00 AM - 8:00 PM",
+    "thursday": "8:00 AM - 8:00 PM",
+    "friday": "8:00 AM - 8:00 PM",
+    "saturday": "8:00 AM - 2:00 PM",
+    "sunday": "8:00 AM - 2:00 PM"
+   },
+   "range": null,
+   "rangeNote": null,
+   "pros": [
+    {
+     "name": "Darryl Welman",
+     "title": "Center Manager, Certified Personal Coach, PGA Member",
+     "lessonPrice": null,
+     "url": "https://www.golftec.com/golf-lessons/springfield"
+    },
+    {
+     "name": "Dominic Frassinelli",
+     "title": "Certified Personal Coach, PGA Member",
+     "lessonPrice": null,
+     "url": "https://www.golftec.com/golf-lessons/springfield"
+    },
+    {
+     "name": "Cole Kaminski",
+     "title": "Certified Personal Coach",
+     "lessonPrice": null,
+     "url": "https://www.golftec.com/golf-lessons/springfield"
+    },
+    {
+     "name": "Drake Ludwick",
+     "title": "Certified Personal Coach",
+     "lessonPrice": null,
+     "url": "https://www.golftec.com/golf-lessons/springfield"
+    }
+   ],
+   "sessions": [],
+   "booking": "https://www.golftec.com/golf-lessons/springfield",
+   "notes": "GOLFTEC publishes no lesson prices on its location pages; the page showed only a 'save up to 25% on lessons' promotion valid to September 30 with pricing described as varying by location. Closest GOLFTEC to Center City on the PA side, about 11 miles.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://www.golftec.com/near/philadelphia",
+    "https://www.golftec.com/golf-lessons/springfield"
+   ]
+  },
+  {
+   "id": "golftec-moorestown",
+   "hobby": "golf",
+   "name": "GOLFTEC Moorestown",
+   "kind": "academy",
+   "address": "300 S. Lenola Rd. Suite 22, Maple Shade, NJ 08052",
+   "url": "https://www.golftec.com/golf-lessons/moorestown",
+   "phone": "856-727-0736",
+   "lat": 39.9473249,
+   "lng": -74.9709767,
+   "holes": null,
+   "par": null,
+   "access": null,
+   "services": [
+    "indoor golf lessons",
+    "swing evaluation",
+    "club fitting",
+    "practice bay rental",
+    "video swing analysis"
+   ],
+   "fees": [],
+   "fromPrice": null,
+   "hours": {
+    "monday": "9:00 AM - 8:30 PM",
+    "tuesday": "9:00 AM - 8:30 PM",
+    "wednesday": "9:00 AM - 8:30 PM",
+    "thursday": "9:00 AM - 8:30 PM",
+    "friday": "9:00 AM - 7:00 PM",
+    "saturday": "8:00 AM - 4:00 PM",
+    "sunday": "8:00 AM - 2:00 PM"
+   },
+   "range": null,
+   "rangeNote": null,
+   "pros": [
+    {
+     "name": "Val Vadino",
+     "title": "Center Manager, PGA Associate",
+     "lessonPrice": null,
+     "url": "https://www.golftec.com/golf-lessons/moorestown"
+    },
+    {
+     "name": "Joe Kogelman",
+     "title": "Center Manager, Certified Personal Coach, PGA Member",
+     "lessonPrice": null,
+     "url": "https://www.golftec.com/golf-lessons/moorestown"
+    },
+    {
+     "name": "Kevin Pogozelski",
+     "title": "Certified Personal Coach",
+     "lessonPrice": null,
+     "url": "https://www.golftec.com/golf-lessons/moorestown"
+    },
+    {
+     "name": "Scott Jones",
+     "title": "Certified Personal Coach",
+     "lessonPrice": null,
+     "url": "https://www.golftec.com/golf-lessons/moorestown"
+    }
+   ],
+   "sessions": [],
+   "booking": "https://www.golftec.com/golf-lessons/moorestown",
+   "notes": "Despite the Moorestown name the center is physically in Maple Shade, NJ, about 11 miles from Center City. No prices published.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://www.golftec.com/near/philadelphia",
+    "https://www.golftec.com/golf-lessons/moorestown"
+   ]
+  },
+  {
+   "id": "golftec-willow-grove",
+   "hobby": "golf",
+   "name": "GOLFTEC Willow Grove",
+   "kind": "academy",
+   "address": "3638 Welsh Road Unit B, Willow Grove, PA 19090",
+   "url": "https://www.golftec.com/golf-lessons/willow-grove",
+   "phone": "215-657-2649",
+   "lat": 40.1522158,
+   "lng": -75.1366861,
+   "holes": null,
+   "par": null,
+   "access": null,
+   "services": [
+    "indoor golf lessons",
+    "swing evaluation",
+    "club fitting",
+    "practice bay rental",
+    "video swing analysis"
+   ],
+   "fees": [],
+   "fromPrice": null,
+   "hours": {
+    "monday": "8:00 AM - 8:00 PM",
+    "tuesday": "8:00 AM - 8:00 PM",
+    "wednesday": "8:00 AM - 8:00 PM",
+    "thursday": "8:00 AM - 8:00 PM",
+    "friday": "8:00 AM - 8:00 PM",
+    "saturday": "7:00 AM - 5:00 PM",
+    "sunday": "8:00 AM - 2:00 PM"
+   },
+   "range": null,
+   "rangeNote": null,
+   "pros": [
+    {
+     "name": "John Cecchini",
+     "title": "Center Manager, Certified Personal Coach",
+     "lessonPrice": null,
+     "url": "https://www.golftec.com/golf-lessons/willow-grove"
+    },
+    {
+     "name": "Brian Devlin",
+     "title": "Certified Personal Coach, PGA Associate",
+     "lessonPrice": null,
+     "url": "https://www.golftec.com/golf-lessons/willow-grove"
+    },
+    {
+     "name": "Dave Milkowski",
+     "title": "Certified Personal Coach, PGA Member",
+     "lessonPrice": null,
+     "url": "https://www.golftec.com/golf-lessons/willow-grove"
+    },
+    {
+     "name": "Joe Orsino",
+     "title": "Certified Personal Coach",
+     "lessonPrice": null,
+     "url": "https://www.golftec.com/golf-lessons/willow-grove"
+    },
+    {
+     "name": "Shawn Germann",
+     "title": "Certified Personal Coach",
+     "lessonPrice": null,
+     "url": "https://www.golftec.com/golf-lessons/willow-grove"
+    },
+    {
+     "name": "Tyler Pennepacker",
+     "title": "Certified Personal Coach, PGA Associate",
+     "lessonPrice": null,
+     "url": "https://www.golftec.com/golf-lessons/willow-grove"
+    }
+   ],
+   "sessions": [],
+   "booking": "https://www.golftec.com/golf-lessons/willow-grove",
+   "notes": "Largest coaching staff of the Philadelphia-area GOLFTEC centers. No prices published on the location page. About 15 miles from Center City.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://www.golftec.com/near/philadelphia",
+    "https://www.golftec.com/golf-lessons/willow-grove"
+   ]
+  },
+  {
+   "id": "golftec-washington-township",
+   "hobby": "golf",
+   "name": "GOLFTEC Washington Township",
+   "kind": "academy",
+   "address": "415 Egg Harbor Rd. Suite 10, Sewell, NJ 08080",
+   "url": "https://www.golftec.com/golf-lessons/washington-township",
+   "phone": "856-286-0551",
+   "lat": 39.7492142,
+   "lng": -75.0765489,
+   "holes": null,
+   "par": null,
+   "access": null,
+   "services": [
+    "indoor golf lessons",
+    "swing evaluation",
+    "club fitting",
+    "practice bay rental"
+   ],
+   "fees": [],
+   "fromPrice": null,
+   "hours": null,
+   "range": null,
+   "rangeNote": null,
+   "pros": [],
+   "sessions": [],
+   "booking": "https://www.golftec.com/golf-lessons/washington-township",
+   "notes": "Address and phone confirmed from the GOLFTEC 'near Philadelphia' page; the individual center page was not fetched in this run, so hours, coach names and pricing are unverified. About 15 miles from Center City.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://www.golftec.com/near/philadelphia"
+   ]
+  },
+  {
+   "id": "five-iron-golf-rittenhouse",
+   "hobby": "golf",
+   "name": "Five Iron Golf - Philadelphia Rittenhouse",
+   "kind": "academy",
+   "address": "2116 Chestnut St., Philadelphia, PA 19103",
+   "url": "https://fiveirongolf.com/locations/philadelphia-rittenhouse",
+   "phone": "800-513-5153",
+   "lat": 39.9520611,
+   "lng": -75.1765532,
+   "holes": null,
+   "par": null,
+   "access": null,
+   "services": [
+    "Trackman simulator rental",
+    "one-on-one golf lessons",
+    "small-group lessons",
+    "swing evaluation",
+    "Callaway Tour club fitting",
+    "leagues",
+    "junior league",
+    "full bar and food",
+    "event space"
+   ],
+   "fees": [
+    {
+     "label": "Membership",
+     "price": 289,
+     "note": "stated as starting at $289 per month; includes 90 minutes of daily simulator play, 20 percent off lessons, a free swing evaluation, club storage and shower access"
+    }
+   ],
+   "fromPrice": 289.0,
+   "hours": {
+    "sunday-thursday": "6:00 AM - 11:00 PM",
+    "friday-saturday": "6:00 AM - 1:00 AM",
+    "member benefit hours": "Mon-Fri 6:00 AM - 4:00 PM, Sat 6:00-8:00 AM, Sun 6:00-8:00 AM and 8:00 PM to close"
+   },
+   "range": null,
+   "rangeNote": null,
+   "pros": [],
+   "sessions": [
+    {
+     "title": "Junior League (ages 7-13), five-week fall program",
+     "day": null,
+     "time": null,
+     "price": null,
+     "note": "location page says the fall program starts the week of Nov. 2; price not stated on the location page"
+    },
+    {
+     "title": "Weekly leagues with prizes",
+     "day": null,
+     "time": null,
+     "price": null,
+     "note": "format and price not stated on the location page"
+    }
+   ],
+   "booking": "https://booking.fiveirongolf.com/select-experience",
+   "notes": "The only indoor golf instruction and fitting venues actually inside Center City. Simulator hourly rates, lesson prices and Callaway fitting prices are not published on the location page; the lessons page timed out on fetch.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://fiveirongolf.com/locations/philadelphia-rittenhouse"
+   ]
+  },
+  {
+   "id": "five-iron-golf-logan-square",
+   "hobby": "golf",
+   "name": "Five Iron Golf - Philadelphia Logan Square",
+   "kind": "academy",
+   "address": "1717 Arch Street, Suite 140, Philadelphia, PA 19103",
+   "url": "https://fiveirongolf.com/locations/philadelphia-logan-square",
+   "phone": "800-513-5153",
+   "lat": 39.9554164,
+   "lng": -75.1690292,
+   "holes": null,
+   "par": null,
+   "access": null,
+   "services": [
+    "Trackman simulator rental",
+    "one-on-one and small-group golf lessons",
+    "swing evaluation",
+    "club fitting",
+    "leagues",
+    "full bar and food",
+    "event space"
+   ],
+   "fees": [
+    {
+     "label": "Membership",
+     "price": 289,
+     "note": "chain membership price shown on Five Iron Philadelphia location pages, per month"
+    }
+   ],
+   "fromPrice": 289.0,
+   "hours": {
+    "sunday-thursday": "6:00 AM - 11:00 PM",
+    "friday-saturday": "6:00 AM - 1:00 AM",
+    "member benefit hours": "Mon-Fri 6:00 AM - 4:00 PM, Sat 6:00-8:00 AM, Sun 6:00-8:00 AM and 8:00 PM to close"
+   },
+   "range": null,
+   "rangeNote": null,
+   "pros": [],
+   "sessions": [],
+   "booking": "https://booking.fiveirongolf.com/select-experience",
+   "notes": "Inside the Comcast Technology Center block at 17th and Arch. Address and hours read from the raw page HTML. No per-session prices published.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://fiveirongolf.com/locations/philadelphia-logan-square"
+   ]
+  },
+  {
+   "id": "five-iron-golf-fishtown",
+   "hobby": "golf",
+   "name": "Five Iron Golf - Philadelphia Fishtown",
+   "kind": "academy",
+   "address": "27 E Allen St., Philadelphia, PA 19123",
+   "url": "https://fiveirongolf.com/locations/philadelphia-fishtown",
+   "phone": "800-513-5153",
+   "lat": 39.9655313,
+   "lng": -75.1352047,
+   "holes": null,
+   "par": null,
+   "access": null,
+   "services": [
+    "Trackman simulator rental",
+    "one-on-one and small-group golf lessons",
+    "swing evaluation",
+    "club fitting",
+    "leagues",
+    "full bar and food",
+    "event space"
+   ],
+   "fees": [
+    {
+     "label": "Membership",
+     "price": 289,
+     "note": "chain membership price shown on Five Iron Philadelphia location pages, per month"
+    }
+   ],
+   "fromPrice": 289.0,
+   "hours": {
+    "sunday-thursday": "6:00 AM - 11:00 PM",
+    "friday-saturday": "6:00 AM - 1:00 AM",
+    "member benefit hours": "Mon-Fri 6:00 AM - 4:00 PM, Sat 6:00-8:00 AM, Sun 6:00-8:00 AM and 8:00 PM to close"
+   },
+   "range": null,
+   "rangeNote": null,
+   "pros": [],
+   "sessions": [],
+   "booking": "https://booking.fiveirongolf.com/select-experience",
+   "notes": "Address and hours read from the raw page HTML. No per-session prices published.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://fiveirongolf.com/locations/philadelphia-fishtown"
+   ]
+  },
+  {
+   "id": "first-tee-greater-philadelphia",
+   "hobby": "golf",
+   "name": "First Tee - Greater Philadelphia",
+   "kind": "academy",
+   "address": "800 Walnut Lane, Philadelphia, PA 19128",
+   "url": "https://firstteephiladelphia.org/",
+   "phone": "215-482-3370",
+   "lat": 40.032061,
+   "lng": -75.2037356,
+   "holes": null,
+   "par": null,
+   "access": null,
+   "services": [
+    "junior golf instruction ages 5-18",
+    "life skills curriculum",
+    "Girls Golf",
+    "Caddie Academy",
+    "Access 2 Golf",
+    "Greenskeeper Pathway Program",
+    "school and community programs",
+    "participant scholarships"
+   ],
+   "fees": [
+    {
+     "label": "Annual membership per child",
+     "price": 20,
+     "note": "grants access to register for any program during the year at no additional cost; financial aid can be requested during membership sign-up"
+    }
+   ],
+   "fromPrice": 20.0,
+   "hours": null,
+   "range": null,
+   "rangeNote": null,
+   "pros": [],
+   "sessions": [
+    {
+     "title": "Winter I (5 weeks)",
+     "day": null,
+     "time": null,
+     "price": null,
+     "note": "Jan 12 to Feb 15, 2026; registration Dec 9, 2025 to Jan 8, 2026"
+    },
+    {
+     "title": "Pre-Season (5 weeks)",
+     "day": null,
+     "time": null,
+     "price": null,
+     "note": "Feb 23 to Mar 29, 2026"
+    },
+    {
+     "title": "Spring I (5 weeks)",
+     "day": null,
+     "time": null,
+     "price": null,
+     "note": "Apr 6 to May 10, 2026"
+    },
+    {
+     "title": "Spring II (5 weeks)",
+     "day": null,
+     "time": null,
+     "price": null,
+     "note": "May 18 to Jun 21, 2026"
+    },
+    {
+     "title": "Summer I (5 weeks)",
+     "day": null,
+     "time": null,
+     "price": null,
+     "note": "Jun 29 to Aug 2, 2026"
+    },
+    {
+     "title": "Summer II (5 weeks)",
+     "day": null,
+     "time": null,
+     "price": null,
+     "note": "Aug 10 to Sep 13, 2026"
+    },
+    {
+     "title": "Fall (5 weeks)",
+     "day": null,
+     "time": null,
+     "price": null,
+     "note": "Sep 21 to Oct 25, 2026; registration Aug 18 to Sep 17"
+    },
+    {
+     "title": "Winter II (5 weeks)",
+     "day": null,
+     "time": null,
+     "price": null,
+     "note": "Nov 2 to Dec 13, 2026; registration Sep 29 to Oct 29"
+    }
+   ],
+   "booking": "https://firstteephiladelphia.org/programs/register/",
+   "notes": "Philadelphia-county program sites named on the locations page: John F. Byrne Golf Club, Walnut Lane Golf Club, Topgolf Northeast Philadelphia. Nearby sites within roughly 20 miles: PGA TOUR Superstore Plymouth Meeting, The Abington Club, Flourtown Country Club, Topgolf King of Prussia, The Skramble House of Golf (King of Prussia), Penn Club on 2nd, Valley View Golf (Delaware County), Bensalem Township Country Club, Bridge Street Golf, Five Ponds Golf Course. Class days and times are not published on the site, only in the registration portal.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://firstteephiladelphia.org/",
+    "https://firstteephiladelphia.org/programs/",
+    "https://firstteephiladelphia.org/programs/register/",
+    "https://firstteephiladelphia.org/programs/locations/"
+   ]
+  },
+  {
+   "id": "pxg-philadelphia-king-of-prussia",
+   "hobby": "golf",
+   "name": "PXG Philadelphia",
+   "kind": "fitter",
+   "address": "555 S Henderson Rd, King of Prussia, PA 19406",
+   "url": "https://www.pxg.com/pages/golf-stores/pxg-philadelphia",
+   "phone": "484-561-6770",
+   "lat": 40.0797456,
+   "lng": -75.3559444,
+   "holes": null,
+   "par": null,
+   "access": null,
+   "services": [
+    "PXG full bag club fitting with TrackMan",
+    "putter fitting in a dedicated 360 sq ft studio",
+    "single club category trial fitting",
+    "golf apparel and accessories retail",
+    "private climate-controlled fitting bays with simulators",
+    "185 sq ft practice putting green"
+   ],
+   "fees": [
+    {
+     "label": "120-minute Full Bag Experience",
+     "price": null,
+     "note": "fitting for all 14 clubs; no price published on the store page"
+    },
+    {
+     "label": "60-minute Player's Choice Experience",
+     "price": null,
+     "note": "one or two club categories; no price published"
+    },
+    {
+     "label": "30-minute Club Trial Experience",
+     "price": null,
+     "note": "single club category; no price published"
+    }
+   ],
+   "fromPrice": null,
+   "hours": {
+    "monday": "9:00 AM - 5:00 PM",
+    "tuesday": "9:00 AM - 5:00 PM",
+    "wednesday": "9:00 AM - 5:00 PM",
+    "thursday": "9:00 AM - 5:00 PM",
+    "friday": "9:00 AM - 5:00 PM",
+    "saturday": "9:00 AM - 5:00 PM",
+    "sunday": "Closed"
+   },
+   "range": null,
+   "rangeNote": null,
+   "pros": [],
+   "sessions": [],
+   "booking": "https://www.pxg.com/pages/golf-stores/pxg-philadelphia",
+   "notes": "Single-brand (PXG) fitting studio, not a multi-brand fitter. Named 'PXG Philadelphia' but physically in King of Prussia, about 18 miles from Center City. No lessons.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://www.pxg.com/pages/golf-stores/pxg-philadelphia"
+   ]
+  },
+  {
+   "id": "izett-golf-ardmore",
+   "hobby": "golf",
+   "name": "Izett Golf",
+   "kind": "fitter",
+   "address": "2538 Haverford Road, Ardmore, PA 19003",
+   "url": "https://izettgolf.com/",
+   "phone": "610-642-1887",
+   "lat": 39.9949445,
+   "lng": -75.300234,
+   "holes": null,
+   "par": null,
+   "access": null,
+   "services": [
+    "custom club fitting ('Core Fitting')",
+    "driver fitting studio",
+    "putter fitting and adjustment",
+    "club repair",
+    "custom club building",
+    "gift certificates"
+   ],
+   "fees": [],
+   "fromPrice": null,
+   "hours": null,
+   "range": null,
+   "rangeNote": null,
+   "pros": [
+    {
+     "name": "George G. Izett",
+     "title": "Active partner, son of founder George M. Izett",
+     "lessonPrice": null,
+     "url": "https://izettgolf.com/aboutus.html"
+    },
+    {
+     "name": "Michael Morrison",
+     "title": "Active partner, joined as an apprentice in 1999",
+     "lessonPrice": null,
+     "url": "https://izettgolf.com/aboutus.html"
+    },
+    {
+     "name": "Jack Popowicz",
+     "title": "Employee since 1964",
+     "lessonPrice": null,
+     "url": "https://izettgolf.com/aboutus.html"
+    }
+   ],
+   "sessions": [],
+   "booking": "Acuity Scheduling link on https://izettgolf.com/customfitting.html",
+   "notes": "Independent Main Line custom clubmaker, roughly 9 miles from Center City, and the closest genuinely independent fitter to the city. The site describes itself as the oldest continuing custom clubfitting company in the country and cites Golf Digest Top 100 Club Fitters recognition for 2007-2021. The site publishes no prices and no hours; the site is old (customer reviews page dated October 2013). No lessons offered.",
+   "verified": "2026-09-24",
+   "sources": [
+    "https://izettgolf.com/",
+    "https://izettgolf.com/aboutus.html",
+    "https://izettgolf.com/customfitting.html"
+   ]
+  }
+ ]
+}

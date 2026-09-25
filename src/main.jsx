@@ -11,6 +11,7 @@ import OpenSeats from './pages/OpenSeats.jsx'
 import Profile from './pages/Profile.jsx'
 import Pricing from './pages/Pricing.jsx'
 import About from './pages/About.jsx'
+import Place from './pages/Place.jsx'
 
 // Hash routing so deep links never 404 on GitHub Pages.
 const router = createHashRouter([
@@ -20,6 +21,7 @@ const router = createHashRouter([
       { index: true, element: <Home /> },
       { path: 'h/:hobby', element: <Hobby /> },
       { path: 's/:id', element: <Session /> },
+      { path: 'p/:id', element: <Place /> },
       { path: 'open', element: <OpenSeats /> },
       { path: 'me', element: <Profile /> },
       { path: 'pricing', element: <Pricing /> },

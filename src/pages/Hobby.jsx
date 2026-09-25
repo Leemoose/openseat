@@ -3,12 +3,15 @@ import { Link, useParams } from 'react-router-dom'
 import { hobbyById } from '../data/hobbies.js'
 import { SESSIONS } from '../data/sessions.js'
 import { SEED_OPEN_SEATS } from '../data/openseats.js'
+import { placesFor, KIND_LABEL, KIND_ORDER } from '../data/places.js'
 import venues from '../data/venues.json'
 import gear from '../data/gear.json'
 import { HOODS, milesBetween, fmtMiles } from '../lib/geo.js'
 import { useStore } from '../lib/store.js'
 import { dayKey, fmtDayLong, fmtRel, fmtTime, fmtPrice } from '../lib/format.js'
+import { isOpenNow } from '../lib/hours.js'
 import { SessionCard, friendsAt, Stamp } from '../components/bits.jsx'
+import PlaceCard from '../components/PlaceCard.jsx'
 import VenueMap from '../components/VenueMap.jsx'
 import { toast } from '../App.jsx'
 
@@ -16,10 +19,14 @@ export default function Hobby() {
   const { hobby: hid } = useParams()
   const hobby = hobbyById(hid)
   const [st, update] = useStore()
-  const [tab, setTab] = useState('sessions')
-  const [radius, setRadius] = useState(5)
+  const rich = placesFor(hid)
+  const [tab, setTab] = useState(rich.length ? 'places' : 'sessions')
+  const [radius, setRadius] = useState(rich.length ? 15 : 5)
   const [firstTime, setFirstTime] = useState(false)
   const [freeOnly, setFreeOnly] = useState(false)
+  const [maxPrice, setMaxPrice] = useState(0) // 0 = any
+  const [kind, setKind] = useState('all')
+  const [openNow, setOpenNow] = useState(false)
   const [gps, setGps] = useState(null)
 
   const here = gps || HOODS.find((h) => h.id === st.me.hood) || HOODS[0]
@@ -27,8 +34,8 @@ export default function Hobby() {
   const list = useMemo(() => SESSIONS
     .filter((s) => s.hobby === hid)
     .map((s) => ({ s, miles: milesBetween(here, s.venue) }))
-    .filter(({ s, miles }) => (miles == null || miles <= radius) && (!firstTime || s.level === 'First time welcome') && (!freeOnly || s.price === 0)),
-  [hid, here, radius, firstTime, freeOnly])
+    .filter(({ s, miles }) => (miles == null || miles <= radius) && (!firstTime || s.level === 'First time welcome') && (!freeOnly || s.price === 0) && (!maxPrice || s.price == null || s.price <= maxPrice)),
+  [hid, here, radius, firstTime, freeOnly, maxPrice])
 
   const byDay = useMemo(() => {
     const m = new Map()
@@ -36,7 +43,14 @@ export default function Hobby() {
     return [...m.values()]
   }, [list])
 
-  const hobbyVenues = venues.filter((v) => v.hobby === hid).map((v) => ({ ...v, miles: milesBetween(here, v), next: SESSIONS.find((s) => s.venueId === v.id) })).sort((a, b) => (a.miles ?? 99) - (b.miles ?? 99))
+  const kinds = useMemo(() => KIND_ORDER.filter((k) => rich.some((p) => p.kind === k)), [rich])
+  const richList = useMemo(() => rich
+    .map((p) => ({ ...p, miles: milesBetween(here, p) }))
+    .filter((p) => (p.miles == null || p.miles <= radius) && (kind === 'all' || p.kind === kind) && (!maxPrice || p.fromPrice == null || p.fromPrice <= maxPrice) && (!openNow || isOpenNow(p.hours) === true))
+    .sort((a, b) => (a.miles ?? 99) - (b.miles ?? 99)),
+  [rich, here, radius, kind, maxPrice, openNow])
+
+  const thinVenues = venues.filter((v) => v.hobby === hid).map((v) => ({ ...v, miles: milesBetween(here, v), next: SESSIONS.find((s) => s.venueId === v.id) })).sort((a, b) => (a.miles ?? 99) - (b.miles ?? 99))
 
   if (!hobby) return <div className="empty">No such hobby. <Link to="/">Back</Link></div>
 
@@ -49,8 +63,12 @@ export default function Hobby() {
     )
   }
 
-  const tabs = [['sessions', `Sessions (${list.length})`], ['places', `Places (${hobbyVenues.length})`]]
+  const tabs = rich.length
+    ? [['places', `Places (${richList.length})`], ['sessions', `Sessions (${list.length})`]]
+    : [['sessions', `Sessions (${list.length})`], ['places', `Places (${thinVenues.length})`]]
   if (hid === 'guitar') tabs.push(['gear', `Used gear (${gear.length})`])
+
+  const priceCap = rich.length ? 150 : 120
 
   return (
     <>
@@ -59,7 +77,7 @@ export default function Hobby() {
           <div>
             <div className="tiny" style={{ color: hobby.tint }}>Philadelphia</div>
             <h1>{hobby.name}</h1>
-            <p className="muted" style={{ marginTop: 6, maxWidth: '48ch' }}>{hobby.blurb} {hobby.primary ? 'Sessions read from venue calendars where we can, sample where we cannot yet.' : 'Thin on purpose: this hobby is not in the first four.'}</p>
+            <p className="muted" style={{ marginTop: 6, maxWidth: '48ch' }}>{hobby.blurb} {rich.length ? `${rich.length} places with rates, hours and instructors checked against their own sites.` : hobby.primary ? 'Sessions read from venue calendars where we can, sample where we cannot yet.' : 'Thin on purpose: this hobby is not in the first four.'}</p>
           </div>
           <div className="g">{hobby.glyph}</div>
         </div>
@@ -73,17 +91,23 @@ export default function Hobby() {
           </select>
         </label>
         <label className="field">Within <b className="mono">{radius} mi</b>
-          <input type="range" min="1" max="25" value={radius} onChange={(e) => setRadius(+e.target.value)} />
+          <input type="range" min="1" max="30" value={radius} onChange={(e) => setRadius(+e.target.value)} />
         </label>
-        <button className={`chip${firstTime ? ' on' : ''}`} onClick={() => setFirstTime(!firstTime)}>First time welcome</button>
-        <button className={`chip${freeOnly ? ' on' : ''}`} onClick={() => setFreeOnly(!freeOnly)}>Free</button>
+        <label className="field">Up to <b className="mono">{maxPrice ? `$${maxPrice}` : 'any $'}</b>
+          <input type="range" min="0" max={priceCap} step="5" value={maxPrice} onChange={(e) => setMaxPrice(+e.target.value)} />
+        </label>
+        {tab === 'sessions' && <>
+          <button className={`chip${firstTime ? ' on' : ''}`} onClick={() => setFirstTime(!firstTime)}>First time welcome</button>
+          <button className={`chip${freeOnly ? ' on' : ''}`} onClick={() => setFreeOnly(!freeOnly)}>Free</button>
+        </>}
+        {tab === 'places' && rich.length > 0 && <button className={`chip${openNow ? ' on' : ''}`} onClick={() => setOpenNow(!openNow)}>Open now</button>}
       </div>
 
       <div className="tabs">{tabs.map(([k, l]) => <button key={k} className={tab === k ? 'on' : ''} onClick={() => setTab(k)}>{l}</button>)}</div>
 
       {tab === 'sessions' && (
         byDay.length === 0
-          ? <div className="empty" style={{ marginTop: 20 }}>Nothing within {radius} miles with those filters. Widen the radius.</div>
+          ? <div className="empty" style={{ marginTop: 20 }}>Nothing within {radius} miles with those filters. Widen the radius or the price.</div>
           : byDay.map((day, di) => (
             <div key={di}>
               <div className="day-h">{fmtRel(day[0].s.start)} <small>{fmtDayLong(day[0].s.start)}</small></div>
@@ -94,18 +118,29 @@ export default function Hobby() {
           ))
       )}
 
-      {tab === 'places' && (
+      {tab === 'places' && rich.length > 0 && (
         <div className="stack" style={{ marginTop: 20 }}>
-          <VenueMap venues={hobbyVenues} tint={hobby.tint} center={here} you={here} zoom={12} />
+          {kinds.length > 1 && (
+            <div className="chips">
+              <button className={`chip${kind === 'all' ? ' on' : ''}`} onClick={() => setKind('all')}>All</button>
+              {kinds.map((k) => <button key={k} className={`chip${kind === k ? ' on' : ''}`} onClick={() => setKind(k)}>{KIND_LABEL[k]} · {rich.filter((p) => p.kind === k).length}</button>)}
+            </div>
+          )}
+          <VenueMap venues={richList} tint={hobby.tint} center={here} you={here} zoom={radius > 12 ? 10 : 11} />
+          {richList.length === 0
+            ? <div className="empty">Nothing within {radius} miles with those filters.</div>
+            : <div className="grid two">{richList.map((p, i) => <PlaceCard key={p.id} p={p} miles={p.miles} i={i} />)}</div>}
+        </div>
+      )}
+
+      {tab === 'places' && rich.length === 0 && (
+        <div className="stack" style={{ marginTop: 20 }}>
+          <VenueMap venues={thinVenues} tint={hobby.tint} center={here} you={here} zoom={12} />
           <div className="grid two">
-            {hobbyVenues.map((v, i) => (
+            {thinVenues.map((v, i) => (
               <div key={v.id} className="card reveal" style={{ '--i': i }}>
-                <div className="between" style={{ alignItems: 'flex-start' }}>
-                  <div>
-                    <h3>{v.name}</h3>
-                    <div className="small muted">{v.address}{v.miles != null && <> · {fmtMiles(v.miles)}</>}</div>
-                  </div>
-                </div>
+                <h3>{v.name}</h3>
+                <div className="small muted">{v.address}{v.miles != null && <> · {fmtMiles(v.miles)}</>}</div>
                 {v.next
                   ? <Link to={`/s/${v.next.id}`} className="small" style={{ display: 'block', marginTop: 10 }}>Next: <b>{v.next.title}</b>, {fmtRel(v.next.start)} {fmtTime(v.next.start)} · {fmtPrice(v.next.price)} <Stamp source={v.next.source} /></Link>
                   : <div className="small muted" style={{ marginTop: 10 }}>No sessions read yet. Adapter pending.</div>}

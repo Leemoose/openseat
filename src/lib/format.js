@@ -9,7 +9,7 @@ export function fmtTime(d) {
 }
 export function fmtDay(d) { return `${DAY[d.getDay()]} ${MON[d.getMonth()]} ${d.getDate()}` }
 export function fmtDayLong(d) { return `${DAY_LONG[d.getDay()]}, ${MON[d.getMonth()]} ${d.getDate()}` }
-export function fmtPrice(p) { return p === 0 ? 'Free' : `$${p}` }
+export function fmtPrice(p) { return p == null ? 'See venue' : p === 0 ? 'Free' : `$${p}` }
 export function fmtRel(d, now = new Date()) {
   const a = new Date(now); a.setHours(0, 0, 0, 0)
   const b = new Date(d); b.setHours(0, 0, 0, 0)
