@@ -31,6 +31,8 @@ EXCLUDE = {
     'manayunk-roxborough-art-center': 'verified: no ceramics on any class page',
     'mt-airy-art-garage': 'verified: no clay; all 14 products are memberships',
     'philly-art-center-cherry-hill': 'ceramics unverified, single testimonial only',
+    'bok-building-ceramics-tenants': 'a building with ceramics tenants, not a venue you can attend',
+    'zone-coverage-note-center-city-south-west': 'agent coverage note, flagged NOT A VENUE in its own record',
 }
 
 cache = json.load(open(CACHE)) if os.path.exists(CACHE) else {}

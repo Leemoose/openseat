@@ -6006,45 +6006,6 @@
    ]
   },
   {
-   "id": "bok-building-ceramics-tenants",
-   "hobby": "pottery",
-   "name": "Bok Building (ceramics tenant cluster)",
-   "kind": "gallery",
-   "address": "1901 S 9th St, Philadelphia, PA 19148",
-   "url": "https://www.buildingbok.com/directory/",
-   "phone": null,
-   "lat": 39.9253363,
-   "lng": -75.1601914,
-   "holes": null,
-   "par": null,
-   "access": null,
-   "services": [
-    "artist studios",
-    "retail from resident ceramic artists",
-    "public events and markets",
-    "one tenant running clay classes and workshops (Arts of Origin)"
-   ],
-   "fees": [],
-   "fromPrice": null,
-   "hours": null,
-   "range": null,
-   "rangeNote": null,
-   "pros": [],
-   "sessions": [],
-   "booking": "none at building level; each tenant books separately",
-   "notes": "SCOPE FLAG: this is a CLUSTER record for one building in South Philadelphia (the former Bok Technical High School), not a single pottery venue. Do not render it as a place page without editing. It is here because Bok is the densest concentration of ceramic practitioners in this zone and every pottery directory I checked misses it entirely. EVIDENCE from Bok's own tenant directory, which is a Squarespace gallery block with tenant name plus tags in the image alt text: ceramics-tagged tenants are Arts of Origin ('BIPOC-owned, music, ceramics + glass, classes + workshops', links to vianneylopez.com, recorded separately in this file), Bottle Underground ('non-profit, community services, ceramics + glass'), Corinna Cowles ('artist, ceramics + glass', who also teaches handbuilding at Black Hound Clay Studio West), Remark Glass ('ceramics + glass, retail, wedding, open to the public'), Rider Ceramics ('artist, ceramics + glass, retail, open to the public', Lauren Rider, who also teaches at Black Hound Clay Studio South), SKOVES ART ('artist, BIPOC-owned, ceramics + glass'), Stover Ceramics ('artist, ceramics + glass, retail, open to the public') and WC Pottery ('artist, ceramics + glass'). ALSO AT BOK: Hilo Fiber Bar (1901 S 9th St Room 302A), which the ClayFinder directory lists as a Philadelphia pottery studio but is a fiber business. OUT OF SCOPE, checked individually this run: Bottle Underground (bottleunderground.org, WordPress, Bok B08, 267-909-9824) is a glass recycling nonprofit, zero occurrences of the word 'workshop' and no clay teaching; Stover Ceramics (stoverceramics.com, Squarespace, 1901 S 9th St, Megan Stover) sells 'wheel thrown and hand carved ceramics' with no classes, no workshops and no membership anywhere on the site; Rider Ceramics (riderceramics.com) is a Square Online retail site for handmade ceramics with no class pages. So of eight ceramics tenants, exactly one teaches the public. NOT CHECKED: SKOVES ART and WC Pottery (wc-pottery.square.site), plus Remark Glass which is glassblowing rather than clay. CHEAPEST NEXT CHECK: those three sites, one fetch each.",
-   "platform": "squarespace",
-   "feedUrl": null,
-   "verified": "2026-09-26",
-   "sources": [
-    "https://www.buildingbok.com/directory/",
-    "https://www.bottleunderground.org/",
-    "https://www.stoverceramics.com/",
-    "https://www.riderceramics.com/",
-    "https://www.clayfinder.com/pottery-classes/pennsylvania/philadelphia"
-   ]
-  },
-  {
    "id": "pafa-continuing-education",
    "hobby": "pottery",
    "name": "Pennsylvania Academy of the Fine Arts, Continuing Education",
