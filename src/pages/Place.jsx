@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom'
-import { placeById, KIND_LABEL } from '../data/places.js'
+import { placeById, allPlacesFor, KIND_LABEL } from '../data/places.js'
 import { hobbyById } from '../data/hobbies.js'
 import { SESSIONS } from '../data/sessions.js'
 import { HOODS, milesBetween, fmtMiles } from '../lib/geo.js'
@@ -25,6 +25,15 @@ export default function Place() {
   const open = isOpenNow(p.hours)
   const today = todayHours(p.hours)
   const upcoming = SESSIONS.filter((s) => s.venueId === p.id).slice(0, 6)
+  // A leaf page with no way onward is a dead end. Offer the nearest places of
+  // the same kind, which is the comparison a visitor is actually making.
+  const nearby = allPlacesFor(p.hobby)
+    .filter((x) => x.id !== p.id && x.lat != null)
+    .map((x) => ({ ...x, miles: milesBetween(p, x) }))
+    // Same kind first, then genuinely nearest. Comparing kinds inside the
+    // comparator is not a total order and left the distances shuffled.
+    .sort((a, b) => ((a.kind === p.kind ? 0 : 1) - (b.kind === p.kind ? 0 : 1)) || (a.miles ?? 999) - (b.miles ?? 999))
+    .slice(0, 4)
   const facts = [
     p.holes && `${p.holes} holes${p.par ? `, par ${p.par}` : ''}`,
     p.access, p.range === true && 'Driving range on site', p.rangeNote,
@@ -33,7 +42,9 @@ export default function Place() {
 
   return (
     <>
-      <div className="small"><Link to={`/h/${p.hobby}`} style={{ color: hobby.tint, fontWeight: 600, textDecoration: 'none' }}>← {hobby.name}</Link></div>
+      <div className="crumb">
+        <Link to="/">All hobbies</Link> <span>/</span> <Link to={`/h/${p.hobby}`}>{hobby.name}</Link> <span>/</span> <b>{p.name}</b>
+      </div>
       <div className="band reveal" style={{ '--tint': hobby.tint, marginTop: 10 }}>
         <div className="row" style={{ marginBottom: 8 }}>
           <span className="chip" style={{ background: 'var(--paper)' }}>{KIND_LABEL[p.kind] || p.kind}</span>
@@ -112,8 +123,26 @@ export default function Place() {
             <div className="card">
               <h3>Programs</h3>
               <div className="stack" style={{ gap: 8, marginTop: 10 }}>
-                {p.sessions.map((s, i) => <div key={i} className="small"><b>{s.title}</b> · {[s.day, s.time].filter(Boolean).join(' ')}{s.price != null && <> · {money(s.price)}</>}{s.note && <div className="muted">{s.note}</div>}</div>)}
+                {p.sessions.map((s, i) => {
+                  // A program often has no day or no price; joining blanks left "· ·" on the line.
+                  const meta = [[s.day, s.time].filter(Boolean).join(' '), s.price != null ? money(s.price) : null].filter(Boolean).join(' · ')
+                  return <div key={i} className="small"><b>{s.title}</b>{meta && <> · {meta}</>}{s.note && <div className="muted">{s.note}</div>}</div>
+                })}
               </div>
+            </div>
+          )}
+          {nearby.length > 0 && (
+            <div className="card">
+              <h3>Nearby, same hobby</h3>
+              <div className="stack" style={{ gap: 8, marginTop: 10 }}>
+                {nearby.map((x) => (
+                  <Link key={x.id} to={`/p/${x.id}`} className="small between" style={{ textDecoration: 'none' }}>
+                    <span><b>{x.name}</b><br /><span className="muted">{KIND_LABEL[x.kind] || 'Place'} · {fmtMiles(x.miles)} away</span></span>
+                    {x.fromPrice != null && <span className="price">${x.fromPrice % 1 ? x.fromPrice.toFixed(2) : x.fromPrice}</span>}
+                  </Link>
+                ))}
+              </div>
+              <Link className="small" to={`/h/${p.hobby}`} style={{ display: 'inline-block', marginTop: 10 }}>All {hobby.name.toLowerCase()} places →</Link>
             </div>
           )}
           {p.sources?.length > 0 && (

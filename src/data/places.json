@@ -134,7 +134,16 @@
    "holes": 18,
    "par": 62,
    "access": "Public (city course operated by First Tee Greater Philadelphia)",
-   "services": null,
+   "services": [
+    "junior golf instruction ages 5-18",
+    "life skills curriculum",
+    "Girls Golf",
+    "Caddie Academy",
+    "Access 2 Golf",
+    "Greenskeeper Pathway Program",
+    "school and community programs",
+    "participant scholarships"
+   ],
    "fees": [
     {
      "label": "Small bucket (40-45 balls)",
@@ -175,6 +184,11 @@
      "label": "Club rental",
      "price": 32,
      "note": null
+    },
+    {
+     "label": "Annual membership per child",
+     "price": 20,
+     "note": "grants access to register for any program during the year at no additional cost; financial aid can be requested during membership sign-up"
     }
    ],
    "fromPrice": null,
@@ -196,6 +210,62 @@
      "time": null,
      "price": null,
      "note": "Listed as 'Thursday Spark Ladies 2025', links to spark.golf"
+    },
+    {
+     "title": "Winter I (5 weeks)",
+     "day": null,
+     "time": null,
+     "price": null,
+     "note": "Jan 12 to Feb 15, 2026; registration Dec 9, 2025 to Jan 8, 2026"
+    },
+    {
+     "title": "Pre-Season (5 weeks)",
+     "day": null,
+     "time": null,
+     "price": null,
+     "note": "Feb 23 to Mar 29, 2026"
+    },
+    {
+     "title": "Spring I (5 weeks)",
+     "day": null,
+     "time": null,
+     "price": null,
+     "note": "Apr 6 to May 10, 2026"
+    },
+    {
+     "title": "Spring II (5 weeks)",
+     "day": null,
+     "time": null,
+     "price": null,
+     "note": "May 18 to Jun 21, 2026"
+    },
+    {
+     "title": "Summer I (5 weeks)",
+     "day": null,
+     "time": null,
+     "price": null,
+     "note": "Jun 29 to Aug 2, 2026"
+    },
+    {
+     "title": "Summer II (5 weeks)",
+     "day": null,
+     "time": null,
+     "price": null,
+     "note": "Aug 10 to Sep 13, 2026"
+    },
+    {
+     "title": "Fall (5 weeks)",
+     "day": null,
+     "time": null,
+     "price": null,
+     "note": "Sep 21 to Oct 25, 2026; registration Aug 18 to Sep 17"
+    },
+    {
+     "title": "Winter II (5 weeks)",
+     "day": null,
+     "time": null,
+     "price": null,
+     "note": "Nov 2 to Dec 13, 2026; registration Sep 29 to Oct 29"
     }
    ],
    "booking": "Lightspeed Golf on the club site; GolfNow",
@@ -207,7 +277,11 @@
     "https://walnutlanegolf.com/rates/",
     "https://walnutlanegolf.com/practice-facility/",
     "https://walnutlanegolf.com/lessons/",
-    "https://walnutlanegolf.com/leagues/"
+    "https://walnutlanegolf.com/leagues/",
+    "https://firstteephiladelphia.org/",
+    "https://firstteephiladelphia.org/programs/",
+    "https://firstteephiladelphia.org/programs/register/",
+    "https://firstteephiladelphia.org/programs/locations/"
    ]
   },
   {
@@ -1191,7 +1265,15 @@
    "holes": null,
    "par": null,
    "access": null,
-   "services": null,
+   "services": [
+    "Trackman simulator rental",
+    "one-on-one and small-group golf lessons",
+    "swing evaluation",
+    "club fitting",
+    "leagues",
+    "full bar and food",
+    "event space"
+   ],
    "fees": [
     {
      "label": "Membership (Philadelphia), starting",
@@ -1202,9 +1284,14 @@
      "label": "Simulator bay rental (hourly)",
      "price": null,
      "note": "Site links to 'Sim Rental Pricing' but no rate is shown on the public page; rates appear only inside the booking widget"
+    },
+    {
+     "label": "Membership",
+     "price": 289,
+     "note": "chain membership price shown on Five Iron Philadelphia location pages, per month"
     }
    ],
-   "fromPrice": 289.0,
+   "fromPrice": null,
    "hours": "Sun-Thu 6 AM - 11 PM; Fri-Sat 6 AM - 1 AM. Member benefit hours Mon-Fri 6 AM-4 PM, Sat 6-8 AM, Sun 6-8 AM and 8 PM-close",
    "range": null,
    "rangeNote": null,
@@ -1224,7 +1311,8 @@
    "sources": [
     "https://www.fiveirongolf.com/locations/philadelphia-fishtown",
     "https://www.fiveirongolf.com/locations",
-    "https://www.fiveirongolf.com/locations/philadelphia-fishtown/pricing"
+    "https://www.fiveirongolf.com/locations/philadelphia-fishtown/pricing",
+    "https://fiveirongolf.com/locations/philadelphia-fishtown"
    ]
   },
   {
@@ -1240,7 +1328,17 @@
    "holes": null,
    "par": null,
    "access": null,
-   "services": null,
+   "services": [
+    "Trackman simulator rental",
+    "one-on-one golf lessons",
+    "small-group lessons",
+    "swing evaluation",
+    "Callaway Tour club fitting",
+    "leagues",
+    "junior league",
+    "full bar and food",
+    "event space"
+   ],
    "fees": [
     {
      "label": "Membership (Philadelphia), starting",
@@ -1251,9 +1349,14 @@
      "label": "Simulator bay rental (hourly)",
      "price": null,
      "note": "'Sim Rental Pricing' link only; no rate published on the location page"
+    },
+    {
+     "label": "Membership",
+     "price": 289,
+     "note": "stated as starting at $289 per month; includes 90 minutes of daily simulator play, 20 percent off lessons, a free swing evaluation, club storage and shower access"
     }
    ],
-   "fromPrice": 289.0,
+   "fromPrice": null,
    "hours": "Sun-Thu 6 AM - 11 PM; Fri-Sat 6 AM - 1 AM. Member benefit hours Mon-Fri 6 AM-4 PM, Sat 6-8 AM, Sun 6-8 AM and 8 PM-close",
    "range": null,
    "rangeNote": null,
@@ -1265,6 +1368,20 @@
      "time": null,
      "price": null,
      "note": "5 weeks starting the week of November 2nd, ages 7-13"
+    },
+    {
+     "title": "Junior League (ages 7-13), five-week fall program",
+     "day": null,
+     "time": null,
+     "price": null,
+     "note": "location page says the fall program starts the week of Nov. 2; price not stated on the location page"
+    },
+    {
+     "title": "Weekly leagues with prizes",
+     "day": null,
+     "time": null,
+     "price": null,
+     "note": "format and price not stated on the location page"
     }
    ],
    "booking": "Own system (fiveirongolf.com booking widget)",
@@ -1272,7 +1389,8 @@
    "verified": "2026-09-24",
    "sources": [
     "https://www.fiveirongolf.com/locations/philadelphia-rittenhouse",
-    "https://www.fiveirongolf.com/locations"
+    "https://www.fiveirongolf.com/locations",
+    "https://fiveirongolf.com/locations/philadelphia-rittenhouse"
    ]
   },
   {
@@ -1288,7 +1406,15 @@
    "holes": null,
    "par": null,
    "access": null,
-   "services": null,
+   "services": [
+    "Trackman simulator rental",
+    "one-on-one and small-group golf lessons",
+    "swing evaluation",
+    "club fitting",
+    "leagues",
+    "full bar and food",
+    "event space"
+   ],
    "fees": [
     {
      "label": "Membership (Philadelphia), starting",
@@ -1299,9 +1425,14 @@
      "label": "Simulator bay rental (hourly)",
      "price": null,
      "note": "Not published on the location page"
+    },
+    {
+     "label": "Membership",
+     "price": 289,
+     "note": "chain membership price shown on Five Iron Philadelphia location pages, per month"
     }
    ],
-   "fromPrice": 289.0,
+   "fromPrice": null,
    "hours": "Sun-Thu 6 AM - 11 PM; Fri-Sat 6 AM - 1 AM. Member benefit hours Mon-Fri 6 AM-4 PM, Sat-Sun 6-8 AM and 8 PM-close",
    "range": null,
    "rangeNote": null,
@@ -1320,7 +1451,8 @@
    "verified": "2026-09-24",
    "sources": [
     "https://www.fiveirongolf.com/locations/philadelphia-logan-square",
-    "https://www.fiveirongolf.com/locations"
+    "https://www.fiveirongolf.com/locations",
+    "https://fiveirongolf.com/locations/philadelphia-logan-square"
    ]
   },
   {
@@ -1619,7 +1751,7 @@
      "note": "per week with an annual subscription; includes up to two hours on one simulator per weekday before 4 PM"
     }
    ],
-   "fromPrice": 40.0,
+   "fromPrice": null,
    "hours": null,
    "range": null,
    "rangeNote": null,
@@ -1819,7 +1951,7 @@
      "note": "per hour; packages available"
     }
    ],
-   "fromPrice": 45.0,
+   "fromPrice": 50.0,
    "hours": "Open every day 9 AM - 9:15 PM; members have 24/7 access",
    "range": null,
    "rangeNote": null,
@@ -2530,264 +2662,6 @@
    "verified": "2026-09-24",
    "sources": [
     "https://www.golftec.com/near/philadelphia"
-   ]
-  },
-  {
-   "id": "five-iron-golf-rittenhouse",
-   "hobby": "golf",
-   "name": "Five Iron Golf - Philadelphia Rittenhouse",
-   "kind": "academy",
-   "address": "2116 Chestnut St., Philadelphia, PA 19103",
-   "url": "https://fiveirongolf.com/locations/philadelphia-rittenhouse",
-   "phone": "800-513-5153",
-   "lat": 39.9520611,
-   "lng": -75.1765532,
-   "holes": null,
-   "par": null,
-   "access": null,
-   "services": [
-    "Trackman simulator rental",
-    "one-on-one golf lessons",
-    "small-group lessons",
-    "swing evaluation",
-    "Callaway Tour club fitting",
-    "leagues",
-    "junior league",
-    "full bar and food",
-    "event space"
-   ],
-   "fees": [
-    {
-     "label": "Membership",
-     "price": 289,
-     "note": "stated as starting at $289 per month; includes 90 minutes of daily simulator play, 20 percent off lessons, a free swing evaluation, club storage and shower access"
-    }
-   ],
-   "fromPrice": 289.0,
-   "hours": {
-    "sunday-thursday": "6:00 AM - 11:00 PM",
-    "friday-saturday": "6:00 AM - 1:00 AM",
-    "member benefit hours": "Mon-Fri 6:00 AM - 4:00 PM, Sat 6:00-8:00 AM, Sun 6:00-8:00 AM and 8:00 PM to close"
-   },
-   "range": null,
-   "rangeNote": null,
-   "pros": [],
-   "sessions": [
-    {
-     "title": "Junior League (ages 7-13), five-week fall program",
-     "day": null,
-     "time": null,
-     "price": null,
-     "note": "location page says the fall program starts the week of Nov. 2; price not stated on the location page"
-    },
-    {
-     "title": "Weekly leagues with prizes",
-     "day": null,
-     "time": null,
-     "price": null,
-     "note": "format and price not stated on the location page"
-    }
-   ],
-   "booking": "https://booking.fiveirongolf.com/select-experience",
-   "notes": "The only indoor golf instruction and fitting venues actually inside Center City. Simulator hourly rates, lesson prices and Callaway fitting prices are not published on the location page; the lessons page timed out on fetch.",
-   "verified": "2026-09-24",
-   "sources": [
-    "https://fiveirongolf.com/locations/philadelphia-rittenhouse"
-   ]
-  },
-  {
-   "id": "five-iron-golf-logan-square",
-   "hobby": "golf",
-   "name": "Five Iron Golf - Philadelphia Logan Square",
-   "kind": "academy",
-   "address": "1717 Arch Street, Suite 140, Philadelphia, PA 19103",
-   "url": "https://fiveirongolf.com/locations/philadelphia-logan-square",
-   "phone": "800-513-5153",
-   "lat": 39.9554164,
-   "lng": -75.1690292,
-   "holes": null,
-   "par": null,
-   "access": null,
-   "services": [
-    "Trackman simulator rental",
-    "one-on-one and small-group golf lessons",
-    "swing evaluation",
-    "club fitting",
-    "leagues",
-    "full bar and food",
-    "event space"
-   ],
-   "fees": [
-    {
-     "label": "Membership",
-     "price": 289,
-     "note": "chain membership price shown on Five Iron Philadelphia location pages, per month"
-    }
-   ],
-   "fromPrice": 289.0,
-   "hours": {
-    "sunday-thursday": "6:00 AM - 11:00 PM",
-    "friday-saturday": "6:00 AM - 1:00 AM",
-    "member benefit hours": "Mon-Fri 6:00 AM - 4:00 PM, Sat 6:00-8:00 AM, Sun 6:00-8:00 AM and 8:00 PM to close"
-   },
-   "range": null,
-   "rangeNote": null,
-   "pros": [],
-   "sessions": [],
-   "booking": "https://booking.fiveirongolf.com/select-experience",
-   "notes": "Inside the Comcast Technology Center block at 17th and Arch. Address and hours read from the raw page HTML. No per-session prices published.",
-   "verified": "2026-09-24",
-   "sources": [
-    "https://fiveirongolf.com/locations/philadelphia-logan-square"
-   ]
-  },
-  {
-   "id": "five-iron-golf-fishtown",
-   "hobby": "golf",
-   "name": "Five Iron Golf - Philadelphia Fishtown",
-   "kind": "academy",
-   "address": "27 E Allen St., Philadelphia, PA 19123",
-   "url": "https://fiveirongolf.com/locations/philadelphia-fishtown",
-   "phone": "800-513-5153",
-   "lat": 39.9655313,
-   "lng": -75.1352047,
-   "holes": null,
-   "par": null,
-   "access": null,
-   "services": [
-    "Trackman simulator rental",
-    "one-on-one and small-group golf lessons",
-    "swing evaluation",
-    "club fitting",
-    "leagues",
-    "full bar and food",
-    "event space"
-   ],
-   "fees": [
-    {
-     "label": "Membership",
-     "price": 289,
-     "note": "chain membership price shown on Five Iron Philadelphia location pages, per month"
-    }
-   ],
-   "fromPrice": 289.0,
-   "hours": {
-    "sunday-thursday": "6:00 AM - 11:00 PM",
-    "friday-saturday": "6:00 AM - 1:00 AM",
-    "member benefit hours": "Mon-Fri 6:00 AM - 4:00 PM, Sat 6:00-8:00 AM, Sun 6:00-8:00 AM and 8:00 PM to close"
-   },
-   "range": null,
-   "rangeNote": null,
-   "pros": [],
-   "sessions": [],
-   "booking": "https://booking.fiveirongolf.com/select-experience",
-   "notes": "Address and hours read from the raw page HTML. No per-session prices published.",
-   "verified": "2026-09-24",
-   "sources": [
-    "https://fiveirongolf.com/locations/philadelphia-fishtown"
-   ]
-  },
-  {
-   "id": "first-tee-greater-philadelphia",
-   "hobby": "golf",
-   "name": "First Tee - Greater Philadelphia",
-   "kind": "academy",
-   "address": "800 Walnut Lane, Philadelphia, PA 19128",
-   "url": "https://firstteephiladelphia.org/",
-   "phone": "215-482-3370",
-   "lat": 40.032061,
-   "lng": -75.2037356,
-   "holes": null,
-   "par": null,
-   "access": null,
-   "services": [
-    "junior golf instruction ages 5-18",
-    "life skills curriculum",
-    "Girls Golf",
-    "Caddie Academy",
-    "Access 2 Golf",
-    "Greenskeeper Pathway Program",
-    "school and community programs",
-    "participant scholarships"
-   ],
-   "fees": [
-    {
-     "label": "Annual membership per child",
-     "price": 20,
-     "note": "grants access to register for any program during the year at no additional cost; financial aid can be requested during membership sign-up"
-    }
-   ],
-   "fromPrice": 20.0,
-   "hours": null,
-   "range": null,
-   "rangeNote": null,
-   "pros": [],
-   "sessions": [
-    {
-     "title": "Winter I (5 weeks)",
-     "day": null,
-     "time": null,
-     "price": null,
-     "note": "Jan 12 to Feb 15, 2026; registration Dec 9, 2025 to Jan 8, 2026"
-    },
-    {
-     "title": "Pre-Season (5 weeks)",
-     "day": null,
-     "time": null,
-     "price": null,
-     "note": "Feb 23 to Mar 29, 2026"
-    },
-    {
-     "title": "Spring I (5 weeks)",
-     "day": null,
-     "time": null,
-     "price": null,
-     "note": "Apr 6 to May 10, 2026"
-    },
-    {
-     "title": "Spring II (5 weeks)",
-     "day": null,
-     "time": null,
-     "price": null,
-     "note": "May 18 to Jun 21, 2026"
-    },
-    {
-     "title": "Summer I (5 weeks)",
-     "day": null,
-     "time": null,
-     "price": null,
-     "note": "Jun 29 to Aug 2, 2026"
-    },
-    {
-     "title": "Summer II (5 weeks)",
-     "day": null,
-     "time": null,
-     "price": null,
-     "note": "Aug 10 to Sep 13, 2026"
-    },
-    {
-     "title": "Fall (5 weeks)",
-     "day": null,
-     "time": null,
-     "price": null,
-     "note": "Sep 21 to Oct 25, 2026; registration Aug 18 to Sep 17"
-    },
-    {
-     "title": "Winter II (5 weeks)",
-     "day": null,
-     "time": null,
-     "price": null,
-     "note": "Nov 2 to Dec 13, 2026; registration Sep 29 to Oct 29"
-    }
-   ],
-   "booking": "https://firstteephiladelphia.org/programs/register/",
-   "notes": "Philadelphia-county program sites named on the locations page: John F. Byrne Golf Club, Walnut Lane Golf Club, Topgolf Northeast Philadelphia. Nearby sites within roughly 20 miles: PGA TOUR Superstore Plymouth Meeting, The Abington Club, Flourtown Country Club, Topgolf King of Prussia, The Skramble House of Golf (King of Prussia), Penn Club on 2nd, Valley View Golf (Delaware County), Bensalem Township Country Club, Bridge Street Golf, Five Ponds Golf Course. Class days and times are not published on the site, only in the registration portal.",
-   "verified": "2026-09-24",
-   "sources": [
-    "https://firstteephiladelphia.org/",
-    "https://firstteephiladelphia.org/programs/",
-    "https://firstteephiladelphia.org/programs/register/",
-    "https://firstteephiladelphia.org/programs/locations/"
    ]
   },
   {

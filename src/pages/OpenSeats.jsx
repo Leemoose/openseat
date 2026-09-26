@@ -26,7 +26,7 @@ export default function OpenSeats() {
         <p className="muted" style={{ marginTop: 10, maxWidth: '52ch' }}>People already going to a session who have room for one more. Ask to join, they see your profile, you both show up. Post your own from any session page.</p>
       </div>
       <div className="controls">
-        <div className="chips">
+        <div className="chips scroll">
           <button className={`chip${hobby === 'all' ? ' on' : ''}`} onClick={() => setHobby('all')}>All</button>
           {HOBBIES.map((h) => <button key={h.id} className={`chip${hobby === h.id ? ' on' : ''}`} onClick={() => setHobby(h.id)}>{h.name}</button>)}
         </div>

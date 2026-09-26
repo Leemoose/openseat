@@ -19,5 +19,14 @@ export function fmtRel(d, now = new Date()) {
   if (diff < 7) return DAY_LONG[d.getDay()]
   return fmtDay(d)
 }
+// "19:00" -> "7pm". Series carry raw clock strings, not Dates.
+export function fmtClock(hhmm) {
+  const m = /^(\d{1,2}):(\d{2})$/.exec(String(hhmm || ''))
+  if (!m) return String(hhmm || '')
+  let h = +m[1]; const min = m[2]; const ap = h >= 12 ? 'pm' : 'am'
+  h = h % 12 || 12
+  return min === '00' ? `${h}${ap}` : `${h}:${min}${ap}`
+}
 export function weekdayName(i) { return DAY_LONG[i] }
+export function dayShort(i) { return DAY[i] }
 export function dayKey(d) { return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}` }

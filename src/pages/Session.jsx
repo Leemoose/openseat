@@ -39,7 +39,9 @@ export default function Session() {
 
   return (
     <>
-      <div className="small"><Link to={`/h/${s.hobby}`} style={{ color: hobby.tint, fontWeight: 600, textDecoration: 'none' }}>← {hobby.name}</Link></div>
+      <div className="crumb">
+        <Link to="/">All hobbies</Link> <span>/</span> <Link to={`/h/${s.hobby}`}>{hobby.name}</Link> <span>/</span> <b>{s.title}</b>
+      </div>
       <div className="band reveal" style={{ '--tint': hobby.tint, marginTop: 10 }}>
         <div className="row" style={{ marginBottom: 8 }}><Stamp source={s.source} />{s.recurring && <span className="tiny">Every {weekdayName(s.weekday)}</span>}</div>
         <h1>{s.title}</h1>

@@ -63,10 +63,32 @@ p { margin: 0; }
 .logo i { width: 14px; height: 14px; border: 3px solid var(--clay); border-radius: 50%; display: inline-block; }
 .logo b { font-weight: 600; }
 .logo .tag { font-family: var(--body); font-style: normal; font-weight: 600; font-size: .6rem; letter-spacing: .12em; text-transform: uppercase; color: var(--clay); border: 1px solid var(--clay); padding: 2px 5px; border-radius: 3px; margin-left: 4px; }
-.nav { display: none; gap: 4px; }
-.nav a { text-decoration: none; padding: 6px 12px; border-radius: 999px; font-weight: 500; font-size: .95rem; color: var(--ink-2); }
+.nav { display: none; gap: 4px; flex: none; }
+.nav a { text-decoration: none; padding: 6px 12px; border-radius: 999px; font-weight: 500; font-size: .95rem; color: var(--ink-2); white-space: nowrap; }
 .nav a.active, .nav a:hover { color: var(--ink); background: var(--paper-2); }
 @media (min-width: 720px) { .nav { display: flex; } }
+.hdr .logo { flex: none; }
+@media (max-width: 520px) { .hdr .logo .tag { display: none; } }
+
+/* search */
+.search { position: relative; display: flex; align-items: center; gap: 6px; flex: 1 1 auto; min-width: 0; max-width: 340px; border: 1px solid var(--line); background: var(--paper-2); border-radius: 999px; padding: 0 12px; height: 36px; }
+.search:focus-within { border-color: var(--ink); background: var(--paper); }
+.search .ic { color: var(--ink-3); font-size: 1.05rem; line-height: 1; flex: none; }
+.search input { border: 0; background: transparent; outline: none; width: 100%; min-width: 0; font-size: .9rem; }
+.search input::-webkit-search-cancel-button { -webkit-appearance: none; }
+.search .results { position: absolute; top: calc(100% + 6px); left: 0; right: 0; min-width: 260px; background: var(--paper); border: 1.5px solid var(--ink); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; z-index: 60; max-height: 60vh; overflow-y: auto; }
+.search .results button { display: grid; grid-template-columns: auto 1fr; gap: 2px 8px; width: 100%; text-align: left; background: none; border: 0; border-bottom: 1px solid var(--line); padding: 8px 12px; }
+.search .results button:last-child { border-bottom: 0; }
+.search .results button.on { background: var(--paper-2); }
+.search .results .t { grid-row: 1 / span 2; align-self: center; font-size: .6rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); width: 44px; }
+.search .results .l { font-weight: 600; font-size: .9rem; line-height: 1.2; }
+.search .results .s { font-size: .78rem; color: var(--ink-3); }
+.search .results .none { padding: 12px; font-size: .85rem; color: var(--ink-3); }
+.herosearch { margin-top: 18px; }
+.herosearch .search { max-width: 420px; height: 44px; font-size: 1rem; box-shadow: var(--shadow-sm); border-color: var(--ink); }
+/* The header search is the only thing that can shrink, so hide it where the
+   logo and nav already fill the bar; the hero keeps a full-size one. */
+@media (max-width: 719px) { .hdr .search { display: none; } }
 
 /* bottom nav on phones */
 .bnav { position: fixed; left: 0; right: 0; bottom: 0; z-index: 50; display: grid; grid-template-columns: repeat(4, 1fr); background: var(--paper); border-top: 1px solid var(--line); padding-bottom: env(safe-area-inset-bottom); }
@@ -92,6 +114,12 @@ p { margin: 0; }
 .chip { display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border-radius: 999px; border: 1px solid var(--line); background: var(--paper-2); font-size: .85rem; font-weight: 500; text-decoration: none; cursor: pointer; white-space: nowrap; }
 .chip.on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+/* A long chip row wraps to three lines on a phone and pushes every result off
+   the screen. Scroll it sideways instead, the way every app store does. */
+@media (max-width: 719px) {
+  .chips.scroll { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: -16px; padding-inline: 16px; }
+  .chips.scroll::-webkit-scrollbar { display: none; }
+}
 
 /* rubber-stamp source tag */
 .stamp { display: inline-block; font-size: .62rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: 2px 6px; border: 1.5px solid currentColor; border-radius: 3px; transform: rotate(-2deg); opacity: .85; }
@@ -158,6 +186,7 @@ p { margin: 0; }
 .tile h3 { font-size: 1.3rem; margin-top: 12px; }
 .tile p { font-size: .82rem; color: var(--ink-2); margin-top: 4px; }
 .tile .n { position: absolute; top: 10px; right: 12px; font-size: .7rem; font-weight: 700; color: var(--tint); letter-spacing: .06em; }
+.tile .stat { font-size: .74rem; color: var(--ink-3); margin-top: 6px; }
 .tile.minor { min-height: 96px; box-shadow: none; border-color: var(--line); }
 .tile.minor:hover { box-shadow: var(--shadow-sm); border-color: var(--ink); }
 .tile.minor .g { font-size: 1.5rem; }
@@ -168,19 +197,69 @@ p { margin: 0; }
 .band h1 { font-size: clamp(2rem, 5vw, 3rem); }
 .band .g { font-family: var(--display); font-size: 3rem; line-height: 1; color: var(--tint); }
 
+/* breadcrumb */
+.crumb { font-size: .8rem; color: var(--ink-3); display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-bottom: 12px; }
+.crumb a { color: var(--ink-2); font-weight: 600; text-decoration: none; }
+.crumb a:hover { color: var(--ink); text-decoration: underline; }
+.crumb b { font-weight: 600; color: var(--ink); }
+.crumb span { color: var(--line); }
+
+/* compact hobby header: name + the one line that decides the click */
+.hband { display: flex; align-items: center; gap: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+.hband .g { font-family: var(--display); font-size: 2.2rem; line-height: 1; color: var(--tint); flex: none; }
+.hband h1 { font-size: clamp(1.9rem, 5vw, 2.8rem); }
+.hband .sum { font-size: .9rem; color: var(--ink-2); margin-top: 4px; }
+
 /* controls */
 .controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 18px 0 6px; }
-.field { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line); background: var(--paper-2); border-radius: 999px; padding: 4px 6px 4px 12px; font-size: .875rem; }
+.field { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line); background: var(--paper-2); border-radius: 999px; padding: 4px 6px 4px 12px; font-size: .875rem; white-space: nowrap; }
 .field select, .field input[type=range] { border: 0; background: transparent; font-weight: 600; outline: none; }
 .field select { padding: 4px 4px; max-width: 160px; }
 .field input[type=range] { width: 110px; accent-color: var(--clay); }
-.tabs { display: flex; gap: 0; border-bottom: 1.5px solid var(--ink); margin-top: 20px; }
-.tabs button { background: none; border: 0; padding: 10px 14px; font-weight: 600; color: var(--ink-3); border-bottom: 3px solid transparent; margin-bottom: -1.5px; }
+
+/* Filters sit under the tabs, not above the results, and the secondary ones
+   stay folded away until asked for. You cannot filter what you have not seen. */
+.filtbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 14px; }
+.filtbar .chip.more { font-weight: 600; }
+.filtbar .chip.clear { border-style: dashed; background: transparent; }
+.morefilt { display: none; flex-wrap: wrap; gap: 8px; align-items: center; width: 100%; }
+.morefilt.open { display: flex; }
+@media (min-width: 720px) {
+  .filtbar .chip.more { display: none; }
+  .morefilt { display: flex; width: auto; }
+}
+
+.tabs { display: flex; gap: 0; border-bottom: 1.5px solid var(--ink); margin-top: 16px; overflow-x: auto; scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.tabs button { background: none; border: 0; padding: 10px 14px; font-weight: 600; color: var(--ink-3); border-bottom: 3px solid transparent; margin-bottom: -1.5px; white-space: nowrap; }
+.tabs button small { font-family: var(--body); font-weight: 600; font-size: .72rem; color: var(--ink-3); margin-left: 3px; }
 .tabs button.on { color: var(--ink); border-bottom-color: var(--clay); }
+.tabs button.on small { color: var(--clay); }
+
+/* group heading inside a view */
+.grp { display: flex; align-items: baseline; gap: 10px; margin: 6px 0 12px; }
+.grp h2 { font-size: 1.25rem; }
+
+/* series card: the repeating class, with the pattern on the rail */
+.ser { display: grid; grid-template-columns: 74px 1fr; gap: 14px; }
+.ser .cad { border-right: 1px solid var(--line); padding-right: 10px; text-align: center; align-self: start; }
+.ser .cad .d { font-size: .66rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--clay); margin-top: 4px; line-height: 1.3; }
+.ser .cad .tm { font-family: var(--display); font-size: 1.35rem; font-weight: 600; line-height: 1; }
+.ser .cad .tm small { font-family: var(--body); font-size: .6rem; font-weight: 600; color: var(--ink-3); margin-left: 2px; }
+.ser .title { font-family: var(--display); font-size: 1.15rem; font-weight: 600; line-height: 1.2; font-variation-settings: 'opsz' 36; }
+.ser .meta { color: var(--ink-2); font-size: .9rem; margin-top: 2px; }
+.ser .row { margin-top: 10px; justify-content: space-between; }
+.ser .nx { font-size: .78rem; color: var(--ink-3); margin-top: 8px; }
+.chip.beg { background: color-mix(in srgb, var(--moss) 16%, var(--paper)); border-color: color-mix(in srgb, var(--moss) 40%, var(--line)); color: var(--moss); font-weight: 600; font-size: .78rem; }
+
+/* inline text button */
+.lnk { background: none; border: 0; padding: 0; font: inherit; color: var(--clay); font-weight: 600; text-decoration: underline; }
 
 /* map */
-.map { height: 320px; border: 1.5px solid var(--ink); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
-@media (min-width: 720px) { .map { height: 420px; } }
+/* Kept short on purpose: on a browse page the map is orientation, and the
+   results underneath are the answer. A 420px map put every card below the fold. */
+.map { height: 240px; border: 1.5px solid var(--ink); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
+@media (min-width: 720px) { .map { height: 300px; } }
 .leaflet-container { font-family: var(--body); background: var(--paper-3); }
 .leaflet-tooltip { font-family: var(--body); font-weight: 600; font-size: .8rem; border: 1px solid var(--ink); border-radius: 4px; background: var(--paper); }
 

@@ -1,9 +1,21 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
+import SearchBox from './components/SearchBox.jsx'
 
 export function toast(msg) {
   window.dispatchEvent(new CustomEvent('openseat:toast', { detail: msg }))
 }
+
+// Four destinations, one per question a visitor actually arrives with:
+// "I want to try something", "I have Thursday free", "I want company",
+// "what did I save". Pricing and About are prototype scaffolding and live in
+// the footer, not in the primary nav.
+const LINKS = [
+  ['/', 'Explore', 'Explore', '◍'],
+  ['/week', "What's on", 'On now', '▤'],
+  ['/open', 'Open seats', 'Seats', '▢'],
+  ['/me', 'You', 'You', '◉'],
+]
 
 export default function App() {
   const [msg, setMsg] = useState(null)
@@ -18,21 +30,14 @@ export default function App() {
 
   useEffect(() => { window.scrollTo({ top: 0 }) }, [loc.pathname])
 
-  const links = [
-    ['/', 'Explore', 'Explore'],
-    ['/open', 'Open seats', 'Seats'],
-    ['/me', 'You', 'You'],
-    ['/pricing', 'Pricing', 'Pricing'],
-  ]
-
   return (
     <>
       <header className="hdr">
         <div className="wrap">
           <Link to="/" className="logo"><i /> <span>Open<b>Seat</b></span><span className="tag">Philly beta</span></Link>
+          <SearchBox big />
           <nav className="nav">
-            {links.map(([to, label]) => <NavLink key={to} to={to} end={to === '/'}>{label}</NavLink>)}
-            <NavLink to="/about">About</NavLink>
+            {LINKS.map(([to, label]) => <NavLink key={to} to={to} end={to === '/'}>{label}</NavLink>)}
           </nav>
         </div>
       </header>
@@ -41,10 +46,13 @@ export default function App() {
         <footer className="foot">
           <span>OpenSeat is a prototype. Nothing here is a booking; every session links to the venue.</span>
           <Link to="/about">What is real and what is sample data</Link>
+          <Link to="/pricing">Pricing</Link>
         </footer>
       </main>
       <nav className="bnav">
-        {links.map(([to, , short]) => <NavLink key={to} to={to} end={to === '/'}><span>{short === 'Explore' ? '◍' : short === 'Seats' ? '▢' : short === 'You' ? '◉' : '$'}</span>{short}</NavLink>)}
+        {LINKS.map(([to, , short, glyph]) => (
+          <NavLink key={to} to={to} end={to === '/'}><span>{glyph}</span>{short}</NavLink>
+        ))}
       </nav>
       {msg && <div className="toast">{msg}</div>}
     </>

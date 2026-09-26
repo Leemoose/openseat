@@ -53,8 +53,12 @@ def num(x):
     return None
 
 ROUND = re.compile(r'hole|twilight|round|green fee|short course', re.I)
+# A membership is what it costs to join for a year, not what it costs to walk in
+# once. Showing Five Iron "from $289" next to Libertee "from $45" compares a
+# membership to an hourly rate and makes the cheaper venue look dearer.
+NOT_A_WALK_IN = re.compile(r'member|annual|season|initiation|deposit|package|punch card|gift', re.I)
 def from_price(fees, kind=None):
-    fs = [f for f in (fees or []) if isinstance(f, dict)]
+    fs = [f for f in (fees or []) if isinstance(f, dict) and not NOT_A_WALK_IN.search(f.get('label') or '')]
     if kind == 'course':
         # A course's "from" price is its cheapest round, not its cheapest range bucket.
         skip = re.compile(r'cart|bucket|rental|lesson|junior|\b[36] holes\b|clinic|series|bay', re.I)
@@ -65,6 +69,18 @@ def from_price(fees, kind=None):
     vals = [num(f.get('price')) for f in fs]
     vals = [v for v in vals if v is not None and v > 0]
     return min(vals) if vals else None
+
+
+def addr_key(addr):
+    """Street number + street name, lowercased. Two seed rows for one venue
+    ('Five Iron Golf Rittenhouse' as a sim, 'Five Iron Golf - Philadelphia
+    Rittenhouse' as an academy) share an address but not a normalised name,
+    so the name-based merge missed them and they shipped as duplicate cards."""
+    if not addr: return None
+    first = addr.split(',')[0].strip().lower()
+    first = re.sub(r'\b(suite|ste\.?|unit|#)\s*[a-z0-9-]+', '', first)
+    first = re.sub(r'\b(street|st|avenue|ave|road|rd|drive|dr|boulevard|blvd|lane|ln|place|pl|court|ct|way|route|rt)\b\.?', '', first)
+    return re.sub(r'[^a-z0-9]', '', first) or None
 
 out = {}
 for hobby, files in SOURCES.items():
@@ -81,9 +97,12 @@ for hobby, files in SOURCES.items():
         for it in data:
             if not it.get('name'): continue
             iid = it.get('id') or re.sub(r'[^a-z0-9]+', '-', it['name'].lower()).strip('-')
-            # Same venue researched twice (e.g. Five Iron as a sim and as an academy): merge.
+            # Same venue researched twice (e.g. Five Iron as a sim and as an
+            # academy): merge on the normalised name OR the street address,
+            # because the two seed rows often name the place differently.
             norm = re.sub(r'[^a-z0-9]', '', it['name'].lower().replace('golf', ''))
-            dup = next((x for x in items if x['_norm'] == norm), None)
+            akey = addr_key(it.get('address'))
+            dup = next((x for x in items if x['_norm'] == norm or (akey and x['_addr'] == akey)), None)
             if dup:
                 for k in ('fees', 'pros', 'sessions', 'sources'):
                     have = {json.dumps(v, sort_keys=True) for v in dup[k]}
@@ -97,7 +116,7 @@ for hobby, files in SOURCES.items():
             lat, lng = geocode(it.get('address'))
             print(f"{iid}: {lat},{lng}")
             items.append({
-                '_norm': norm,
+                '_norm': norm, '_addr': akey,
                 'id': iid, 'hobby': hobby, 'name': it['name'], 'kind': it.get('kind') or 'place',
                 'address': it.get('address'), 'url': it.get('url'), 'phone': it.get('phone'),
                 'lat': lat, 'lng': lng,
@@ -111,7 +130,7 @@ for hobby, files in SOURCES.items():
                 'booking': it.get('booking'), 'notes': it.get('notes'),
                 'verified': it.get('verified'), 'sources': it.get('sources') or [],
             })
-    for i in items: i.pop('_norm', None)
+    for i in items: i.pop('_norm', None); i.pop('_addr', None)
     out[hobby] = items
     print(hobby, len(items), 'places;', sum(1 for i in items if i['lat']), 'geocoded;', sum(1 for i in items if i['fromPrice']), 'with a price;', sum(len(i['pros']) for i in items), 'pros')
 

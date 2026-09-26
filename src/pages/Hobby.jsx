@@ -1,58 +1,62 @@
 import { useMemo, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useSearchParams } from 'react-router-dom'
 import { hobbyById } from '../data/hobbies.js'
 import { SESSIONS } from '../data/sessions.js'
 import { SEED_OPEN_SEATS } from '../data/openseats.js'
-import { placesFor, KIND_LABEL, KIND_ORDER } from '../data/places.js'
-import venues from '../data/venues.json'
+import { allPlacesFor, placesFor, KIND_LABEL, KIND_ORDER } from '../data/places.js'
 import gear from '../data/gear.json'
-import { HOODS, milesBetween, fmtMiles } from '../lib/geo.js'
+import { HOODS, milesBetween } from '../lib/geo.js'
 import { useStore } from '../lib/store.js'
-import { dayKey, fmtDayLong, fmtRel, fmtTime, fmtPrice } from '../lib/format.js'
+import { seriesFor, hobbyStats } from '../lib/series.js'
+import { dayKey, fmtDayLong, fmtRel } from '../lib/format.js'
 import { isOpenNow } from '../lib/hours.js'
-import { SessionCard, friendsAt, Stamp } from '../components/bits.jsx'
+import { SessionCard, friendsAt } from '../components/bits.jsx'
+import SeriesCard from '../components/SeriesCard.jsx'
 import PlaceCard from '../components/PlaceCard.jsx'
 import VenueMap from '../components/VenueMap.jsx'
 import { toast } from '../App.jsx'
+
+const KIND_PLURAL = {
+  course: 'Courses', range: 'Driving ranges', sim: 'Simulators', shop: 'Shops',
+  fitter: 'Club fitters', academy: 'Lessons', place: 'Places',
+}
 
 export default function Hobby() {
   const { hobby: hid } = useParams()
   const hobby = hobbyById(hid)
   const [st, update] = useStore()
-  const rich = placesFor(hid)
-  const [tab, setTab] = useState(rich.length ? 'places' : 'sessions')
-  const [radius, setRadius] = useState(rich.length ? 15 : 5)
-  const [firstTime, setFirstTime] = useState(false)
-  const [freeOnly, setFreeOnly] = useState(false)
-  const [maxPrice, setMaxPrice] = useState(0) // 0 = any
-  const [kind, setKind] = useState('all')
-  const [openNow, setOpenNow] = useState(false)
+  const [sp, setSp] = useSearchParams()
   const [gps, setGps] = useState(null)
+  const [showMap, setShowMap] = useState(() => (typeof window === 'undefined' ? true : window.innerWidth >= 720))
+  const [openFilters, setOpenFilters] = useState(false)
 
-  const here = gps || HOODS.find((h) => h.id === st.me.hood) || HOODS[0]
+  const rich = placesFor(hid)
+  const places = allPlacesFor(hid)
+  const series = useMemo(() => seriesFor(hid), [hid])
+  const stats = useMemo(() => hobbyStats(hid), [hid])
 
-  const list = useMemo(() => SESSIONS
-    .filter((s) => s.hobby === hid)
-    .map((s) => ({ s, miles: milesBetween(here, s.venue) }))
-    .filter(({ s, miles }) => (miles == null || miles <= radius) && (!firstTime || s.level === 'First time welcome') && (!freeOnly || s.price === 0) && (!maxPrice || s.price == null || s.price <= maxPrice)),
-  [hid, here, radius, firstTime, freeOnly, maxPrice])
+  // Filters live in the URL so a filtered view is a link you can send or
+  // bookmark. Written with replace so twenty slider nudges do not bury the
+  // page you arrived from twenty entries deep in history.
+  const setQ = (patch) => setSp((prev) => {
+    const n = new URLSearchParams(prev)
+    for (const [k, v] of Object.entries(patch)) {
+      if (v == null || v === '' || v === false || v === 0) n.delete(k); else n.set(k, String(v))
+    }
+    return n
+  }, { replace: true })
 
-  const byDay = useMemo(() => {
-    const m = new Map()
-    for (const x of list) { const k = dayKey(x.s.start); if (!m.has(k)) m.set(k, []); m.get(k).push(x) }
-    return [...m.values()]
-  }, [list])
+  const view = sp.get('view') || (rich.length ? 'places' : 'classes')
+  const nearId = sp.get('near') || st.me.hood
+  const radius = +(sp.get('r') || (rich.length ? 15 : 5))
+  const maxPrice = +(sp.get('max') || 0)
+  const kind = sp.get('kind') || 'all'
+  const beginner = sp.get('beg') === '1'
+  const freeOnly = sp.get('free') === '1'
+  const openNow = sp.get('open') === '1'
+  const here = gps || HOODS.find((h) => h.id === nearId) || HOODS[0]
 
-  const kinds = useMemo(() => KIND_ORDER.filter((k) => rich.some((p) => p.kind === k)), [rich])
-  const richList = useMemo(() => rich
-    .map((p) => ({ ...p, miles: milesBetween(here, p) }))
-    .filter((p) => (p.miles == null || p.miles <= radius) && (kind === 'all' || p.kind === kind) && (!maxPrice || p.fromPrice == null || p.fromPrice <= maxPrice) && (!openNow || isOpenNow(p.hours) === true))
-    .sort((a, b) => (a.miles ?? 99) - (b.miles ?? 99)),
-  [rich, here, radius, kind, maxPrice, openNow])
-
-  const thinVenues = venues.filter((v) => v.hobby === hid).map((v) => ({ ...v, miles: milesBetween(here, v), next: SESSIONS.find((s) => s.venueId === v.id) })).sort((a, b) => (a.miles ?? 99) - (b.miles ?? 99))
-
-  if (!hobby) return <div className="empty">No such hobby. <Link to="/">Back</Link></div>
+  if (!hobby) return <div className="empty">No such hobby. <Link to="/">Back to all hobbies</Link></div>
 
   function locate() {
     if (!navigator.geolocation) return toast('No location access in this browser')
@@ -63,51 +67,142 @@ export default function Hobby() {
     )
   }
 
-  const tabs = rich.length
-    ? [['places', `Places (${richList.length})`], ['sessions', `Sessions (${list.length})`]]
-    : [['sessions', `Sessions (${list.length})`], ['places', `Places (${thinVenues.length})`]]
-  if (hid === 'guitar') tabs.push(['gear', `Used gear (${gear.length})`])
+  const near = (x) => { const m = milesBetween(here, x); return { m, ok: m == null || m <= radius } }
+  const priceOk = (p) => !maxPrice || p == null || p <= maxPrice
 
-  const priceCap = rich.length ? 150 : 120
+  const seriesList = series
+    .map((s) => ({ s, miles: near(s.venue).m, ok: near(s.venue).ok }))
+    .filter(({ s, ok }) => ok && (!beginner || s.beginner) && (!freeOnly || s.price === 0) && priceOk(s.price))
+  const firstTimers = seriesList.filter(({ s }) => s.beginner)
+  const rest = seriesList.filter(({ s }) => !s.beginner)
+
+  const dayList = SESSIONS
+    .filter((s) => s.hobby === hid)
+    .map((s) => ({ s, miles: near(s.venue).m, ok: near(s.venue).ok }))
+    .filter(({ s, ok }) => ok && (!beginner || s.level === 'First time welcome') && (!freeOnly || s.price === 0) && priceOk(s.price))
+  const byDay = groupByDay(dayList)
+
+  const kinds = KIND_ORDER.filter((k) => places.some((p) => p.kind === k))
+  const placeList = places
+    .map((p) => ({ ...p, miles: near(p).m }))
+    .filter((p) => near(p).ok && (kind === 'all' || p.kind === kind) && priceOk(p.fromPrice) && (!openNow || isOpenNow(p.hours) === true))
+    .sort((a, b) => (a.miles ?? 99) - (b.miles ?? 99))
+  const placeGroups = kind === 'all' && kinds.length > 1
+    ? kinds.map((k) => [k, placeList.filter((p) => p.kind === k)]).filter(([, l]) => l.length)
+    : [[kind === 'all' ? 'place' : kind, placeList]]
+
+  // Lead with whatever this hobby actually has depth in: researched places for
+  // golf, the class list everywhere else.
+  const defaultView = rich.length ? 'places' : 'classes'
+  const views = [
+    ['classes', 'Classes', seriesList.length],
+    ['places', 'Places', placeList.length],
+    ['calendar', 'Calendar', dayList.length],
+  ].sort((a, b) => (a[0] === defaultView ? -1 : b[0] === defaultView ? 1 : 0))
+  if (hid === 'guitar') views.push(['gear', 'Used gear', gear.length])
+
+  const activeFilters = [beginner, freeOnly, openNow, maxPrice > 0].filter(Boolean).length
+
+  // One sentence that answers "is this worth a click" before any filtering.
+  const summary = [
+    `${stats.places} ${stats.places === 1 ? 'place' : 'places'}`,
+    stats.series ? `${stats.series} ${stats.series === 1 ? 'class' : 'classes'}` : null,
+    stats.free ? 'some free' : stats.from != null ? `from $${stats.from}` : null,
+    stats.beginner ? `${stats.beginner} welcome first-timers` : null,
+  ].filter(Boolean).join(' · ')
 
   return (
     <>
-      <div className="band reveal" style={{ '--tint': hobby.tint }}>
-        <div className="between" style={{ alignItems: 'flex-start' }}>
-          <div>
-            <div className="tiny" style={{ color: hobby.tint }}>Philadelphia</div>
-            <h1>{hobby.name}</h1>
-            <p className="muted" style={{ marginTop: 6, maxWidth: '48ch' }}>{hobby.blurb} {rich.length ? `${rich.length} places with rates, hours and instructors checked against their own sites.` : hobby.primary ? 'Sessions read from venue calendars where we can, sample where we cannot yet.' : 'Thin on purpose: this hobby is not in the first four.'}</p>
-          </div>
-          <div className="g">{hobby.glyph}</div>
+      <div className="crumb"><Link to="/">All hobbies</Link> <span>/</span> <b>{hobby.name}</b></div>
+
+      <div className="hband reveal" style={{ '--tint': hobby.tint }}>
+        <span className="g">{hobby.glyph}</span>
+        <div>
+          <h1>{hobby.name}</h1>
+          <p className="sum">{summary}</p>
         </div>
       </div>
 
-      <div className="controls">
+      <div className="tabs">
+        {views.map(([k, l, n]) => (
+          <button key={k} className={view === k ? 'on' : ''} onClick={() => setQ({ view: k === defaultView ? null : k })}>
+            {l} <small>{n}</small>
+          </button>
+        ))}
+      </div>
+
+      <div className="filtbar">
         <label className="field">Near
-          <select value={gps ? 'gps' : st.me.hood} onChange={(e) => { if (e.target.value === 'gps') locate(); else { setGps(null); update({ me: { ...st.me, hood: e.target.value } }) } }}>
+          <select value={gps ? 'gps' : nearId} onChange={(e) => {
+            if (e.target.value === 'gps') locate()
+            else { setGps(null); setQ({ near: e.target.value }); update({ me: { ...st.me, hood: e.target.value } }) }
+          }}>
             {HOODS.map((h) => <option key={h.id} value={h.id}>{h.name}</option>)}
             <option value="gps">Use my location</option>
           </select>
         </label>
         <label className="field">Within <b className="mono">{radius} mi</b>
-          <input type="range" min="1" max="30" value={radius} onChange={(e) => setRadius(+e.target.value)} />
+          <input type="range" min="1" max="30" value={radius} onChange={(e) => setQ({ r: e.target.value })} />
         </label>
-        <label className="field">Up to <b className="mono">{maxPrice ? `$${maxPrice}` : 'any $'}</b>
-          <input type="range" min="0" max={priceCap} step="5" value={maxPrice} onChange={(e) => setMaxPrice(+e.target.value)} />
-        </label>
-        {tab === 'sessions' && <>
-          <button className={`chip${firstTime ? ' on' : ''}`} onClick={() => setFirstTime(!firstTime)}>First time welcome</button>
-          <button className={`chip${freeOnly ? ' on' : ''}`} onClick={() => setFreeOnly(!freeOnly)}>Free</button>
-        </>}
-        {tab === 'places' && rich.length > 0 && <button className={`chip${openNow ? ' on' : ''}`} onClick={() => setOpenNow(!openNow)}>Open now</button>}
+        <button className={`chip more${activeFilters ? ' on' : ''}`} onClick={() => setOpenFilters(!openFilters)}>
+          Filters{activeFilters ? ` · ${activeFilters}` : ''}
+        </button>
+        <div className={`morefilt${openFilters ? ' open' : ''}`}>
+          <label className="field">Up to <b className="mono">{maxPrice ? `$${maxPrice}` : 'any $'}</b>
+            <input type="range" min="0" max={rich.length ? 150 : 120} step="5" value={maxPrice} onChange={(e) => setQ({ max: e.target.value })} />
+          </label>
+          {view !== 'places' && <button className={`chip${beginner ? ' on' : ''}`} onClick={() => setQ({ beg: !beginner && '1' })}>First time welcome</button>}
+          {view !== 'places' && <button className={`chip${freeOnly ? ' on' : ''}`} onClick={() => setQ({ free: !freeOnly && '1' })}>Free</button>}
+          {view === 'places' && rich.length > 0 && <button className={`chip${openNow ? ' on' : ''}`} onClick={() => setQ({ open: !openNow && '1' })}>Open now</button>}
+          {activeFilters > 0 && <button className="chip clear" onClick={() => setQ({ beg: null, free: null, open: null, max: null })}>Clear</button>}
+        </div>
       </div>
 
-      <div className="tabs">{tabs.map(([k, l]) => <button key={k} className={tab === k ? 'on' : ''} onClick={() => setTab(k)}>{l}</button>)}</div>
+      {view === 'classes' && (
+        seriesList.length === 0
+          ? <Empty radius={radius} />
+          : <div className="stack" style={{ marginTop: 18 }}>
+            {firstTimers.length > 0 && (
+              <section>
+                <div className="grp"><h2>Start here</h2><span className="small muted">No experience assumed</span></div>
+                <div className="grid two">{firstTimers.map(({ s, miles }, i) => <SeriesCard key={s.id} s={s} miles={miles} i={i} />)}</div>
+              </section>
+            )}
+            {rest.length > 0 && (
+              <section style={{ marginTop: firstTimers.length ? 14 : 0 }}>
+                <div className="grp"><h2>{firstTimers.length ? 'Once you have been a few times' : 'Regular sessions'}</h2></div>
+                <div className="grid two">{rest.map(({ s, miles }, i) => <SeriesCard key={s.id} s={s} miles={miles} i={i} />)}</div>
+              </section>
+            )}
+          </div>
+      )}
 
-      {tab === 'sessions' && (
+      {view === 'places' && (
+        placeList.length === 0
+          ? <Empty radius={radius} />
+          : <div className="stack" style={{ marginTop: 18 }}>
+            <div className="row between">
+              {kinds.length > 1 && (
+                <div className="chips scroll">
+                  <button className={`chip${kind === 'all' ? ' on' : ''}`} onClick={() => setQ({ kind: null })}>All</button>
+                  {kinds.map((k) => <button key={k} className={`chip${kind === k ? ' on' : ''}`} onClick={() => setQ({ kind: k })}>{KIND_LABEL[k]} · {places.filter((p) => p.kind === k).length}</button>)}
+                </div>
+              )}
+              <button className="chip" onClick={() => setShowMap(!showMap)}>{showMap ? 'Hide map' : 'Show map'}</button>
+            </div>
+            {showMap && <VenueMap venues={placeList} tint={hobby.tint} center={here} you={here} zoom={radius > 12 ? 10 : 11} />}
+            {placeGroups.map(([k, list]) => (
+              <section key={k}>
+                {placeGroups.length > 1 && <div className="grp"><h2>{KIND_PLURAL[k] || KIND_LABEL[k]}</h2><span className="small muted">{list.length}</span></div>}
+                <div className="grid two">{list.map((p, i) => <PlaceCard key={p.id} p={p} miles={p.miles} i={i} />)}</div>
+              </section>
+            ))}
+          </div>
+      )}
+
+      {view === 'calendar' && (
         byDay.length === 0
-          ? <div className="empty" style={{ marginTop: 20 }}>Nothing within {radius} miles with those filters. Widen the radius or the price.</div>
+          ? <Empty radius={radius} />
           : byDay.map((day, di) => (
             <div key={di}>
               <div className="day-h">{fmtRel(day[0].s.start)} <small>{fmtDayLong(day[0].s.start)}</small></div>
@@ -118,43 +213,8 @@ export default function Hobby() {
           ))
       )}
 
-      {tab === 'places' && rich.length > 0 && (
-        <div className="stack" style={{ marginTop: 20 }}>
-          {kinds.length > 1 && (
-            <div className="chips">
-              <button className={`chip${kind === 'all' ? ' on' : ''}`} onClick={() => setKind('all')}>All</button>
-              {kinds.map((k) => <button key={k} className={`chip${kind === k ? ' on' : ''}`} onClick={() => setKind(k)}>{KIND_LABEL[k]} · {rich.filter((p) => p.kind === k).length}</button>)}
-            </div>
-          )}
-          <VenueMap venues={richList} tint={hobby.tint} center={here} you={here} zoom={radius > 12 ? 10 : 11} />
-          {richList.length === 0
-            ? <div className="empty">Nothing within {radius} miles with those filters.</div>
-            : <div className="grid two">{richList.map((p, i) => <PlaceCard key={p.id} p={p} miles={p.miles} i={i} />)}</div>}
-        </div>
-      )}
-
-      {tab === 'places' && rich.length === 0 && (
-        <div className="stack" style={{ marginTop: 20 }}>
-          <VenueMap venues={thinVenues} tint={hobby.tint} center={here} you={here} zoom={12} />
-          <div className="grid two">
-            {thinVenues.map((v, i) => (
-              <div key={v.id} className="card reveal" style={{ '--i': i }}>
-                <h3>{v.name}</h3>
-                <div className="small muted">{v.address}{v.miles != null && <> · {fmtMiles(v.miles)}</>}</div>
-                {v.next
-                  ? <Link to={`/s/${v.next.id}`} className="small" style={{ display: 'block', marginTop: 10 }}>Next: <b>{v.next.title}</b>, {fmtRel(v.next.start)} {fmtTime(v.next.start)} · {fmtPrice(v.next.price)} <Stamp source={v.next.source} /></Link>
-                  : <div className="small muted" style={{ marginTop: 10 }}>No sessions read yet. Adapter pending.</div>}
-                <div className="row" style={{ marginTop: 12 }}>
-                  <a className="btn ghost sm" href={v.url} target="_blank" rel="noreferrer">Venue site ↗</a>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {tab === 'gear' && (
-        <div className="stack" style={{ marginTop: 20 }}>
+      {view === 'gear' && (
+        <div className="stack" style={{ marginTop: 18 }}>
           <div className="note">Live snapshot from Reverb's public listings API (used, $150-1,200, ships within the US), pulled 2026-09-24. Local used racks worth walking into: DiPinto, Vintage Instruments, Russo. Buying on Reverb stays on Reverb; we take nothing.</div>
           <div className="gear">
             {gear.map((g, i) => (
@@ -172,4 +232,14 @@ export default function Hobby() {
       )}
     </>
   )
+}
+
+function groupByDay(list) {
+  const m = new Map()
+  for (const x of list) { const k = dayKey(x.s.start); if (!m.has(k)) m.set(k, []); m.get(k).push(x) }
+  return [...m.values()]
+}
+
+function Empty({ radius }) {
+  return <div className="empty" style={{ marginTop: 20 }}>Nothing within {radius} miles with those filters. Widen the radius or clear a filter.</div>
 }
