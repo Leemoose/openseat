@@ -6,9 +6,15 @@ import venues from './venues.json'
 
 export const PLACES = raw
 export const KIND_LABEL = {
-  course: 'Course', range: 'Driving range', sim: 'Simulator', shop: 'Shop', fitter: 'Club fitter', academy: 'Lessons', place: 'Place',
+  // pottery
+  studio: 'Studio', school: 'Art school', supply: 'Clay & supplies', gallery: 'Gallery',
+  // golf
+  course: 'Course', range: 'Driving range', sim: 'Simulator', fitter: 'Club fitter', academy: 'Lessons',
+  // shared
+  shop: 'Shop', place: 'Place',
 }
-export const KIND_ORDER = ['course', 'range', 'sim', 'academy', 'fitter', 'shop', 'place']
+// Teaching venues first, retail last: the order a beginner needs them in.
+export const KIND_ORDER = ['studio', 'school', 'course', 'range', 'sim', 'academy', 'fitter', 'supply', 'shop', 'gallery', 'place']
 
 export function placesFor(hobby) { return PLACES[hobby] || [] }
 

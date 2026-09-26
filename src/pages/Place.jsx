@@ -9,6 +9,38 @@ import { fmtRel, fmtTime, fmtPrice } from '../lib/format.js'
 import { Stamp } from '../components/bits.jsx'
 import VenueMap from '../components/VenueMap.jsx'
 
+const PLATFORM_LABEL = {
+  'wordpress-tribe': 'WordPress with The Events Calendar',
+  wordpress: 'WordPress',
+  squarespace: 'Squarespace',
+  acuity: 'Acuity Scheduling',
+  mindbody: 'Mindbody',
+  punchpass: 'Punchpass',
+  sawyer: 'Sawyer',
+  wix: 'Wix',
+  eventbrite: 'Eventbrite',
+  bookwhen: 'Bookwhen',
+  coursestorm: 'CourseStorm',
+  jackrabbit: 'Jackrabbit',
+  ticketleap: 'Ticketleap',
+  kilnfire: 'KilnFire',
+  apostrophecms: 'ApostropheCMS',
+  shopify: 'Shopify',
+  drupal: 'Drupal',
+  webflow: 'Webflow',
+  'square-online': 'Square Online',
+  captyn: 'Captyn',
+  none: 'a site with no online schedule',
+  unknown: 'something we could not identify',
+}
+
+// Several venues run a stack ("wordpress + acuity + kilnfire"). Label each part.
+function platformName(p) {
+  return String(p || '').split(/\s*\+\s*/)
+    .map((x) => PLATFORM_LABEL[x.trim().toLowerCase()] || x.trim())
+    .filter(Boolean).join(' + ')
+}
+
 function money(p) {
   if (p == null || p === '') return 'See site'
   if (typeof p === 'number') return `$${p % 1 ? p.toFixed(2) : p}`
@@ -54,17 +86,36 @@ export default function Place() {
         </div>
         <h1>{p.name}</h1>
         <p className="muted" style={{ marginTop: 8 }}>{p.address}{p.lat != null && <> · {fmtMiles(milesBetween(here, p))} from {here.name}</>}</p>
-        {today && <p style={{ marginTop: 6 }}><b>Today:</b> {today.text}</p>}
+        {/* Venues that publish no grid describe their hours in a paragraph, and
+            an agent's "note" key can run to 500 characters. A "Today:" line is
+            for opening times; anything longer belongs in the Hours table below. */}
+        {today && today.text.length <= 80 && <p style={{ marginTop: 6 }}><b>Today:</b> {today.text}</p>}
+        {today && today.text.length > 80 && <p className="small muted" style={{ marginTop: 6 }}>Hours vary, see below.</p>}
         {facts.length > 0 && <div className="chips" style={{ marginTop: 12 }}>{facts.map((f) => <span key={f} className="chip">{f}</span>)}</div>}
         <div className="row" style={{ marginTop: 18 }}>
-          {p.url && <a className="btn primary" href={p.url} target="_blank" rel="noreferrer">{p.booking ? `Book (${p.booking}) ↗` : 'Website ↗'}</a>}
+          {/* `booking` is sometimes a system name ("Sawyer") and sometimes a
+              paragraph explaining that the venue runs two of them. A button is
+              not the place for the paragraph; it goes to the research notes. */}
+          {p.url && <a className="btn primary" href={p.url} target="_blank" rel="noreferrer">
+            {p.booking && p.booking.length <= 28 ? `Book (${p.booking}) ↗` : 'Book on their site ↗'}
+          </a>}
           {p.phone && <a className="btn" href={`tel:${p.phone.replace(/[^\d+]/g, '')}`}>{p.phone}</a>}
         </div>
-        {p.notes && <p className="small muted" style={{ marginTop: 14 }}>{p.notes}</p>}
       </div>
 
       <div className="grid two" style={{ marginTop: 24, alignItems: 'start' }}>
         <div className="stack">
+          {!p.fees?.length && !p.thin && (
+            <div className="card">
+              <h3>Rates</h3>
+              {/* Not an empty state to hide. "You cannot find out what this
+                  costs without calling" is exactly the problem this product
+                  exists to fix, so it gets said plainly. */}
+              <p className="small muted" style={{ marginTop: 8 }}>
+                This venue publishes no prices online. We checked the site and the booking system; you have to ask.
+              </p>
+            </div>
+          )}
           {p.fees?.length > 0 && (
             <div className="card">
               <h3>Rates</h3>
@@ -144,6 +195,26 @@ export default function Place() {
               </div>
               <Link className="small" to={`/h/${p.hobby}`} style={{ display: 'inline-block', marginTop: 10 }}>All {hobby.name.toLowerCase()} places →</Link>
             </div>
+          )}
+          {p.platform && (
+            <div className="card">
+              <h3>Can we read this calendar?</h3>
+              <p className="small muted" style={{ margin: '6px 0 10px' }}>
+                The whole premise is that a venue keeps its own schedule and we read it, rather than asking it to maintain a second listing here. So this is worth stating per venue.
+              </p>
+              {p.feedUrl
+                ? <p className="small"><b style={{ color: 'var(--moss)' }}>● Yes.</b> {platformName(p.platform)} publishes a machine-readable schedule, so sessions here can update themselves.</p>
+                : <p className="small"><b>○ Not yet.</b> Runs on {platformName(p.platform)}{p.platform === 'none' ? ', with no schedule published online at all' : ', which needs an adapter written for it'}. Sessions here are entered by hand and go stale.</p>}
+            </div>
+          )}
+          {p.notes && (
+            <details className="notes">
+              <summary>Research notes</summary>
+              {/* Written by whoever checked this venue, kept verbatim rather
+                  than smoothed into marketing copy. Half of what is useful about
+                  a venue is the caveat. */}
+              <p className="small muted">{p.notes}</p>
+            </details>
           )}
           {p.sources?.length > 0 && (
             <div className="small muted">Checked {p.verified || 'recently'} against {[...new Map(p.sources.map((u) => [new URL(u).hostname.replace('www.', ''), u])).entries()].slice(0, 3).map(([h, u], i) => <span key={u}>{i > 0 && ', '}<a href={u} target="_blank" rel="noreferrer">{h}</a></span>)}. Rates change; the venue's site wins.</div>

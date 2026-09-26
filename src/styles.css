@@ -308,6 +308,12 @@ p { margin: 0; }
 @keyframes up { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .reveal { animation: none; } }
 
+/* research notes disclosure */
+.notes { border: 1px dashed var(--line); border-radius: var(--radius); padding: 10px 14px; background: color-mix(in srgb, var(--paper-2) 60%, transparent); }
+.notes summary { cursor: pointer; font-size: .75rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+.notes summary::marker { color: var(--ink-3); }
+.notes p { margin-top: 10px; line-height: 1.55; }
+
 /* note box */
 .note { border-left: 3px solid var(--mustard); background: color-mix(in srgb, var(--mustard) 12%, var(--paper)); padding: 10px 14px; border-radius: 0 var(--radius) var(--radius) 0; font-size: .9rem; }
 .empty { border: 1.5px dashed var(--line); border-radius: var(--radius); padding: 28px; text-align: center; color: var(--ink-2); }
@@ -321,9 +327,15 @@ p { margin: 0; }
 .prose ul { padding-left: 20px; }
 
 /* rich places */
-.fees { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: .92rem; }
+/* table-layout fixed + min-width 0 on the grid child: without both, a long
+   unbroken fee note forces the table wider than its card and the card past the
+   edge of the page. */
+.grid > * { min-width: 0; }
+.fees { width: 100%; table-layout: fixed; border-collapse: collapse; margin-top: 8px; font-size: .92rem; }
+.fees td { overflow-wrap: anywhere; }
 .fees td { padding: 8px 0; border-top: 1px solid var(--line); vertical-align: top; }
 .fees tr:first-child td { border-top: 0; }
-.fees td.amt { text-align: right; font-family: var(--display); font-weight: 600; white-space: nowrap; padding-left: 12px; }
+/* fixed layout would otherwise split the table 50/50 and squeeze the label */
+.fees td.amt { width: 5.5rem; text-align: right; font-family: var(--display); font-weight: 600; white-space: nowrap; padding-left: 12px; }
 .fees tr.now td { background: color-mix(in srgb, var(--moss) 10%, transparent); }
 .place h3 { font-size: 1.15rem; }

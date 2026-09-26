@@ -17,6 +17,7 @@ import VenueMap from '../components/VenueMap.jsx'
 import { toast } from '../App.jsx'
 
 const KIND_PLURAL = {
+  studio: 'Studios', school: 'Art schools', supply: 'Clay & supplies', gallery: 'Galleries',
   course: 'Courses', range: 'Driving ranges', sim: 'Simulators', shop: 'Shops',
   fitter: 'Club fitters', academy: 'Lessons', place: 'Places',
 }
@@ -73,7 +74,11 @@ export default function Hobby() {
   const seriesList = series
     .map((s) => ({ s, miles: near(s.venue).m, ok: near(s.venue).ok }))
     .filter(({ s, ok }) => ok && (!beginner || s.beginner) && (!freeOnly || s.price === 0) && priceOk(s.price))
+  // "Start here" answers "what is the cheapest way to try this", so it leads
+  // with price rather than with whichever class happens to run next. A $572
+  // eight-week course at the top of a beginner list is the wrong first thing.
   const firstTimers = seriesList.filter(({ s }) => s.beginner)
+    .sort((a, b) => (a.s.price ?? 9999) - (b.s.price ?? 9999))
   const rest = seriesList.filter(({ s }) => !s.beginner)
 
   const dayList = SESSIONS

@@ -62,6 +62,10 @@ const ONE_OFFS = [
   { v: 'arch-enemy', title: 'First Friday opening reception', date: '2026-10-02', time: '18:00', mins: 180, price: 0, cap: 999, level: 'First time welcome', source: 'sample', url: 'https://www.archenemyarts.com' },
 ]
 
+const KIDS_ONLY = /\b(kids?|kid's|children|child|teens?|tweens?|youth|ages? ?\d)\b/i
+const ADULTS_TOO = /\badults?\b|intergenerational|all ages|\d\d ?to ?\d\d/i
+const LOGISTICS = /\b(pick ?-?up|drop ?-?off|kiln firing|firing service|appointment|consultation|deposit|waitlist|gift card)\b/i
+
 const RICH = Object.values(places).flat()
 const venueById = Object.fromEntries([...venues, ...RICH].map((v) => [v.id, v]))
 
@@ -101,7 +105,18 @@ for (const pl of RICH) {
     if (!days.length || !time) continue
     // Seasonal camps and closed enrollment series are programs, not weekly sessions.
     if (/seasonal|camp|closed|summer|june|july/i.test(`${s.title} ${s.note || ''}`)) continue
-    T.push({ v: pl.id, title: s.title, days, time, mins: 90, price: priceNum(s.price), cap: 999, level: /beginner|intro|clinic|learn|new/i.test(s.title + ' ' + (s.note || '')) ? 'First time welcome' : 'Some experience', source: 'snapshot', note: [s.note, pl.verified && `Read from ${new URL(pl.url || 'https://x.invalid').hostname.replace('www.', '')} on ${pl.verified}.`].filter(Boolean).join(' '), url: pl.url })
+    // Children-only programs are out of scope for this product. Judge on the
+    // title alone: matching the note too threw out adult classes whose notes
+    // merely mention that teens may attend, and keep anything that says adults
+    // are welcome ("Pottery for Adults and Teens", "Intergenerational Clay").
+    if (KIDS_ONLY.test(s.title) && !ADULTS_TOO.test(s.title)) continue
+    // Logistics slots, not sessions. A studio's booking system lists "Pottery
+    // Pickup" and "Drop off for Kiln Firing" next to its classes; listed here
+    // they became free beginner-friendly things to go and do.
+    if (LOGISTICS.test(s.title)) continue
+    // cap null, not 999: a venue's class list almost never publishes capacity,
+    // and "Open to all" is a claim we cannot make about an eight-wheel studio.
+    T.push({ v: pl.id, title: s.title, days, time, mins: 90, price: priceNum(s.price), cap: null, level: /beginner|intro|clinic|learn|new/i.test(s.title + ' ' + (s.note || '')) ? 'First time welcome' : 'Some experience', source: 'snapshot', note: [s.note, pl.verified && `Read from ${new URL(pl.url || 'https://x.invalid').hostname.replace('www.', '')} on ${pl.verified}.`].filter(Boolean).join(' '), url: pl.url })
   }
 }
 
@@ -116,7 +131,7 @@ function make(tpl, date) {
   const id = `${tpl.v}__${tpl.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}__${date}`
   const start = new Date(`${date}T${tpl.time}:00`)
   const end = new Date(start.getTime() + tpl.mins * 60000)
-  const taken = tpl.cap >= 999 ? 0 : Math.min(tpl.cap - 1, (hash(id) % Math.max(2, Math.round(tpl.cap * 0.8))))
+  const taken = (tpl.cap == null || tpl.cap >= 999) ? 0 : Math.min(tpl.cap - 1, (hash(id) % Math.max(2, Math.round(tpl.cap * 0.8))))
   return {
     id, venueId: tpl.v, venue, hobby: venue.hobby, title: tpl.title, start, end, date, time: tpl.time, mins: tpl.mins,
     price: tpl.price, cap: tpl.cap, taken, level: tpl.level, source: tpl.source, note: tpl.note, url: tpl.url,
