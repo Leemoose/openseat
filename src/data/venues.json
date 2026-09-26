@@ -78,7 +78,11 @@
   "address": "719 Catharine St, Philadelphia, PA 19147",
   "url": "https://fleisher.org",
   "lat": 39.9390857,
-  "lng": -75.1549984
+  "lng": -75.1549984,
+  "hobbies": [
+   "pottery",
+   "art"
+  ]
  },
  {
   "id": "old-city-first-friday",

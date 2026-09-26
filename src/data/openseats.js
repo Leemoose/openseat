@@ -9,7 +9,9 @@ const SEEDS = [
   { person: 'jules', venueId: 'russo', title: 'Adult beginner guitar (group)', seats: 1, say: 'Signed up for the group class and would love one familiar face there. Zero ability required.' },
   { person: 'arjun', venueId: 'redcaps', title: 'D&D Adventurers League', seats: 2, say: 'Our table lost two players to grad school. Level 3 characters, we have pregens.' },
   { person: 'tess', venueId: 'pottery-gym', title: 'Handbuilding open table', seats: 2, say: 'Sunday handbuilding, then the bakery next door. Bring nothing.' },
-  { person: 'maya', venueId: 'prg-fishtown', title: 'Bouldering 101', seats: 1, say: 'Second time at bouldering, want a buddy who is also new.' },
+  // Anchored to a title that really appears on PRG's calendar, so the seed
+  // seats survive the feed replacing the hand-entered climbing sessions.
+  { person: 'maya', venueId: 'prg-fishtown', title: 'Fishtown Beta Nights', seats: 1, say: 'Second time at bouldering, want a buddy who is also new.' },
   { person: 'dev', venueId: 'classical-guitar-store', title: 'Classical Guitar Society open play', seats: 2, say: 'Going to listen mostly. Join if you want a low-key Sunday.' },
 ]
 

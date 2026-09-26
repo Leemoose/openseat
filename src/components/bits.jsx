@@ -14,6 +14,9 @@ export function Stamp({ source }) {
 }
 
 export function Seats({ taken, cap }) {
+  // A read calendar rarely publishes capacity. Saying so is better than
+  // inventing a number, and better than rendering an empty bar that reads "Full".
+  if (cap == null) return <span className="seats muted">Seats not published</span>
   if (cap >= 999) return <span className="seats">Open to all</span>
   const left = cap - taken
   return (

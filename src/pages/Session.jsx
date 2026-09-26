@@ -6,6 +6,7 @@ import { hobbyById } from '../data/hobbies.js'
 import { PEOPLE } from '../data/people.js'
 import { HOODS, milesBetween, fmtMiles } from '../lib/geo.js'
 import { useStore, toggleIn } from '../lib/store.js'
+import { seriesForSession } from '../lib/series.js'
 import { downloadIcs, googleCalendarUrl } from '../lib/ics.js'
 import { fmtDayLong, fmtTime, fmtPrice, weekdayName } from '../lib/format.js'
 import { Avatar, Seats, Stamp } from '../components/bits.jsx'
@@ -23,7 +24,12 @@ export default function Session() {
 
   if (!s) return <div className="empty">That session has passed or does not exist. <Link to="/">Explore</Link></div>
   const hobby = hobbyById(s.hobby)
+  const series = seriesForSession(s)
   const here = HOODS.find((h) => h.id === st.me.hood) || HOODS[0]
+  // "Book at Philadelphia" is what taking the first word of "Philadelphia Rock
+  // Gym Fishtown" produces. The host is short, accurate and tells you where the
+  // link goes, which is the point of the button.
+  const bookHost = (() => { try { return new URL(s.url).hostname.replace('www.', '') } catch { return null } })()
   const going = st.going.includes(s.id)
   const open = [...st.myOpenSeats.filter((o) => o.sessionId === s.id), ...SEED_OPEN_SEATS.filter((o) => o.sessionId === s.id && !st.hidden.includes(o.id))]
   const friends = PEOPLE.filter((p) => st.following.includes(p.id) && open.some((o) => o.personId === p.id))
@@ -43,7 +49,10 @@ export default function Session() {
         <Link to="/">All hobbies</Link> <span>/</span> <Link to={`/h/${s.hobby}`}>{hobby.name}</Link> <span>/</span> <b>{s.title}</b>
       </div>
       <div className="band reveal" style={{ '--tint': hobby.tint, marginTop: 10 }}>
-        <div className="row" style={{ marginBottom: 8 }}><Stamp source={s.source} />{s.recurring && <span className="tiny">Every {weekdayName(s.weekday)}</span>}</div>
+        <div className="row" style={{ marginBottom: 8 }}>
+          <Stamp source={s.source} />
+          {s.recurring && <span className="tiny">{series?.cadence || `Every ${weekdayName(s.weekday)}`}</span>}
+        </div>
         <h1>{s.title}</h1>
         <p style={{ marginTop: 8, fontSize: '1.1rem' }}><b>{fmtDayLong(s.start)}</b>, {fmtTime(s.start)} to {fmtTime(s.end)}</p>
         <p className="muted">{s.venue.name} · {s.venue.address} · {fmtMiles(milesBetween(here, s.venue))} from {here.name}</p>
@@ -54,7 +63,7 @@ export default function Session() {
         </div>
         <div className="row" style={{ marginTop: 18 }}>
           <button className={`btn ${going ? 'on' : 'primary'}`} onClick={() => { update({ going: toggleIn(st.going, s.id) }); toast(going ? 'Removed from your plan' : 'Added to your plan') }}>{going ? "You're going ✓" : "I'm going"}</button>
-          <a className="btn" href={s.url} target="_blank" rel="noreferrer">Book at {s.venue.name.split(' ')[0]} ↗</a>
+          <a className="btn" href={s.url} target="_blank" rel="noreferrer">Book at {bookHost || 'the venue'} ↗</a>
         </div>
         {s.note && <p className="small muted" style={{ marginTop: 14 }}>{s.note}</p>}
       </div>

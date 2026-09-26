@@ -3,8 +3,14 @@
 //   feed     read from the venue's own public schedule endpoint
 //   snapshot read from the venue's site or scheduler on 2026-09-24, then hand-entered
 //   sample   plausible for this venue, not verified; replace when the adapter runs
+//
+// Templates for a venue the adapter covers are suppressed (see FEED_VENUES
+// below). They are deliberately left in place rather than deleted: if that
+// venue's feed ever comes back empty, these reappear, so a bad fetch degrades
+// to stale-but-labelled instead of an empty hobby page.
 import venues from './venues.json'
 import places from './places.json'
+import feed from './feed_sessions.json'
 
 // weekday: 0=Sun ... 6=Sat. time is "HH:MM" local. price 0 = free.
 const T = [
@@ -118,18 +124,60 @@ function make(tpl, date) {
   }
 }
 
+// Venues whose calendar we actually read. Anything hand-entered for these is
+// suppressed: the product's claim is that we do not keep a second listing, so
+// the adapter's output has to win rather than sit alongside a stale copy.
+const FEED_VENUES = new Set(feed.sessions.map((f) => f.venueId))
+const FETCHED = Object.fromEntries(feed.sources.map((s) => [s.base.replace(/^https?:\/\/(www\.)?/, ''), s]))
+
+function feedSessions() {
+  // A title that appears three or more times in the window is a standing
+  // fixture, not a one-off, which is what lets it group into a series.
+  const counts = new Map()
+  for (const f of feed.sessions) {
+    const k = `${f.venueId}|${f.title}`
+    counts.set(k, (counts.get(k) || 0) + 1)
+  }
+  const out = []
+  for (const f of feed.sessions) {
+    const venue = venueById[f.venueId]
+    if (!venue) continue
+    const start = new Date(f.start)
+    const end = new Date(f.end || f.start)
+    if (Number.isNaN(start.getTime())) continue
+    const host = (() => { try { return new URL(f.url).hostname.replace('www.', '') } catch { return null } })()
+    const src = host && FETCHED[host]
+    out.push({
+      id: `feed__${f.venueId}__${f.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}__${localDate(start)}`,
+      venueId: f.venueId, venue, hobby: f.hobby, title: f.title,
+      start, end, date: localDate(start),
+      time: `${pad(start.getHours())}:${pad(start.getMinutes())}`,
+      mins: Math.max(30, Math.round((end - start) / 60000)) || 60,
+      price: f.price,
+      // The calendar does not publish capacity, so we do not invent one.
+      cap: null, taken: 0,
+      level: f.level, source: 'feed', url: f.url,
+      note: src ? `Read from ${host} on ${String(src.fetched).slice(0, 10)}.` : undefined,
+      recurring: (counts.get(`${f.venueId}|${f.title}`) || 0) >= 3,
+      weekday: start.getDay(),
+    })
+  }
+  return out
+}
+
 export function buildSessions(days = 28, from = new Date()) {
   const out = []
   const start = new Date(from); start.setHours(0, 0, 0, 0)
   for (let i = 0; i < days; i++) {
     const d = new Date(start); d.setDate(start.getDate() + i)
     const ds = localDate(d)
-    for (const t of T) if (t.days.includes(d.getDay())) out.push(make(t, ds))
+    for (const t of T) if (t.days.includes(d.getDay()) && !FEED_VENUES.has(t.v)) out.push(make(t, ds))
   }
   for (const o of ONE_OFFS) {
     const d = new Date(`${o.date}T00:00:00`)
-    if (d >= start) out.push(make(o, o.date))
+    if (d >= start && !FEED_VENUES.has(o.v)) out.push(make(o, o.date))
   }
+  out.push(...feedSessions())
   // Drop sessions already in the past today.
   const now = from.getTime()
   return out.filter((s) => s.end.getTime() > now).sort((a, b) => a.start - b.start)

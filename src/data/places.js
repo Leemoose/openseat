@@ -15,10 +15,14 @@ export function placesFor(hobby) { return PLACES[hobby] || [] }
 // One shape for both tiers, so the Places view does not need two code paths.
 // Thin venues become kind 'place' with no rates, which is honest: that is all
 // we know about them until someone researches the hobby.
+// A venue can serve more than one hobby (Fleisher teaches ceramics and eight
+// other things), so an optional `hobbies` array widens the match.
+const servesHobby = (v, hobby) => v.hobby === hobby || (v.hobbies || []).includes(hobby)
+
 export function allPlacesFor(hobby) {
   const rich = placesFor(hobby)
   if (rich.length) return rich
-  return venues.filter((v) => v.hobby === hobby).map((v) => ({ ...v, kind: 'place', thin: true }))
+  return venues.filter((v) => servesHobby(v, hobby)).map((v) => ({ ...v, kind: 'place', thin: true }))
 }
 
 export function placeById(id) {

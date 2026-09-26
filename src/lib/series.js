@@ -10,15 +10,16 @@ const DAY_SHORT = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
 function slug(s) { return String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') }
 
-// [2,4] -> "Tue & Thu"; [1,2,3,4,5] -> "Weekdays"; [0,6] -> "Weekends"
+// The whole phrase, because "Every Weekdays" is not English: [2,4] -> "Every
+// Tue & Thu"; [1,2,3,4,5] -> "Weekdays"; [0,6] -> "Weekends".
 function cadence(days) {
   const d = [...days].sort((a, b) => a - b)
   if (d.length === 7) return 'Daily'
   if (d.length === 5 && d.every((x) => x >= 1 && x <= 5)) return 'Weekdays'
   if (d.length === 2 && d[0] === 0 && d[1] === 6) return 'Weekends'
   const names = d.map((x) => DAY_SHORT[x])
-  if (names.length === 1) return names[0]
-  return `${names.slice(0, -1).join(', ')} & ${names[names.length - 1]}`
+  if (names.length === 1) return `Every ${names[0]}`
+  return `Every ${names.slice(0, -1).join(', ')} & ${names[names.length - 1]}`
 }
 
 export function buildSeries(sessions = SESSIONS) {
@@ -49,8 +50,8 @@ export function buildSeries(sessions = SESSIONS) {
       days, times,
       next: e.instances[0],
       count: e.instances.length,
-      // "Every Tue & Thu" for a repeating class, the date itself for a one-off.
-      cadence: e.recurring && days.length ? `Every ${cadence(days)}` : null,
+      // "Every Tue & Thu" for a repeating class, null for a one-off.
+      cadence: e.recurring && days.length ? cadence(days) : null,
       // One time reads cleanly; several means the class moves, so say so.
       timeLabel: times.length === 1 ? null : `${times.length} times`,
       beginner: e.level === 'First time welcome',
@@ -62,6 +63,9 @@ export const SERIES = buildSeries()
 
 export function seriesFor(hobby) { return SERIES.filter((s) => s.hobby === hobby) }
 export const seriesById = (id) => SERIES.find((s) => s.id === id)
+// The series a given session instance belongs to, so a detail page can say
+// "every Mon, Wed and Thu" rather than just the weekday it happens to land on.
+export const seriesForSession = (s) => (s ? seriesById(`${s.venueId}__${slug(s.title)}`) : null)
 
 // Everything a hobby tile or hobby header needs to answer "is this worth a click":
 // how many real things there are, and what it costs to try one.
