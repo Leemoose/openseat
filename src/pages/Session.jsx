@@ -9,6 +9,7 @@ import { useStore, toggleIn } from '../lib/store.js'
 import { seriesForSession } from '../lib/series.js'
 import { downloadIcs, googleCalendarUrl } from '../lib/ics.js'
 import { fmtDayLong, fmtTime, fmtPrice, weekdayName } from '../lib/format.js'
+import { HOLD_PRICE, holdLink, recordHold, recordClickOut } from '../lib/intent.js'
 import { Avatar, Seats, Stamp } from '../components/bits.jsx'
 import OpenSeatCard from '../components/OpenSeatCard.jsx'
 import VenueMap from '../components/VenueMap.jsx'
@@ -58,14 +59,47 @@ export default function Session() {
         <p className="muted">{s.venue.name} · {s.venue.address} · {fmtMiles(milesBetween(here, s.venue))} from {here.name}</p>
         <div className="row" style={{ marginTop: 16 }}>
           <span className="price" style={{ fontSize: '1.4rem' }}>{fmtPrice(s.price)}</span>
-          <Seats taken={s.taken} cap={s.cap} />
+          <Seats cap={s.cap} />
           <span className="chip">{s.level}</span>
         </div>
         <div className="row" style={{ marginTop: 18 }}>
           <button className={`btn ${going ? 'on' : 'primary'}`} onClick={() => { update({ going: toggleIn(st.going, s.id) }); toast(going ? 'Removed from your plan' : 'Added to your plan') }}>{going ? "You're going ✓" : "I'm going"}</button>
-          <a className="btn" href={s.url} target="_blank" rel="noreferrer">Book at {bookHost || 'the venue'} ↗</a>
+          {/* Every path off this site used to leave no trace, so a fill could
+              not be counted and there was nothing to show a venue. */}
+          <a className="btn" href={s.url} target="_blank" rel="noreferrer" onClick={() => recordClickOut(s.venueId, s.id)}>Book at {bookHost || 'the venue'} ↗</a>
         </div>
         {s.note && <p className="small muted" style={{ marginTop: 14 }}>{s.note}</p>}
+      </div>
+
+      {/* The one thing worth charging for. Access to a calendar is free
+          everywhere; a seat already held for you on the night is not. This is
+          the Member plan's buried fourth bullet promoted to the product, and
+          it is the ask placed at the moment of intent instead of on a pricing
+          page nobody reaches. */}
+      <div className="card hold reveal" style={{ marginTop: 18 }}>
+        <div className="between" style={{ alignItems: 'flex-start', gap: 14, flexWrap: 'wrap' }}>
+          <div style={{ flex: '1 1 20rem' }}>
+            <h3>Want us to hold a seat?</h3>
+            <p className="small muted" style={{ marginTop: 6, maxWidth: '46ch' }}>
+              We reserve one at this session and tell you it is yours. No account, no
+              booking to work out, nothing to cancel by phone. Bring someone or come alone.
+            </p>
+          </div>
+          <div style={{ textAlign: 'right' }}>
+            <div className="amt" style={{ marginBottom: 8 }}>${HOLD_PRICE}<small>/seat</small></div>
+            <a
+              className="btn primary"
+              href={holdLink(s)}
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => { recordHold(s); toast('Thank you. Tell us who you are and we will confirm.') }}
+            >Hold my seat ↗</a>
+          </div>
+        </div>
+        <p className="tiny muted" style={{ marginTop: 12 }}>
+          Prototype: nothing is charged and no seat is really held yet. We are counting
+          who taps this, which is the only honest way to find out whether it is worth building.
+        </p>
       </div>
 
       <div className="grid two" style={{ marginTop: 24 }}>

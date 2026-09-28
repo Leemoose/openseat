@@ -18,7 +18,7 @@ export default function OpenSeatCard({ o, me, requested, onRequest, onRemove, i 
         <Avatar person={person} />
         <div style={{ flex: 1 }}>
           <div className="between">
-            <div><b>{person.name}</b>{hood && <span className="muted small"> · {hood}</span>}</div>
+            <div><b>{person.name}</b>{hood && <span className="muted small"> · {hood}</span>}{person.demo && <span className="stamp sample" style={{ marginLeft: 6 }}>Demo</span>}</div>
             <span className="tiny" style={{ color: hobby.tint }}>{hobby.name}</span>
           </div>
           {!mine && <div className="small muted">{person.blurb}</div>}

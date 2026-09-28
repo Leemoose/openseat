@@ -6,25 +6,31 @@ import { fmtMiles } from '../lib/geo.js'
 
 export function Avatar({ person, lg }) {
   const initials = person.name.split(' ').map((w) => w[0]).join('').slice(0, 2).toUpperCase()
-  return <span className={`av${lg ? ' lg' : ''}`} style={{ background: person.tint || 'var(--ink)' }} title={person.name}>{initials}</span>
+  // A demo person gets a dotted ring and says so on hover, the same way a
+  // sample session gets a stamp. The social layer is the retention mechanism
+  // and stays; passing invented people off as real is what does not.
+  return (
+    <span
+      className={`av${lg ? ' lg' : ''}${person.demo ? ' demo' : ''}`}
+      style={{ background: person.tint || 'var(--ink)' }}
+      title={person.demo ? `${person.name} (demo person, not a real user)` : person.name}
+    >{initials}</span>
+  )
 }
 
 export function Stamp({ source }) {
   return <span className={`stamp ${source}`}>{SOURCE_LABEL[source]}</span>
 }
 
-export function Seats({ taken, cap }) {
-  // A read calendar rarely publishes capacity. Saying so is better than
-  // inventing a number, and better than rendering an empty bar that reads "Full".
+export function Seats({ cap }) {
+  // Two different facts, and only one of them is ever sourced. Capacity comes
+  // from a venue's own scheduler where it publishes one. How full that class
+  // already is comes from nowhere: no calendar, feed or booking page we read
+  // exposes it. So this says how big the room is and stops, rather than
+  // rendering "3 of 8 left" off a number we made up.
   if (cap == null) return <span className="seats muted">Seats not published</span>
   if (cap >= 999) return <span className="seats">Open to all</span>
-  const left = cap - taken
-  return (
-    <span className="seats">
-      <span className="bar"><i style={{ width: `${Math.round((taken / cap) * 100)}%` }} /></span>
-      {left <= 0 ? 'Full' : `${left} of ${cap} left`}
-    </span>
-  )
+  return <span className="seats">Room for {cap}</span>
 }
 
 // Which followed people are at this session (from seed open seats + a light "going" mock).
@@ -47,7 +53,7 @@ export function SessionCard({ s, miles, friends = [], i = 0, going }) {
         </div>
         <div className="meta">{s.venue.name}{miles != null && <> · {fmtMiles(miles)}</>}{s.recurring && <> · every {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][s.weekday]}</>}</div>
         <div className="row">
-          <Seats taken={s.taken} cap={s.cap} />
+          <Seats cap={s.cap} />
           <span className="row" style={{ gap: 8 }}>
             {friends.length > 0 && <span className="avs">{friends.map((p) => <Avatar key={p.id} person={p} />)}</span>}
             {going && <span className="tiny" style={{ color: 'var(--moss)' }}>You're going</span>}

@@ -149,6 +149,9 @@ p { margin: 0; }
 /* avatar */
 .av { width: 34px; height: 34px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: .8rem; letter-spacing: .02em; border: 2px solid var(--paper); flex: none; }
 .av.lg { width: 56px; height: 56px; font-size: 1.1rem; }
+/* A demo person reads as a demo person at a glance, the way a sample session
+   does. Dashed, to match .stamp.sample. */
+.av.demo { border-style: dashed; border-color: var(--ink-3); }
 .avs { display: inline-flex; }
 .avs .av { width: 24px; height: 24px; font-size: .6rem; margin-left: -8px; }
 .avs .av:first-child { margin-left: 0; }
@@ -339,3 +342,9 @@ p { margin: 0; }
 .fees td.amt { width: 5.5rem; text-align: right; font-family: var(--display); font-weight: 600; white-space: nowrap; padding-left: 12px; }
 .fees tr.now td { background: color-mix(in srgb, var(--moss) 10%, transparent); }
 .place h3 { font-size: 1.15rem; }
+
+/* The paid offer, and the attribution prompt that makes a fill countable. */
+.card.hold { border-color: var(--clay); border-width: 2px; }
+.card.hold .amt { font-family: var(--display); font-weight: 700; font-size: 2rem; line-height: 1; white-space: nowrap; }
+.card.hold .amt small { font-size: .8rem; font-weight: 600; color: var(--ink-3); margin-left: 2px; }
+.card.askwent { border-style: dashed; background: var(--paper-2); }

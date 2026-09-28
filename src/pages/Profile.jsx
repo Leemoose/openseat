@@ -41,7 +41,7 @@ export default function Profile() {
 
           <div className="card reveal" style={{ '--i': 1 }}>
             <h3>People you follow</h3>
-            <p className="small muted" style={{ margin: '4px 0 12px' }}>Their sessions show up with their face on it. Mock people for now.</p>
+            <p className="small muted" style={{ margin: '4px 0 12px' }}>Their sessions show up with their face on it. These six are demo people, marked as such wherever they appear, until there are real ones to follow.</p>
             <div className="stack" style={{ gap: 10 }}>
               {PEOPLE.map((p) => (
                 <div key={p.id} className="between">

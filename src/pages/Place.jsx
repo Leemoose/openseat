@@ -7,6 +7,7 @@ import { useStore } from '../lib/store.js'
 import { hoursList, isOpenNow, todayHours } from '../lib/hours.js'
 import { fmtRel, fmtTime, fmtPrice } from '../lib/format.js'
 import { Stamp } from '../components/bits.jsx'
+import { recordClickOut, recordWent, clicksFor, wentFor, pendingClick } from '../lib/intent.js'
 import VenueMap from '../components/VenueMap.jsx'
 
 const PLATFORM_LABEL = {
@@ -57,6 +58,9 @@ export default function Place() {
   const open = isOpenNow(p.hours)
   const today = todayHours(p.hours)
   const upcoming = SESSIONS.filter((s) => s.venueId === p.id).slice(0, 6)
+  const clicks = clicksFor(st, p.id)
+  const went = wentFor(st, p.id)
+  const pending = pendingClick(st, p.id)
   // A leaf page with no way onward is a dead end. Offer the nearest places of
   // the same kind, which is the comparison a visitor is actually making.
   const nearby = allPlacesFor(p.hobby)
@@ -96,12 +100,35 @@ export default function Place() {
           {/* `booking` is sometimes a system name ("Sawyer") and sometimes a
               paragraph explaining that the venue runs two of them. A button is
               not the place for the paragraph; it goes to the research notes. */}
-          {p.url && <a className="btn primary" href={p.url} target="_blank" rel="noreferrer">
+          {p.url && <a className="btn primary" href={p.url} target="_blank" rel="noreferrer" onClick={() => recordClickOut(p.id)}>
             {p.booking && p.booking.length <= 28 ? `Book (${p.booking}) ↗` : 'Book on their site ↗'}
           </a>}
           {p.phone && <a className="btn" href={`tel:${p.phone.replace(/[^\d+]/g, '')}`}>{p.phone}</a>}
         </div>
       </div>
+
+      {/* The number a venue would actually pay against, and the project's
+          stated metric. Nothing here measured whether a single person went
+          anywhere until now: every booking link was an untracked _blank. */}
+      {pending && (
+        <div className="card askwent reveal" style={{ marginTop: 14 }}>
+          <div className="between" style={{ gap: 12, flexWrap: 'wrap' }}>
+            <b>You opened {p.name}'s booking page. Did you book?</b>
+            <div className="row" style={{ gap: 8 }}>
+              <button className="btn sm primary" onClick={() => recordWent(p.id, pending.sessionId)}>Yes, I booked</button>
+              <button className="btn sm ghost" onClick={() => recordWent(p.id, pending.sessionId)}>Not this time</button>
+            </div>
+          </div>
+        </div>
+      )}
+      {(clicks > 0 || went > 0) && !pending && (
+        <p className="small muted" style={{ marginTop: 14 }}>
+          {went > 0
+            ? `${went} ${went === 1 ? 'booking' : 'bookings'} from OpenSeat at this venue.`
+            : `${clicks} ${clicks === 1 ? 'visit' : 'visits'} to this venue's booking page from OpenSeat.`}
+          {' '}Counted in this browser only, which is as far as a prototype with no backend can honestly go.
+        </p>
+      )}
 
       <div className="grid two" style={{ marginTop: 24, alignItems: 'start' }}>
         <div className="stack">

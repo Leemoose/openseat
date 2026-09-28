@@ -19,13 +19,16 @@ export default function About() {
         <li><Stamp source="feed" /> pulled from the venue's own calendar by the adapter, with nothing typed by hand: every Philadelphia Rock Gym session, Fleisher's workshops, and First Friday dates from the Old City District.</li>
         <li><Stamp source="snapshot" /> read from the venue's site or scheduler on 2026-09-24 and entered by hand (YAY!Clay's Clay Dates, Redcap's weekly events, the golf leagues). These are the ones an adapter should eventually take over.</li>
         <li><Stamp source="sample" /> plausible for that venue but not verified. Replace as adapters come online.</li>
-        <li>Golf is the one hobby researched to full depth: 40 places with rates, hours and named instructors, each checked against the venue's own site.</li>
-        <li>Venues are real, with real addresses. The people and the open seats are invented. Seat counts are invented on hand-entered sessions and simply absent on fed ones, which is what the calendars actually give us. Used guitars are a live snapshot from Reverb's public API.</li>
+        <li>Two hobbies are researched to full depth against the venues' own sites: golf, 40 places with rates, hours and named instructors, and pottery, 34 places with 139 named instructors.</li>
+        <li>Venues are real, with real addresses. Used guitars are a live snapshot from Reverb's public API.</li>
+        <li><b>No seat count on this site is invented.</b> Where a venue's own scheduler publishes a class size, the card says how big the room is. Everywhere else it says "seats not published", which is most places. It never says how full a class already is, because no calendar, feed or booking page we read exposes that: a "2 seats left" here would be fiction, and that is the one number that would make the site feel urgent.</li>
+        <li>The six people you can follow are demo people, marked wherever they appear. The open seats attached to them are invented too. The social layer is real product, the cast is not yet.</li>
         <li>Nothing you do here leaves your browser. There is no account and no server yet.</li>
       </ul>
 
       <h2>What we are testing</h2>
-      <p>Two questions. Will people take an open seat next to a stranger at a real session, and will they come back the following week. And on the <Link to="/pricing">pricing page</Link>: what a person would pay for the member layer, and what a studio would pay for a seat that was going to sit empty.</p>
+      <p>Will people take an open seat next to a stranger at a real session, and will they come back the following week.</p>
+      <p>Then the money question, which the research says is the hard one: 13% of Americans spend $100 a month on a hobby, and the social layer is given away free by Partiful, Luma and Heylo, so a subscription to a calendar is not a business. What might be is a seat we actually hold for you, which is the one model in the research proven to be paid for by the person attending. Every session page has a <b>Hold my seat</b> button and we count who taps it. The <Link to="/pricing">pricing page</Link> carries the studio-side question, which comes second: a venue cannot be charged for filling a seat until a fill can be counted, and that only just started being measured.</p>
       <p className="small muted" style={{ marginTop: 24 }}>Built as a Wharton class project, Philadelphia, fall 2026.</p>
     </div>
   )

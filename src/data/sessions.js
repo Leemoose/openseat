@@ -123,7 +123,10 @@ for (const pl of RICH) {
 function pad(n) { return String(n).padStart(2, '0') }
 function localDate(d) { return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}` }
 
-// Deterministic pseudo-random "seats taken" so the demo feels alive but stable per session id.
+// Kept for id hashing if it is ever needed again. It used to generate a
+// plausible "seats taken", which is the kind of number this product exists not
+// to print. Nothing calls it now.
+// eslint-disable-next-line no-unused-vars
 function hash(s) { let h = 2166136261; for (const c of s) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619) } return (h >>> 0) }
 
 function make(tpl, date) {
@@ -131,10 +134,21 @@ function make(tpl, date) {
   const id = `${tpl.v}__${tpl.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}__${date}`
   const start = new Date(`${date}T${tpl.time}:00`)
   const end = new Date(start.getTime() + tpl.mins * 60000)
-  const taken = (tpl.cap == null || tpl.cap >= 999) ? 0 : Math.min(tpl.cap - 1, (hash(id) % Math.max(2, Math.round(tpl.cap * 0.8))))
+  // A `sample` template is plausible, not verified, so its seat count was a
+  // guess on top of a guess. Left in, it meant the only seat scarcity on the
+  // site ("3 of 8 left") sat on the least real data, while every fed and
+  // researched session honestly read "Seats not published". Scarcity is what
+  // the open-seat mechanic and any per-fill charge rest on, so it has to come
+  // from a source that publishes it. KilnFire is the only one that does.
+  const cap = tpl.source === 'sample' ? null : tpl.cap
+  // Occupancy is never published by anyone. It used to be a hash of the session
+  // id, so "3 of 8 left" was a fabricated claim about how many people had
+  // signed up, sitting on top of a capacity that was often real. Capacity can
+  // be sourced; how full it is cannot, so the card shows size and not fill.
+  const taken = 0
   return {
     id, venueId: tpl.v, venue, hobby: venue.hobby, title: tpl.title, start, end, date, time: tpl.time, mins: tpl.mins,
-    price: tpl.price, cap: tpl.cap, taken, level: tpl.level, source: tpl.source, note: tpl.note, url: tpl.url,
+    price: tpl.price, cap, taken, level: tpl.level, source: tpl.source, note: tpl.note, url: tpl.url,
     recurring: !tpl.date, weekday: start.getDay(),
   }
 }

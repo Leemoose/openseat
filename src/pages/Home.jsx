@@ -5,6 +5,7 @@ import { SEED_OPEN_SEATS } from '../data/openseats.js'
 import { HOODS, milesBetween } from '../lib/geo.js'
 import { useStore } from '../lib/store.js'
 import { hobbyStats } from '../lib/series.js'
+import { PROMISE } from '../lib/intent.js'
 import { SessionCard, friendsAt } from '../components/bits.jsx'
 import OpenSeatCard from '../components/OpenSeatCard.jsx'
 import SearchBox from '../components/SearchBox.jsx'
@@ -20,6 +21,14 @@ export default function Home() {
   const mine = SESSIONS.filter((s) => st.me.hobbies.includes(s.hobby))
   const soon = (mine.length ? mine : SESSIONS).slice(0, 4)
   const allOpen = [...st.myOpenSeats, ...SEED_OPEN_SEATS.filter((o) => !st.hidden.includes(o.id))]
+
+  // Order by how much real data a hobby has behind it, not by the order the
+  // list happens to be written in. A hobby with fed sessions earns the first
+  // tile; one held up by plausible guesses sorts last within its row.
+  const ranked = (list) => [...list].sort((a, b) => {
+    const A = stats[a.id]; const B = stats[b.id]
+    return (B.fed - A.fed) || (B.real - A.real) || (B.places - A.places)
+  })
 
   const tile = (h, minor) => {
     const s = stats[h.id]
@@ -42,7 +51,11 @@ export default function Home() {
       <section className="hero reveal">
         <div className="kicker">Philadelphia · this month</div>
         <h1>Find the <span className="em">Tuesday thing.</span></h1>
-        <p className="lead">The classes that repeat every week at real Philly studios, gyms and shops, read from their own calendars. Pick something to try, or just see what is on today.</p>
+        {/* The lead used to describe the mechanism (we read calendars), which is
+            interesting to us and not to a visitor. It now leads with the thing
+            nobody else does, which is also the thing the research pipeline
+            already produces: what it actually costs to walk in once. */}
+        <p className="lead">{PROMISE} The classes that repeat every week at real Philly studios, gyms and shops, with the price where the venue publishes one.</p>
         <div className="herosearch"><SearchBox placeholder="Try pottery, Fishtown, YAY!Clay" /></div>
         <div className="row" style={{ marginTop: 14 }}>
           <Link to="/week" className="btn primary">What's on this week</Link>
@@ -53,8 +66,8 @@ export default function Home() {
 
       <section className="sec">
         <div className="sec-h"><h2>Pick something to try</h2><span className="muted small">What it costs to walk in once</span></div>
-        <div className="tiles">{HOBBIES.filter((h) => h.primary).map((h) => tile(h, false))}</div>
-        <div className="tiles" style={{ marginTop: 12 }}>{HOBBIES.filter((h) => !h.primary).map((h) => tile(h, true))}</div>
+        <div className="tiles">{ranked(HOBBIES.filter((h) => h.primary)).map((h) => tile(h, false))}</div>
+        <div className="tiles" style={{ marginTop: 12 }}>{ranked(HOBBIES.filter((h) => !h.primary)).map((h) => tile(h, true))}</div>
       </section>
 
       <section className="sec">

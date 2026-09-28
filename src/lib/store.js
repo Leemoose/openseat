@@ -12,6 +12,12 @@ const DEFAULTS = {
   requested: [],      // open-seat ids the user asked to join
   hidden: [],         // seed open-seat ids dismissed
   wtp: null,          // willingness-to-pay answer from the pricing page
+  // Attribution. Nothing else in the product could tell whether a single
+  // person went anywhere, which left no evidence to show a venue and no
+  // metric for the thing the project says it measures: repeat attendance.
+  clicks: [],         // { placeId, sessionId, at } one per click out to a venue
+  went: [],           // { placeId, sessionId, at } confirmed "I went"
+  holds: [],          // { sessionId, price, at } paid-intent taps
 }
 
 function read() {
@@ -38,6 +44,15 @@ export function useStore() {
     listeners.forEach((l) => l(state))
   }, [])
   return [s, update, reset]
+}
+
+// The store outside React. Attribution fires from click handlers on links that
+// are navigating away, where a hook is the wrong shape.
+export function getState() { return state }
+export function updateStore(patch) {
+  state = { ...state, ...(typeof patch === 'function' ? patch(state) : patch) }
+  write(state)
+  listeners.forEach((l) => l(state))
 }
 
 export function toggleIn(list, id) {

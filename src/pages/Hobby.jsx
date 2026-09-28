@@ -7,7 +7,7 @@ import { allPlacesFor, placesFor, KIND_LABEL, KIND_ORDER } from '../data/places.
 import gear from '../data/gear.json'
 import { HOODS, milesBetween } from '../lib/geo.js'
 import { useStore } from '../lib/store.js'
-import { seriesFor, hobbyStats } from '../lib/series.js'
+import { seriesFor, hobbyStats, sourceRank } from '../lib/series.js'
 import { dayKey, fmtDayLong, fmtRel } from '../lib/format.js'
 import { isOpenNow } from '../lib/hours.js'
 import { SessionCard, friendsAt } from '../components/bits.jsx'
@@ -77,8 +77,10 @@ export default function Hobby() {
   // "Start here" answers "what is the cheapest way to try this", so it leads
   // with price rather than with whichever class happens to run next. A $572
   // eight-week course at the top of a beginner list is the wrong first thing.
+  // Cheapest first, then verified before plausible, so a guessed session never
+  // outranks a real one at the same price in the list that says "start here".
   const firstTimers = seriesList.filter(({ s }) => s.beginner)
-    .sort((a, b) => (a.s.price ?? 9999) - (b.s.price ?? 9999))
+    .sort((a, b) => ((a.s.price ?? 9999) - (b.s.price ?? 9999)) || (sourceRank(a.s) - sourceRank(b.s)))
   const rest = seriesList.filter(({ s }) => !s.beginner)
 
   const dayList = SESSIONS

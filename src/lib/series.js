@@ -61,6 +61,12 @@ export function buildSeries(sessions = SESSIONS) {
 
 export const SERIES = buildSeries()
 
+// How real a row's data is. Used to break ties so verified sessions lead an
+// otherwise equal list, and to rank the hobby tiles by depth of real data
+// rather than by a hand-set flag.
+export const SOURCE_RANK = { feed: 0, snapshot: 1, sample: 2 }
+export const sourceRank = (x) => SOURCE_RANK[x?.source] ?? 3
+
 export function seriesFor(hobby) { return SERIES.filter((s) => s.hobby === hobby) }
 export const seriesById = (id) => SERIES.find((s) => s.id === id)
 // The series a given session instance belongs to, so a detail page can say
@@ -82,6 +88,10 @@ export function hobbyStats(hobby) {
   return {
     series: series.length,
     places: places.length,
+    // Series whose schedule came from a venue's own calendar or a dated read of
+    // its site, as opposed to a plausible guess. This is what the tiles rank on.
+    real: series.filter((s) => s.source !== 'sample').length,
+    fed: series.filter((s) => s.source === 'feed').length,
     beginner: series.filter((s) => s.beginner).length,
     free: series.some((s) => s.price === 0),
     // "Free" is a stronger hook than "$0", so report both and let the tile choose.
