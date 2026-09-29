@@ -14,7 +14,11 @@ import { track, variant, SUB_PRICE, FEE_RATE } from './track.js'
 // tap falls back to a mailto, which is lower volume but still reaches a real
 // inbox. One of the two has to be live or the test collects nothing, which
 // was the old failure.
-export const HOLD_FORM_URL = ''
+export const HOLD_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfC8qogMJR1EI0YlXLU56w61ViD4gMKQ27hu_XUU0y5rcl2CQ/viewform'
+// Google Forms prefill parameters. The ids come from the form's own markup
+// (a new question gets a new id; re-read them if the form is rebuilt). The
+// email, beta-tester and free-text questions are left for the visitor.
+const FORM_FIELDS = { session: 'entry.2068288782', price: 'entry.363416346' }
 export const HOLD_EMAIL = 'connorito@gmail.com'
 
 // The promise, said once here and reused, so the hero, the pricing page and
@@ -65,9 +69,9 @@ export function holdLink(session) {
   const when = session.date ? ` on ${session.date}` : ''
   if (HOLD_FORM_URL) {
     const u = new URL(HOLD_FORM_URL)
-    u.searchParams.set('session', label)
-    u.searchParams.set('price', offer.label)
-    u.searchParams.set('variant', offer.variant)
+    u.searchParams.set('usp', 'pp_url')
+    u.searchParams.set(FORM_FIELDS.session, `${label}${when}`)
+    u.searchParams.set(FORM_FIELDS.price, `${offer.label} (${offer.variant})`)
     return u.toString()
   }
   const subject = encodeURIComponent(`Hold my seat: ${label}`)

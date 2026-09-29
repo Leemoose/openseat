@@ -13,7 +13,9 @@
 // the test collects nothing from anyone but you. That is the old failure, so
 // the key is the one thing that has to land before the Reddit post goes up.
 
-export const ANALYTICS_KEY = ''                        // PostHog project API key, phc_...
+// Project 636192 on PostHog US cloud. This is the write-only project key, which
+// is meant to ship in a public page; it cannot read anything back.
+export const ANALYTICS_KEY = 'phc_mTJCAQdj5tjT5cxPcmVMJ7qemppm4roW8LCgZVUyZWA5'
 export const ANALYTICS_HOST = 'https://us.i.posthog.com'
 
 // The experiment. One visitor sees one price model for as long as their
