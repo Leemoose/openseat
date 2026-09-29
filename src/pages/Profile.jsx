@@ -8,11 +8,13 @@ import { useStore, toggleIn } from '../lib/store.js'
 import { downloadIcs } from '../lib/ics.js'
 import { fmtRel, fmtTime } from '../lib/format.js'
 import { Avatar } from '../components/bits.jsx'
+import { recentEvents, variant, SUB_PRICE, FEE_RATE } from '../lib/track.js'
 import { toast } from '../App.jsx'
 
 export default function Profile() {
   const [st, update, reset] = useStore()
   const me = st.me
+  const events = recentEvents().slice(0, 20)
   const plan = st.going.map(sessionById).filter(Boolean).sort((a, b) => a.start - b.start)
   const friendPlans = PEOPLE.filter((p) => st.following.includes(p.id)).map((p) => ({
     p, sessions: SEED_OPEN_SEATS.filter((o) => o.personId === p.id).map((o) => sessionById(o.sessionId)).filter(Boolean),
@@ -89,7 +91,20 @@ export default function Profile() {
 
           <div className="card reveal" style={{ '--i': 4 }}>
             <h3>Prototype</h3>
-            <p className="small muted" style={{ margin: '4px 0 10px' }}>Everything you do here lives in this browser only. Nobody else sees it.</p>
+            <p className="small muted" style={{ margin: '4px 0 10px' }}>
+              Your plan, follows and open seats live in this browser only. What we do record,
+              without your name or email: which pages you open and which buttons you tap, under a
+              random id, plus which of two prices you were shown (you got <b>{variant() === 'sub' ? `the $${SUB_PRICE}/month membership` : `${Math.round(FEE_RATE * 100)}% per booking`}</b>).
+              That is how we find out whether anyone would pay for a held seat.
+            </p>
+            {events.length > 0 && (
+              <details className="small" style={{ marginBottom: 10 }}>
+                <summary className="muted">Last {events.length} things recorded from this browser</summary>
+                <ul className="muted" style={{ margin: '6px 0 0', paddingLeft: 18, lineHeight: 1.5 }}>
+                  {events.map((e, i) => <li key={i}><code>{e.event}</code> {e.path || e.session_id || e.place_id || ''} <span className="tiny">{new Date(e.at).toLocaleString()}</span></li>)}
+                </ul>
+              </details>
+            )}
             <button className="btn ghost sm" onClick={() => { reset(); toast('Demo reset') }}>Reset demo</button>
           </div>
         </div>

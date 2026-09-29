@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useStore } from '../lib/store.js'
-import { HOLD_PRICE, HOLD_FORM_URL, PROMISE } from '../lib/intent.js'
+import { HOLD_FORM_URL, PROMISE } from '../lib/intent.js'
+import { track, variant, SUB_PRICE, FEE_RATE } from '../lib/track.js'
 import { toast } from '../App.jsx'
 
 // The research this project ran said plainly that revenue will not come from
@@ -13,14 +14,24 @@ import { toast } from '../App.jsx'
 // it, and the one model in the research proven to be consumer-paid: a seat
 // that is actually held for you at the weekly session. The free calendar is
 // the acquisition channel for it, not the product.
-const USER_POLL = ['$0, never', `$${HOLD_PRICE - 15} a seat`, `$${HOLD_PRICE} a seat`, `$${HOLD_PRICE + 15} a seat`, 'Only if a friend came']
+//
+// How that seat is priced is the experiment. A visitor is dealt one of two
+// arms on first visit (lib/track.js) and this page shows the same arm the
+// session pages do, so the site never quotes two prices to one person.
+const PCT = `${Math.round(FEE_RATE * 100)}%`
+const USER_POLL = ['$0, never', '$1-3 a booking', '$5 a booking', `$${SUB_PRICE} a month`, `$${SUB_PRICE * 2} a month`, 'Only if a friend came']
 const SHOP_POLL = ['Nothing', '5% of the seat', '10% of the seat', '$49 / mo flat', '$99 / mo flat']
 
 export default function Pricing() {
   const [st, update] = useStore()
   const wtp = st.wtp || {}
   const holds = (st.holds || []).length
-  const pick = (k, v) => { update({ wtp: { ...wtp, [k]: v, at: Date.now() } }); toast('Noted. Thank you.') }
+  const v = variant()
+  const pick = (k, val) => {
+    update({ wtp: { ...wtp, [k]: val, at: Date.now() } })
+    track('poll_answer', { poll: k, answer: val })
+    toast('Noted. Thank you.')
+  }
 
   return (
     <>
@@ -46,20 +57,33 @@ export default function Pricing() {
               <li>No account needed to use any of it</li>
             </ul>
           </div>
-          <div className="plan hot reveal" style={{ '--i': 1 }}>
-            <div className="k">A held seat</div>
-            <div className="amt">${HOLD_PRICE}<small>/seat</small></div>
-            <ul>
-              <li>We reserve the wheel, the table, the bay, the belay slot</li>
-              <li>You get told it is yours. Nothing to book, nobody to call.</li>
-              <li>Come alone and you are put with the others who did</li>
-              <li>Miss it and the seat moves to next week, once</li>
-            </ul>
-          </div>
+          {v === 'sub' ? (
+            <div className="plan hot reveal" style={{ '--i': 1 }}>
+              <div className="k">Held seats, all month</div>
+              <div className="amt">${SUB_PRICE}<small>/month</small></div>
+              <ul>
+                <li>We reserve the wheel, the table, the bay, the belay slot</li>
+                <li>As many seats as you want held, at any venue on the site</li>
+                <li>Come alone and you are put with the others who did</li>
+                <li>Cancel any time. Miss a seat and it moves to next week, once.</li>
+              </ul>
+            </div>
+          ) : (
+            <div className="plan hot reveal" style={{ '--i': 1 }}>
+              <div className="k">A held seat</div>
+              <div className="amt">{PCT}<small> of the class, per seat</small></div>
+              <ul>
+                <li>We reserve the wheel, the table, the bay, the belay slot</li>
+                <li>A few dollars on top of the class price, only when you book</li>
+                <li>Come alone and you are put with the others who did</li>
+                <li>Nothing monthly. Miss it and the seat moves to next week, once.</li>
+              </ul>
+            </div>
+          )}
         </div>
         <div className="card" style={{ marginTop: 14 }}>
           <b>What would you honestly pay for a seat held at a class you have never been to?</b>
-          <div className="poll" style={{ marginTop: 10 }}>{USER_POLL.map((v) => <button key={v} className={`chip${wtp.user === v ? ' on' : ''}`} onClick={() => pick('user', v)}>{v}</button>)}</div>
+          <div className="poll" style={{ marginTop: 10 }}>{USER_POLL.map((val) => <button key={val} className={`chip${wtp.user === val ? ' on' : ''}`} onClick={() => pick('user', val)}>{val}</button>)}</div>
           <p className="small muted" style={{ marginTop: 10 }}>
             A tap is a preference. The real test is the <Link to="/">Hold my seat</Link> button on any
             session page, which asks for an email.{holds > 0 && ` You have used it ${holds} ${holds === 1 ? 'time' : 'times'}.`}
@@ -92,7 +116,7 @@ export default function Pricing() {
         </div>
         <div className="card" style={{ marginTop: 14 }}>
           <b>If you run a studio or shop: what would you pay for a seat that was going to sit empty?</b>
-          <div className="poll" style={{ marginTop: 10 }}>{SHOP_POLL.map((v) => <button key={v} className={`chip${wtp.shop === v ? ' on' : ''}`} onClick={() => pick('shop', v)}>{v}</button>)}</div>
+          <div className="poll" style={{ marginTop: 10 }}>{SHOP_POLL.map((val) => <button key={val} className={`chip${wtp.shop === val ? ' on' : ''}`} onClick={() => pick('shop', val)}>{val}</button>)}</div>
           <p className="small muted" style={{ marginTop: 10 }}>
             Second, not first. A venue cannot be charged for a fill until a fill can be
             counted, and that only started being measured recently.
@@ -101,10 +125,12 @@ export default function Pricing() {
       </div>
 
       <div className="note" style={{ marginTop: 28 }}>
-        Prototype: these taps are saved in this browser only.{' '}
+        Prototype: nothing is charged. We count taps, and the price you see is one of two
+        we are testing.{' '}
         {HOLD_FORM_URL
           ? <a href={HOLD_FORM_URL} target="_blank" rel="noreferrer">The two-question form ↗</a>
-          : <span>The Hold my seat button emails a real inbox, which is the one signal here that leaves your machine.</span>}
+          : <span>The Hold my seat button emails a real inbox.</span>}
+        {' '}<Link to="/me">What we recorded about you</Link>.
       </div>
     </>
   )

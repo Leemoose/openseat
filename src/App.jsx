@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import SearchBox from './components/SearchBox.jsx'
+import { pageview } from './lib/track.js'
 
 export function toast(msg) {
   window.dispatchEvent(new CustomEvent('openseat:toast', { detail: msg }))
@@ -28,7 +29,9 @@ export default function App() {
     return () => { window.removeEventListener('openseat:toast', on); clearTimeout(t) }
   }, [])
 
-  useEffect(() => { window.scrollTo({ top: 0 }) }, [loc.pathname])
+  // One pageview per route, which is the funnel's top: landed, opened a
+  // hobby, opened a session, tapped hold.
+  useEffect(() => { window.scrollTo({ top: 0 }); pageview(loc.pathname) }, [loc.pathname])
 
   return (
     <>

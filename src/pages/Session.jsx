@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { sessionById, SESSIONS } from '../data/sessions.js'
 import { SEED_OPEN_SEATS } from '../data/openseats.js'
@@ -9,7 +9,8 @@ import { useStore, toggleIn } from '../lib/store.js'
 import { seriesForSession } from '../lib/series.js'
 import { downloadIcs, googleCalendarUrl } from '../lib/ics.js'
 import { fmtDayLong, fmtTime, fmtPrice, weekdayName } from '../lib/format.js'
-import { HOLD_PRICE, holdLink, recordHold, recordClickOut } from '../lib/intent.js'
+import { offerFor, holdLink, recordHold, recordHoldView, recordClickOut } from '../lib/intent.js'
+import { track } from '../lib/track.js'
 import { Avatar, Seats, Stamp } from '../components/bits.jsx'
 import OpenSeatCard from '../components/OpenSeatCard.jsx'
 import VenueMap from '../components/VenueMap.jsx'
@@ -23,6 +24,10 @@ export default function Session() {
   const [say, setSay] = useState('')
   const [invite, setInvite] = useState('')
 
+  // The hold card was shown: the denominator for the hold rate. Once per
+  // session page, not per re-render.
+  useEffect(() => { if (s) recordHoldView(s) }, [s?.id])
+
   if (!s) return <div className="empty">That session has passed or does not exist. <Link to="/">Explore</Link></div>
   const hobby = hobbyById(s.hobby)
   const series = seriesForSession(s)
@@ -35,11 +40,13 @@ export default function Session() {
   const open = [...st.myOpenSeats.filter((o) => o.sessionId === s.id), ...SEED_OPEN_SEATS.filter((o) => o.sessionId === s.id && !st.hidden.includes(o.id))]
   const friends = PEOPLE.filter((p) => st.following.includes(p.id) && open.some((o) => o.personId === p.id))
   const nextSame = SESSIONS.filter((x) => x.venueId === s.venueId && x.title === s.title && x.id !== s.id).slice(0, 3)
+  const offer = offerFor(s)
 
   function post() {
     if (!say.trim()) return toast('Say one line about who you are')
     const o = { id: `me-${Date.now()}`, sessionId: s.id, seats, say: say.trim(), createdAt: Date.now() }
     update({ myOpenSeats: [o, ...st.myOpenSeats], going: going ? st.going : [...st.going, s.id] })
+    track('open_seat_post', { session_id: s.id, hobby: s.hobby, seats })
     setSay('')
     toast('Open seat posted')
   }
@@ -63,10 +70,10 @@ export default function Session() {
           <span className="chip">{s.level}</span>
         </div>
         <div className="row" style={{ marginTop: 18 }}>
-          <button className={`btn ${going ? 'on' : 'primary'}`} onClick={() => { update({ going: toggleIn(st.going, s.id) }); toast(going ? 'Removed from your plan' : 'Added to your plan') }}>{going ? "You're going ✓" : "I'm going"}</button>
+          <button className={`btn ${going ? 'on' : 'primary'}`} onClick={() => { update({ going: toggleIn(st.going, s.id) }); track(going ? 'going_off' : 'going_on', { session_id: s.id, hobby: s.hobby }); toast(going ? 'Removed from your plan' : 'Added to your plan') }}>{going ? "You're going ✓" : "I'm going"}</button>
           {/* Every path off this site used to leave no trace, so a fill could
               not be counted and there was nothing to show a venue. */}
-          <a className="btn" href={s.url} target="_blank" rel="noreferrer" onClick={() => recordClickOut(s.venueId, s.id)}>Book at {bookHost || 'the venue'} ↗</a>
+          <a className="btn" href={s.url} target="_blank" rel="noreferrer" onClick={() => recordClickOut(s.venueId, s.id, { hobby: s.hobby, source: s.source })}>Book at {bookHost || 'the venue'} ↗</a>
         </div>
         {s.note && <p className="small muted" style={{ marginTop: 14 }}>{s.note}</p>}
       </div>
@@ -75,7 +82,10 @@ export default function Session() {
           everywhere; a seat already held for you on the night is not. This is
           the Member plan's buried fourth bullet promoted to the product, and
           it is the ask placed at the moment of intent instead of on a pricing
-          page nobody reaches. */}
+          page nobody reaches.
+
+          The price model is the experiment: half of visitors see a monthly
+          membership, half see a small per-booking fee. See lib/track.js. */}
       <div className="card hold reveal" style={{ marginTop: 18 }}>
         <div className="between" style={{ alignItems: 'flex-start', gap: 14, flexWrap: 'wrap' }}>
           <div style={{ flex: '1 1 20rem' }}>
@@ -84,16 +94,19 @@ export default function Session() {
               We reserve one at this session and tell you it is yours. No account, no
               booking to work out, nothing to cancel by phone. Bring someone or come alone.
             </p>
+            <p className="small" style={{ marginTop: 8, maxWidth: '46ch' }}>{offer.blurb}</p>
           </div>
           <div style={{ textAlign: 'right' }}>
-            <div className="amt" style={{ marginBottom: 8 }}>${HOLD_PRICE}<small>/seat</small></div>
+            <div className="amt" style={{ marginBottom: 8 }}>
+              {offer.amount != null ? <>${offer.variant === 'sub' ? offer.amount : offer.amount.toFixed(2)}<small>{offer.unit}</small></> : <small>{offer.label}</small>}
+            </div>
             <a
               className="btn primary"
               href={holdLink(s)}
               target="_blank"
               rel="noreferrer"
               onClick={() => { recordHold(s); toast('Thank you. Tell us who you are and we will confirm.') }}
-            >Hold my seat ↗</a>
+            >{offer.button} ↗</a>
           </div>
         </div>
         <p className="tiny muted" style={{ marginTop: 12 }}>

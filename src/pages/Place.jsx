@@ -100,7 +100,7 @@ export default function Place() {
           {/* `booking` is sometimes a system name ("Sawyer") and sometimes a
               paragraph explaining that the venue runs two of them. A button is
               not the place for the paragraph; it goes to the research notes. */}
-          {p.url && <a className="btn primary" href={p.url} target="_blank" rel="noreferrer" onClick={() => recordClickOut(p.id)}>
+          {p.url && <a className="btn primary" href={p.url} target="_blank" rel="noreferrer" onClick={() => recordClickOut(p.id, null, { hobby: p.hobby, from: 'place' })}>
             {p.booking && p.booking.length <= 28 ? `Book (${p.booking}) ↗` : 'Book on their site ↗'}
           </a>}
           {p.phone && <a className="btn" href={`tel:${p.phone.replace(/[^\d+]/g, '')}`}>{p.phone}</a>}
@@ -115,8 +115,8 @@ export default function Place() {
           <div className="between" style={{ gap: 12, flexWrap: 'wrap' }}>
             <b>You opened {p.name}'s booking page. Did you book?</b>
             <div className="row" style={{ gap: 8 }}>
-              <button className="btn sm primary" onClick={() => recordWent(p.id, pending.sessionId)}>Yes, I booked</button>
-              <button className="btn sm ghost" onClick={() => recordWent(p.id, pending.sessionId)}>Not this time</button>
+              <button className="btn sm primary" onClick={() => recordWent(p.id, pending.sessionId, true)}>Yes, I booked</button>
+              <button className="btn sm ghost" onClick={() => recordWent(p.id, pending.sessionId, false)}>Not this time</button>
             </div>
           </div>
         </div>
