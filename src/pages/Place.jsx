@@ -7,40 +7,8 @@ import { useStore } from '../lib/store.js'
 import { hoursList, isOpenNow, todayHours } from '../lib/hours.js'
 import { fmtRel, fmtTime, fmtPrice } from '../lib/format.js'
 import { Stamp } from '../components/bits.jsx'
-import { recordClickOut, recordWent, clicksFor, wentFor, pendingClick } from '../lib/intent.js'
+import { recordClickOut } from '../lib/intent.js'
 import VenueMap from '../components/VenueMap.jsx'
-
-const PLATFORM_LABEL = {
-  'wordpress-tribe': 'WordPress with The Events Calendar',
-  wordpress: 'WordPress',
-  squarespace: 'Squarespace',
-  acuity: 'Acuity Scheduling',
-  mindbody: 'Mindbody',
-  punchpass: 'Punchpass',
-  sawyer: 'Sawyer',
-  wix: 'Wix',
-  eventbrite: 'Eventbrite',
-  bookwhen: 'Bookwhen',
-  coursestorm: 'CourseStorm',
-  jackrabbit: 'Jackrabbit',
-  ticketleap: 'Ticketleap',
-  kilnfire: 'KilnFire',
-  apostrophecms: 'ApostropheCMS',
-  shopify: 'Shopify',
-  drupal: 'Drupal',
-  webflow: 'Webflow',
-  'square-online': 'Square Online',
-  captyn: 'Captyn',
-  none: 'a site with no online schedule',
-  unknown: 'something we could not identify',
-}
-
-// Several venues run a stack ("wordpress + acuity + kilnfire"). Label each part.
-function platformName(p) {
-  return String(p || '').split(/\s*\+\s*/)
-    .map((x) => PLATFORM_LABEL[x.trim().toLowerCase()] || x.trim())
-    .filter(Boolean).join(' + ')
-}
 
 function money(p) {
   if (p == null || p === '') return 'See site'
@@ -58,9 +26,6 @@ export default function Place() {
   const open = isOpenNow(p.hours)
   const today = todayHours(p.hours)
   const upcoming = SESSIONS.filter((s) => s.venueId === p.id).slice(0, 6)
-  const clicks = clicksFor(st, p.id)
-  const went = wentFor(st, p.id)
-  const pending = pendingClick(st, p.id)
   // A leaf page with no way onward is a dead end. Offer the nearest places of
   // the same kind, which is the comparison a visitor is actually making.
   const nearby = allPlacesFor(p.hobby)
@@ -106,29 +71,6 @@ export default function Place() {
           {p.phone && <a className="btn" href={`tel:${p.phone.replace(/[^\d+]/g, '')}`}>{p.phone}</a>}
         </div>
       </div>
-
-      {/* The number a venue would actually pay against, and the project's
-          stated metric. Nothing here measured whether a single person went
-          anywhere until now: every booking link was an untracked _blank. */}
-      {pending && (
-        <div className="card askwent reveal" style={{ marginTop: 14 }}>
-          <div className="between" style={{ gap: 12, flexWrap: 'wrap' }}>
-            <b>You opened {p.name}'s booking page. Did you book?</b>
-            <div className="row" style={{ gap: 8 }}>
-              <button className="btn sm primary" onClick={() => recordWent(p.id, pending.sessionId, true)}>Yes, I booked</button>
-              <button className="btn sm ghost" onClick={() => recordWent(p.id, pending.sessionId, false)}>Not this time</button>
-            </div>
-          </div>
-        </div>
-      )}
-      {(clicks > 0 || went > 0) && !pending && (
-        <p className="small muted" style={{ marginTop: 14 }}>
-          {went > 0
-            ? `${went} ${went === 1 ? 'booking' : 'bookings'} from OpenSeat at this venue.`
-            : `${clicks} ${clicks === 1 ? 'visit' : 'visits'} to this venue's booking page from OpenSeat.`}
-          {' '}Counted in this browser only, which is as far as a prototype with no backend can honestly go.
-        </p>
-      )}
 
       <div className="grid two" style={{ marginTop: 24, alignItems: 'start' }}>
         <div className="stack">
@@ -221,17 +163,6 @@ export default function Place() {
                 ))}
               </div>
               <Link className="small" to={`/h/${p.hobby}`} style={{ display: 'inline-block', marginTop: 10 }}>All {hobby.name.toLowerCase()} places →</Link>
-            </div>
-          )}
-          {p.platform && (
-            <div className="card">
-              <h3>Can we read this calendar?</h3>
-              <p className="small muted" style={{ margin: '6px 0 10px' }}>
-                The whole premise is that a venue keeps its own schedule and we read it, rather than asking it to maintain a second listing here. So this is worth stating per venue.
-              </p>
-              {p.feedUrl
-                ? <p className="small"><b style={{ color: 'var(--moss)' }}>● Yes.</b> {platformName(p.platform)} publishes a machine-readable schedule, so sessions here can update themselves.</p>
-                : <p className="small"><b>○ Not yet.</b> Runs on {platformName(p.platform)}{p.platform === 'none' ? ', with no schedule published online at all' : ', which needs an adapter written for it'}. Sessions here are entered by hand and go stale.</p>}
             </div>
           )}
           {p.notes && (

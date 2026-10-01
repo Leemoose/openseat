@@ -4,7 +4,6 @@
 import { HOBBIES } from '../data/hobbies.js'
 import { allPlacesFor, KIND_LABEL } from '../data/places.js'
 import { SERIES } from './series.js'
-import { HOODS } from './geo.js'
 
 function norm(s) { return String(s || '').toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim() }
 
@@ -29,9 +28,6 @@ function build() {
       sub: `${s.venue.name} · ${s.cadence || 'One-off'}`,
       to: `/s/${s.next.id}`, tint: h?.tint, hay: norm(`${s.title} ${s.venue.name} ${s.level} ${h?.name}`),
     })
-  }
-  for (const n of HOODS) {
-    out.push({ type: 'hood', id: n.id, label: n.name, sub: 'Neighborhood', to: `/week?near=${n.id}`, hay: norm(n.name) })
   }
   return out
 }

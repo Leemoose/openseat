@@ -115,24 +115,3 @@ export function recordClickOut(placeId, sessionId, extra = {}) {
   updateStore({ clicks: [{ placeId, sessionId: sessionId || null, at: Date.now() }, ...clicks].slice(0, 200) })
   track('book_click', { place_id: placeId, session_id: sessionId || null, ...extra })
 }
-
-export function recordWent(placeId, sessionId, booked) {
-  if (!placeId) return
-  const went = getState().went || []
-  track('book_answer', { place_id: placeId, session_id: sessionId || null, booked: !!booked })
-  if (went.some((w) => w.placeId === placeId && w.sessionId === (sessionId || null))) return
-  updateStore({ went: [{ placeId, sessionId: sessionId || null, booked: !!booked, at: Date.now() }, ...went] })
-}
-
-export const clicksFor = (st, placeId) => (st.clicks || []).filter((c) => c.placeId === placeId).length
-export const wentFor = (st, placeId) => (st.went || []).filter((c) => c.placeId === placeId && c.booked !== false).length
-
-// A click out that has not been answered yet, so the page can ask "did you
-// book?" when the visitor comes back. Only the most recent one, and only for
-// the place being looked at.
-export function pendingClick(st, placeId) {
-  const c = (st.clicks || []).find((x) => x.placeId === placeId)
-  if (!c) return null
-  const answered = (st.went || []).some((w) => w.placeId === placeId && w.at > c.at)
-  return answered ? null : c
-}

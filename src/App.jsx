@@ -7,17 +7,8 @@ export function toast(msg) {
   window.dispatchEvent(new CustomEvent('openseat:toast', { detail: msg }))
 }
 
-// Four destinations, one per question a visitor actually arrives with:
-// "I want to try something", "I have Thursday free", "I want company",
-// "what did I save". Pricing and About are prototype scaffolding and live in
-// the footer, not in the primary nav.
-const LINKS = [
-  ['/', 'Explore', 'Explore', '◍'],
-  ['/week', "What's on", 'On now', '▤'],
-  ['/open', 'Open seats', 'Seats', '▢'],
-  ['/me', 'You', 'You', '◉'],
-]
-
+// The MVP has one job: count how many people ask for a seat. So there is one
+// path (hobby, class, hold my seat) and nothing in the nav that leads off it.
 export default function App() {
   const [msg, setMsg] = useState(null)
   const loc = useLocation()
@@ -40,23 +31,17 @@ export default function App() {
           <Link to="/" className="logo"><i /> <span>Open<b>Seat</b></span><span className="tag">Philly beta</span></Link>
           <SearchBox big />
           <nav className="nav">
-            {LINKS.map(([to, label]) => <NavLink key={to} to={to} end={to === '/'}>{label}</NavLink>)}
+            <NavLink to="/about">How it works</NavLink>
           </nav>
         </div>
       </header>
       <main className="wrap page">
         <Outlet />
         <footer className="foot">
-          <span>OpenSeat is a prototype. Nothing here is a booking; every session links to the venue.</span>
-          <Link to="/about">What is real and what is sample data</Link>
-          <Link to="/pricing">Pricing</Link>
+          <span>OpenSeat is in early beta in Philadelphia.</span>
+          <Link to="/about">How it works</Link>
         </footer>
       </main>
-      <nav className="bnav">
-        {LINKS.map(([to, , short, glyph]) => (
-          <NavLink key={to} to={to} end={to === '/'}><span>{glyph}</span>{short}</NavLink>
-        ))}
-      </nav>
       {msg && <div className="toast">{msg}</div>}
     </>
   )

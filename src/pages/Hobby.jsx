@@ -2,15 +2,13 @@ import { useMemo, useState } from 'react'
 import { Link, useParams, useSearchParams } from 'react-router-dom'
 import { hobbyById } from '../data/hobbies.js'
 import { SESSIONS } from '../data/sessions.js'
-import { SEED_OPEN_SEATS } from '../data/openseats.js'
 import { allPlacesFor, placesFor, KIND_LABEL, KIND_ORDER } from '../data/places.js'
-import gear from '../data/gear.json'
 import { HOODS, milesBetween } from '../lib/geo.js'
 import { useStore } from '../lib/store.js'
 import { seriesFor, hobbyStats, sourceRank } from '../lib/series.js'
 import { dayKey, fmtDayLong, fmtRel } from '../lib/format.js'
 import { isOpenNow } from '../lib/hours.js'
-import { SessionCard, friendsAt } from '../components/bits.jsx'
+import { SessionCard } from '../components/bits.jsx'
 import SeriesCard from '../components/SeriesCard.jsx'
 import PlaceCard from '../components/PlaceCard.jsx'
 import VenueMap from '../components/VenueMap.jsx'
@@ -47,7 +45,11 @@ export default function Hobby() {
     return n
   }, { replace: true })
 
-  const view = sp.get('view') || (rich.length ? 'places' : 'classes')
+  // Classes lead because a class is what has a Hold my seat button; a venue
+  // directory is one more step away from it. Places only lead for a hobby
+  // with no classes at all.
+  const defaultView = series.length ? 'classes' : 'places'
+  const view = sp.get('view') || defaultView
   const nearId = sp.get('near') || st.me.hood
   const radius = +(sp.get('r') || (rich.length ? 15 : 5))
   const maxPrice = +(sp.get('max') || 0)
@@ -98,15 +100,11 @@ export default function Hobby() {
     ? kinds.map((k) => [k, placeList.filter((p) => p.kind === k)]).filter(([, l]) => l.length)
     : [[kind === 'all' ? 'place' : kind, placeList]]
 
-  // Lead with whatever this hobby actually has depth in: researched places for
-  // golf, the class list everywhere else.
-  const defaultView = rich.length ? 'places' : 'classes'
   const views = [
     ['classes', 'Classes', seriesList.length],
     ['places', 'Places', placeList.length],
     ['calendar', 'Calendar', dayList.length],
   ].sort((a, b) => (a[0] === defaultView ? -1 : b[0] === defaultView ? 1 : 0))
-  if (hid === 'guitar') views.push(['gear', 'Used gear', gear.length])
 
   const activeFilters = [beginner, freeOnly, openNow, maxPrice > 0].filter(Boolean).length
 
@@ -214,29 +212,12 @@ export default function Hobby() {
             <div key={di}>
               <div className="day-h">{fmtRel(day[0].s.start)} <small>{fmtDayLong(day[0].s.start)}</small></div>
               <div className="grid two">
-                {day.map(({ s, miles }, i) => <SessionCard key={s.id} s={s} miles={miles} i={i} friends={friendsAt(s, st.following, SEED_OPEN_SEATS)} going={st.going.includes(s.id)} />)}
+                {day.map(({ s, miles }, i) => <SessionCard key={s.id} s={s} miles={miles} i={i} />)}
               </div>
             </div>
           ))
       )}
 
-      {view === 'gear' && (
-        <div className="stack" style={{ marginTop: 18 }}>
-          <div className="note">Live snapshot from Reverb's public listings API (used, $150-1,200, ships within the US), pulled 2026-09-24. Local used racks worth walking into: DiPinto, Vintage Instruments, Russo. Buying on Reverb stays on Reverb; we take nothing.</div>
-          <div className="gear">
-            {gear.map((g, i) => (
-              <a key={g.id} href={g.url} target="_blank" rel="noreferrer" className="reveal" style={{ '--i': i % 8 }}>
-                {g.thumb ? <img src={g.thumb} alt="" loading="lazy" /> : <div style={{ aspectRatio: '1', background: 'var(--paper-3)' }} />}
-                <div className="b">
-                  <div className="t">{g.title}</div>
-                  <div className="p">{g.price}</div>
-                  <div className="s">{g.condition} · {g.type} · {g.shop}</div>
-                </div>
-              </a>
-            ))}
-          </div>
-        </div>
-      )}
     </>
   )
 }

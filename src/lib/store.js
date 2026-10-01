@@ -1,22 +1,14 @@
 // Tiny localStorage-backed state. The prototype has no backend; everything a
 // visitor does lives in their own browser and is wiped by "Reset demo".
 import { useCallback, useEffect, useState } from 'react'
-import { DEFAULT_FOLLOWING } from '../data/people.js'
 
 const KEY = 'openseat.v1'
 const DEFAULTS = {
-  me: { name: 'You', hood: 'fishtown', hobbies: ['pottery', 'guitar'], blurb: 'New here. Trying things.' },
-  following: DEFAULT_FOLLOWING,
-  going: [],          // session ids
-  myOpenSeats: [],    // { id, sessionId, seats, say, createdAt }
-  requested: [],      // open-seat ids the user asked to join
-  hidden: [],         // seed open-seat ids dismissed
-  wtp: null,          // willingness-to-pay answer from the pricing page
+  me: { hood: 'fishtown' },
   // Attribution. Nothing else in the product could tell whether a single
   // person went anywhere, which left no evidence to show a venue and no
   // metric for the thing the project says it measures: repeat attendance.
   clicks: [],         // { placeId, sessionId, at } one per click out to a venue
-  went: [],           // { placeId, sessionId, at } confirmed "I went"
   holds: [],          // { sessionId, price, at } paid-intent taps
 }
 

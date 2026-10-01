@@ -1,26 +1,21 @@
 import { Link } from 'react-router-dom'
 import { HOBBIES } from '../data/hobbies.js'
 import { SESSIONS } from '../data/sessions.js'
-import { SEED_OPEN_SEATS } from '../data/openseats.js'
 import { HOODS, milesBetween } from '../lib/geo.js'
 import { useStore } from '../lib/store.js'
 import { hobbyStats } from '../lib/series.js'
 import { PROMISE } from '../lib/intent.js'
-import { SessionCard, friendsAt } from '../components/bits.jsx'
-import OpenSeatCard from '../components/OpenSeatCard.jsx'
+import { SessionCard } from '../components/bits.jsx'
 import SearchBox from '../components/SearchBox.jsx'
-import { toast } from '../App.jsx'
 
 export default function Home() {
-  const [st, update] = useStore()
+  const [st] = useStore()
   const here = HOODS.find((h) => h.id === st.me.hood) || HOODS[0]
   const stats = Object.fromEntries(HOBBIES.map((h) => [h.id, hobbyStats(h.id)]))
 
-  // "Soon" is the hook that turns a browse into a plan: the next few things
-  // that are actually happening, filtered to what this visitor said they like.
-  const mine = SESSIONS.filter((s) => st.me.hobbies.includes(s.hobby))
-  const soon = (mine.length ? mine : SESSIONS).slice(0, 4)
-  const allOpen = [...st.myOpenSeats, ...SEED_OPEN_SEATS.filter((o) => !st.hidden.includes(o.id))]
+  // The fastest way to the hold button: a few beginner-friendly sessions that
+  // are actually coming up, one click from the session page.
+  const soon = SESSIONS.filter((s) => s.level === 'First time welcome').slice(0, 4)
 
   // Order by how much real data a hobby has behind it, not by the order the
   // list happens to be written in. A hobby with fed sessions earns the first
@@ -50,55 +45,36 @@ export default function Home() {
     <>
       <section className="hero reveal">
         <div className="kicker">Philadelphia · this month</div>
-        <h1>Find the <span className="em">Tuesday thing.</span></h1>
-        {/* The lead used to describe the mechanism (we read calendars), which is
-            interesting to us and not to a visitor. It now leads with the thing
-            nobody else does, which is also the thing the research pipeline
-            already produces: what it actually costs to walk in once. */}
-        <p className="lead">{PROMISE} The classes that repeat every week at real Philly studios, gyms and shops, with the price where the venue publishes one.</p>
-        <div className="herosearch"><SearchBox placeholder="Try pottery, Fishtown, YAY!Clay" /></div>
+        <h1>Try the <span className="em">Tuesday thing.</span></h1>
+        <p className="lead">{PROMISE} Pick a beginner class at a real Philly studio, gym or shop, and we hold a seat for you.</p>
+        <div className="herosearch"><SearchBox placeholder="Try pottery, climbing, YAY!Clay" /></div>
         <div className="row" style={{ marginTop: 14 }}>
-          <Link to="/week" className="btn primary">What's on this week</Link>
-          <Link to="/open" className="btn">Open seats</Link>
-          <Link to="/about" className="btn ghost">How this works</Link>
+          <a href="#pick" className="btn primary" onClick={(e) => { e.preventDefault(); document.getElementById('pick')?.scrollIntoView({ behavior: 'smooth' }) }}>Find a class</a>
+          <Link to="/about" className="btn ghost">How it works</Link>
         </div>
       </section>
 
-      <section className="sec">
+      <section className="sec" id="pick">
         <div className="sec-h"><h2>Pick something to try</h2><span className="muted small">What it costs to walk in once</span></div>
         <div className="tiles">{ranked(HOBBIES.filter((h) => h.primary)).map((h) => tile(h, false))}</div>
         <div className="tiles" style={{ marginTop: 12 }}>{ranked(HOBBIES.filter((h) => !h.primary)).map((h) => tile(h, true))}</div>
       </section>
 
-      <section className="sec">
-        <div className="sec-h">
-          <h2>Coming up near you</h2>
-          <span className="small muted">
-            {st.me.hobbies.length ? st.me.hobbies.map((id) => HOBBIES.find((h) => h.id === id)?.name.toLowerCase()).join(' and ') : 'Everything'} near {here.name}. <Link to="/me">Change</Link> · <Link to="/week">See all</Link>
-          </span>
-        </div>
-        <div className="grid two">
-          {soon.map((s, i) => <SessionCard key={s.id} s={s} i={i} miles={milesBetween(here, s.venue)} friends={friendsAt(s, st.following, SEED_OPEN_SEATS)} going={st.going.includes(s.id)} />)}
-        </div>
-      </section>
+      {soon.length > 0 && (
+        <section className="sec">
+          <div className="sec-h"><h2>Good first classes, coming up</h2><span className="small muted">No experience needed</span></div>
+          <div className="grid two">
+            {soon.map((s, i) => <SessionCard key={s.id} s={s} i={i} miles={milesBetween(here, s.venue)} />)}
+          </div>
+        </section>
+      )}
 
       <section className="sec">
-        <div className="sec-h"><h2>Go with someone</h2><Link to="/open">All open seats</Link></div>
-        <div className="grid three">
-          {allOpen.slice(0, 3).map((o, i) => (
-            <OpenSeatCard key={o.id} o={o} i={i} me={st.me} requested={st.requested.includes(o.id)}
-              onRequest={(id) => { update({ requested: st.requested.includes(id) ? st.requested.filter((x) => x !== id) : [...st.requested, id] }); toast(st.requested.includes(id) ? 'Request withdrawn' : 'Asked. They get a note with your profile.') }}
-              onRemove={(id) => update({ myOpenSeats: st.myOpenSeats.filter((x) => x.id !== id) })} />
-          ))}
-        </div>
-      </section>
-
-      <section className="sec">
-        <div className="sec-h"><h2>Why this is different</h2></div>
+        <div className="sec-h"><h2>How it works</h2></div>
         <div className="grid three steps">
-          <div className="card"><h3>Shops maintain nothing</h3><p className="small muted" style={{ marginTop: 6 }}>Sessions are read from the calendars venues already publish. No second listing to keep current, which is where every hobby marketplace before this one died.</p></div>
-          <div className="card"><h3>Recurring beats one-off</h3><p className="small muted" style={{ marginTop: 6 }}>The thing people stick with is the Tuesday thing. We surface what repeats, so you can come back next week without searching again.</p></div>
-          <div className="card"><h3>Seats, not strangers</h3><p className="small muted" style={{ marginTop: 6 }}>An open seat is a real session with a real person already going. You show up to something, not to a group chat.</p></div>
+          <div className="card"><h3>1. Pick a class</h3><p className="small muted" style={{ marginTop: 6 }}>Real weekly sessions at Philly venues, with what a first visit actually costs.</p></div>
+          <div className="card"><h3>2. Tap Hold my seat</h3><p className="small muted" style={{ marginTop: 6 }}>Tell us who you are. No account, no booking system to figure out.</p></div>
+          <div className="card"><h3>3. Just show up</h3><p className="small muted" style={{ marginTop: 6 }}>We confirm by email that your seat is held. Come alone or bring someone.</p></div>
         </div>
       </section>
     </>
