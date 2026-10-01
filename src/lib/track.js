@@ -18,6 +18,13 @@
 export const ANALYTICS_KEY = 'phc_mTJCAQdj5tjT5cxPcmVMJ7qemppm4roW8LCgZVUyZWA5'
 export const ANALYTICS_HOST = 'https://us.i.posthog.com'
 
+// A second, simpler copy of the funnel in a Google Sheet anyone on the team
+// can open: page views and Hold my seat taps, one row each. The URL is the
+// Apps Script web app from scripts/sheet/ (see the README there). Empty means
+// off. Like the PostHog key, it can only append rows, not read them.
+export const SHEET_URL = 'https://script.google.com/macros/s/AKfycbyfzTz1DWksteJbc5s_WRm-cmhIThE-ZSX4kfc-j6LGnabKcd3ZFAwMAmtcvBdSvAqFEg/exec'
+const SHEET_EVENTS = new Set(['$pageview', 'hold_click'])
+
 // The experiment. One visitor sees one price model for as long as their
 // browser remembers them; it is chosen at random on first visit and never
 // re-rolled, including by "Reset demo", because a visitor who re-rolls
@@ -116,6 +123,28 @@ function send(payload) {
   } catch { /* offline */ }
 }
 
+function sendToSheet(event, t, props) {
+  if (!SHEET_URL || !SHEET_EVENTS.has(event)) return
+  const page = props.path || location.hash.replace(/^#/, '') || '/'
+  const row = {
+    visitor: t.id,
+    event: event === '$pageview' ? 'page_view' : event,
+    page,
+    hobby: props.hobby || (page.startsWith('/h/') ? page.slice(3).split('?')[0] : ''),
+    session: props.session_id || '',
+    venue: props.venue || '',
+    price: props.price_label || '',
+    variant: t.variant,
+    src: t.src || '',
+    site: location.hostname,
+  }
+  // no-cors because Apps Script sends no CORS headers; the row is written
+  // before its redirect, so the unreadable response costs nothing.
+  try {
+    fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', keepalive: true, headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(row) }).catch(() => {})
+  } catch { /* offline */ }
+}
+
 // The one call every click handler makes.
 export function track(event, props = {}) {
   countVisit()
@@ -137,6 +166,7 @@ export function track(event, props = {}) {
   }
   remember({ event, at: ev.timestamp, ...props })
   send(ev)
+  sendToSheet(event, t, props)
 }
 
 export function pageview(path) {
