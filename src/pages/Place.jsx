@@ -6,7 +6,7 @@ import { HOODS, milesBetween, fmtMiles } from '../lib/geo.js'
 import { useStore } from '../lib/store.js'
 import { hoursList, isOpenNow, todayHours } from '../lib/hours.js'
 import { fmtRel, fmtTime } from '../lib/format.js'
-import { offerFor } from '../lib/intent.js'
+import { PriceTag } from '../components/bits.jsx'
 import VenueMap from '../components/VenueMap.jsx'
 
 export default function Place() {
@@ -91,7 +91,7 @@ export default function Place() {
                 {upcoming.map((s) => (
                   <Link key={s.id} to={`/s/${s.id}`} className="small between" style={{ textDecoration: 'none' }}>
                     <span><b>{s.title}</b><br /><span className="muted">{fmtRel(s.start)}, {fmtTime(s.start)}</span></span>
-                    <span className="price">{offerFor(s).short}</span>
+                    <PriceTag s={s} />
                   </Link>
                 ))}
               </div>

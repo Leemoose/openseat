@@ -31,7 +31,7 @@ export function buildSeries(sessions = SESSIONS) {
       e = {
         id: `${s.venueId}__${slug(s.title)}`,
         venueId: s.venueId, venue: s.venue, hobby: s.hobby, title: s.title,
-        price: s.price, cap: s.cap, level: s.level, source: s.source, url: s.url, note: s.note,
+        price: s.price, meetings: s.meetings, cap: s.cap, level: s.level, source: s.source, url: s.url, note: s.note,
         recurring: s.recurring, days: new Set(), times: new Set(), instances: [],
       }
       m.set(key, e)

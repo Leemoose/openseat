@@ -18,6 +18,18 @@ export function HobbyTag({ hobby }) {
   return <span className="htag" style={{ '--tint': h.tint }}><span className="g">{h.glyph}</span>{h.name}</span>
 }
 
+// A card's price, with a course's commitment ("8 classes · $505 total")
+// underneath in small type.
+export function PriceTag({ s }) {
+  const o = offerFor(s)
+  return (
+    <span className="pricetag">
+      <span className="price">{o.short}</span>
+      {o.commitment && <span className="commit">{o.commitment}</span>}
+    </span>
+  )
+}
+
 export function Seats({ cap }) {
   // Two different facts, and only one of them is ever sourced. Capacity comes
   // from a venue's own scheduler where it publishes one. How full that class
@@ -45,7 +57,7 @@ export function SessionCard({ s, miles, i = 0 }) {
         <div className="meta">{s.venue.name}{miles != null && <> · {fmtMiles(miles)}</>}{s.recurring && <> · every {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][s.weekday]}</>}</div>
         <div className="row">
           <Seats cap={s.cap} />
-          <span className="price">{offerFor(s).short}</span>
+          <PriceTag s={s} />
         </div>
       </div>
     </Link>

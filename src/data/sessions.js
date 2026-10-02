@@ -11,6 +11,7 @@
 import venues from './venues.json'
 import places from './places.json'
 import feed from './feed_sessions.json'
+import { countMeetings } from '../lib/meetings.js'
 
 // weekday: 0=Sun ... 6=Sat. time is "HH:MM" local. price 0 = free.
 const T = [
@@ -116,7 +117,7 @@ for (const pl of RICH) {
     if (LOGISTICS.test(s.title)) continue
     // cap null, not 999: a venue's class list almost never publishes capacity,
     // and "Open to all" is a claim we cannot make about an eight-wheel studio.
-    T.push({ v: pl.id, title: s.title, days, time, mins: 90, price: priceNum(s.price), cap: null, level: /beginner|intro|clinic|learn|new/i.test(s.title + ' ' + (s.note || '')) ? 'First time welcome' : 'Some experience', source: 'snapshot', note: [s.note, pl.verified && `Read from ${new URL(pl.url || 'https://x.invalid').hostname.replace('www.', '')} on ${pl.verified}.`].filter(Boolean).join(' '), url: pl.url })
+    T.push({ v: pl.id, title: s.title, days, time, mins: 90, price: priceNum(s.price), meetings: countMeetings(s.title, s.note), cap: null, level: /beginner|intro|clinic|learn|new/i.test(s.title + ' ' + (s.note || '')) ? 'First time welcome' : 'Some experience', source: 'snapshot', note: [s.note, pl.verified && `Read from ${new URL(pl.url || 'https://x.invalid').hostname.replace('www.', '')} on ${pl.verified}.`].filter(Boolean).join(' '), url: pl.url })
   }
 }
 
@@ -148,7 +149,7 @@ function make(tpl, date) {
   const taken = 0
   return {
     id, venueId: tpl.v, venue, hobby: venue.hobby, title: tpl.title, start, end, date, time: tpl.time, mins: tpl.mins,
-    price: tpl.price, cap, taken, level: tpl.level, source: tpl.source, note: tpl.note, url: tpl.url,
+    price: tpl.price, meetings: tpl.meetings > 1 ? tpl.meetings : null, cap, taken, level: tpl.level, source: tpl.source, note: tpl.note, url: tpl.url,
     recurring: !tpl.date, weekday: start.getDay(),
   }
 }

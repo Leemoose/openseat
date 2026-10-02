@@ -139,6 +139,8 @@ p { margin: 0; }
 .seats .bar { width: 72px; height: 6px; background: var(--paper-3); border-radius: 3px; overflow: hidden; border: 1px solid var(--line); }
 .seats .bar i { display: block; height: 100%; background: var(--clay); }
 .price { font-family: var(--display); font-weight: 600; font-size: 1.05rem; }
+.pricetag { display: inline-flex; flex-direction: column; align-items: flex-end; text-align: right; line-height: 1.2; }
+.pricetag .commit { font-size: .72rem; color: var(--ink-3); white-space: nowrap; }
 
 /* layout helpers */
 .grid { display: grid; gap: 14px; }
