@@ -1,14 +1,15 @@
 import { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { sessionById, SESSIONS } from '../data/sessions.js'
+import { sessionById, SESSIONS, hideFree } from '../data/sessions.js'
 import { hobbyById } from '../data/hobbies.js'
 import { HOODS, milesBetween, fmtMiles } from '../lib/geo.js'
 import { useStore } from '../lib/store.js'
-import { seriesForSession } from '../lib/series.js'
+import { seriesForSession, freeSeriesCount } from '../lib/series.js'
 import { fmtDayLong, fmtTime, weekdayName } from '../lib/format.js'
 import { offerFor, holdLink, recordHold, recordHoldView, dollars } from '../lib/intent.js'
 import { HobbyTag, Seats, Stamp } from '../components/bits.jsx'
 import VenueMap from '../components/VenueMap.jsx'
+import { FreePaywallBody } from '../components/FreePaywall.jsx'
 import { toast } from '../App.jsx'
 
 export default function Session() {
@@ -18,9 +19,19 @@ export default function Session() {
 
   // The hold card was shown: the denominator for the hold rate. Once per
   // session page, not per re-render.
-  useEffect(() => { if (s) recordHoldView(s) }, [s?.id])
+  useEffect(() => { if (s && !(s.price === 0 && hideFree())) recordHoldView(s) }, [s?.id])
 
   if (!s) return <div className="empty">That session has passed or does not exist. <Link to="/">Explore</Link></div>
+  // A free class reached by link, in the arm where free classes are members-only.
+  if (s.price === 0 && hideFree()) {
+    const h = hobbyById(s.hobby)
+    return (
+      <>
+        <div className="crumb"><Link to="/">All hobbies</Link> <span>/</span> <Link to={`/h/${s.hobby}`}>{h.name}</Link></div>
+        <div className="card hold reveal" style={{ marginTop: 10, maxWidth: '34rem' }}><FreePaywallBody hobby={h} count={freeSeriesCount(s.hobby)} /></div>
+      </>
+    )
+  }
   const hobby = hobbyById(s.hobby)
   const series = seriesForSession(s)
   const here = HOODS.find((h) => h.id === st.me.hood) || HOODS[0]

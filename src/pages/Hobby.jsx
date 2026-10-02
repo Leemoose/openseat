@@ -1,17 +1,18 @@
 import { useMemo, useState } from 'react'
 import { Link, useParams, useSearchParams } from 'react-router-dom'
 import { hobbyById } from '../data/hobbies.js'
-import { SESSIONS } from '../data/sessions.js'
+import { SESSIONS, hideFree } from '../data/sessions.js'
 import { allPlacesFor, placesFor, KIND_LABEL, KIND_ORDER } from '../data/places.js'
 import { HOODS, milesBetween } from '../lib/geo.js'
 import { useStore } from '../lib/store.js'
-import { seriesFor, hobbyStats, sourceRank } from '../lib/series.js'
+import { seriesFor, hobbyStats, sourceRank, freeSeriesCount } from '../lib/series.js'
 import { dayKey, fmtDayLong, fmtRel } from '../lib/format.js'
 import { isOpenNow } from '../lib/hours.js'
 import { SessionCard } from '../components/bits.jsx'
 import SeriesCard from '../components/SeriesCard.jsx'
 import PlaceCard from '../components/PlaceCard.jsx'
 import VenueMap from '../components/VenueMap.jsx'
+import FreePaywall from '../components/FreePaywall.jsx'
 import { toast } from '../App.jsx'
 
 const KIND_PLURAL = {
@@ -28,6 +29,7 @@ export default function Hobby() {
   const [gps, setGps] = useState(null)
   const [showMap, setShowMap] = useState(() => (typeof window === 'undefined' ? true : window.innerWidth >= 720))
   const [openFilters, setOpenFilters] = useState(false)
+  const [paywall, setPaywall] = useState(false)
 
   const rich = placesFor(hid)
   const places = allPlacesFor(hid)
@@ -130,6 +132,7 @@ export default function Hobby() {
             {l} <small>{n}</small>
           </button>
         ))}
+        {hideFree() && <button className="free" onClick={() => setPaywall(true)}>Free <small>🔒</small></button>}
       </div>
 
       <div className="filtbar">
@@ -154,6 +157,8 @@ export default function Hobby() {
           {activeFilters > 0 && <button className="chip clear" onClick={() => setQ({ beg: null, open: null })}>Clear</button>}
         </div>
       </div>
+
+      {paywall && <FreePaywall hobby={hobby} count={freeSeriesCount(hid)} onClose={() => setPaywall(false)} />}
 
       {view === 'classes' && (
         seriesList.length === 0

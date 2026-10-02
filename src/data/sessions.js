@@ -12,6 +12,7 @@ import venues from './venues.json'
 import places from './places.json'
 import feed from './feed_sessions.json'
 import { countMeetings } from '../lib/meetings.js'
+import { variant } from '../lib/track.js'
 
 // weekday: 0=Sun ... 6=Sat. time is "HH:MM" local. price 0 = free.
 const T = [
@@ -213,7 +214,15 @@ export function buildSessions(days = 28, from = new Date()) {
   return out.filter((s) => s.end.getTime() > now).sort((a, b) => a.start - b.start)
 }
 
-export const SESSIONS = buildSessions()
-export const sessionById = (id) => SESSIONS.find((s) => s.id === id)
+const ALL_SESSIONS = buildSessions()
+
+// In the subscription arm, free classes are a members-only perk: charging $10
+// a month to book something that costs nothing at the door reads as a trick.
+// So for those visitors they leave every list and count on the site, and only
+// a Free tab on each hobby, behind the subscribe prompt, says they exist.
+export const hideFree = () => variant() === 'sub'
+export const FREE_SESSIONS = ALL_SESSIONS.filter((s) => s.price === 0)
+export const SESSIONS = hideFree() ? ALL_SESSIONS.filter((s) => s.price !== 0) : ALL_SESSIONS
+export const sessionById = (id) => ALL_SESSIONS.find((s) => s.id === id)
 
 export const SOURCE_LABEL = { feed: 'Live feed', snapshot: 'Snapshot', sample: 'Sample' }

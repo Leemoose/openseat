@@ -23,7 +23,7 @@ export const ANALYTICS_HOST = 'https://us.i.posthog.com'
 // Apps Script web app from scripts/sheet/ (see the README there). Empty means
 // off. Like the PostHog key, it can only append rows, not read them.
 export const SHEET_URL = 'https://script.google.com/macros/s/AKfycbyfzTz1DWksteJbc5s_WRm-cmhIThE-ZSX4kfc-j6LGnabKcd3ZFAwMAmtcvBdSvAqFEg/exec'
-const SHEET_EVENTS = new Set(['$pageview', 'hold_click'])
+const SHEET_EVENTS = new Set(['$pageview', 'hold_click', 'free_paywall_click'])
 
 // The experiment. One visitor sees one price model for as long as their
 // browser remembers them; it is chosen at random on first visit and never

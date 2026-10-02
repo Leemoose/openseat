@@ -2,7 +2,7 @@
 // SESSIONS is a 28-day expansion, so the same Tuesday class shows up four times.
 // Collapsing back to one row per (venue, title) is what makes "the Tuesday thing"
 // visible instead of burying it in a date list.
-import { SESSIONS } from '../data/sessions.js'
+import { SESSIONS, FREE_SESSIONS } from '../data/sessions.js'
 import { placesFor } from '../data/places.js'
 import venues from '../data/venues.json'
 
@@ -60,6 +60,8 @@ export function buildSeries(sessions = SESSIONS) {
 }
 
 export const SERIES = buildSeries()
+const FREE_SERIES = buildSeries(FREE_SESSIONS)
+export const freeSeriesCount = (hobby) => FREE_SERIES.filter((s) => s.hobby === hobby).length
 
 // How real a row's data is. Used to break ties so verified sessions lead an
 // otherwise equal list, and to rank the hobby tiles by depth of real data
