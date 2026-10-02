@@ -49,7 +49,6 @@ export default function Session() {
           <Seats cap={s.cap} />
           <span className="chip">{s.level}</span>
         </div>
-        {s.note && <p className="small muted" style={{ marginTop: 14 }}>{s.note}</p>}
       </div>
 
       {/* The one thing worth charging for. Access to a calendar is free

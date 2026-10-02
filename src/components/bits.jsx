@@ -4,6 +4,7 @@ import { fmtTime, fmtRel, fmtPrice } from '../lib/format.js'
 import { fmtMiles } from '../lib/geo.js'
 
 export function Stamp({ source }) {
+  if (source !== 'feed') return null
   return <span className={`stamp ${source}`}>{SOURCE_LABEL[source]}</span>
 }
 

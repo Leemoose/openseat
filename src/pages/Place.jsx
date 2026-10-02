@@ -6,8 +6,6 @@ import { HOODS, milesBetween, fmtMiles } from '../lib/geo.js'
 import { useStore } from '../lib/store.js'
 import { hoursList, isOpenNow, todayHours } from '../lib/hours.js'
 import { fmtRel, fmtTime, fmtPrice } from '../lib/format.js'
-import { Stamp } from '../components/bits.jsx'
-import { recordClickOut } from '../lib/intent.js'
 import VenueMap from '../components/VenueMap.jsx'
 
 function money(p) {
@@ -51,7 +49,6 @@ export default function Place() {
           <span className="chip" style={{ background: 'var(--paper)' }}>{KIND_LABEL[p.kind] || p.kind}</span>
           {open === true && <span className="tiny" style={{ color: 'var(--moss)' }}>● Open now</span>}
           {open === false && <span className="tiny">○ Closed now</span>}
-          {p.verified && <Stamp source="snapshot" />}
         </div>
         <h1>{p.name}</h1>
         <p className="muted" style={{ marginTop: 8 }}>{p.address}{p.lat != null && <> · {fmtMiles(milesBetween(here, p))} from {here.name}</>}</p>
@@ -61,15 +58,6 @@ export default function Place() {
         {today && today.text.length <= 80 && <p style={{ marginTop: 6 }}><b>Today:</b> {today.text}</p>}
         {today && today.text.length > 80 && <p className="small muted" style={{ marginTop: 6 }}>Hours vary, see below.</p>}
         {facts.length > 0 && <div className="chips" style={{ marginTop: 12 }}>{facts.map((f) => <span key={f} className="chip">{f}</span>)}</div>}
-        <div className="row" style={{ marginTop: 18 }}>
-          {/* `booking` is sometimes a system name ("Sawyer") and sometimes a
-              paragraph explaining that the venue runs two of them. A button is
-              not the place for the paragraph; it goes to the research notes. */}
-          {p.url && <a className="btn primary" href={p.url} target="_blank" rel="noreferrer" onClick={() => recordClickOut(p.id, null, { hobby: p.hobby, from: 'place' })}>
-            {p.booking && p.booking.length <= 28 ? `Book (${p.booking}) ↗` : 'Book on their site ↗'}
-          </a>}
-          {p.phone && <a className="btn" href={`tel:${p.phone.replace(/[^\d+]/g, '')}`}>{p.phone}</a>}
-        </div>
       </div>
 
       <div className="grid two" style={{ marginTop: 24, alignItems: 'start' }}>
@@ -114,7 +102,6 @@ export default function Place() {
                     <div>
                       <b>{pro.name}</b>
                       {pro.title && <div className="small muted">{pro.title}</div>}
-                      {pro.url && <a className="small" href={pro.url} target="_blank" rel="noreferrer">Lesson info ↗</a>}
                     </div>
                     <div className="price">{pro.lessonPrice != null ? money(pro.lessonPrice) : ''}</div>
                   </div>
@@ -173,9 +160,6 @@ export default function Place() {
                   a venue is the caveat. */}
               <p className="small muted">{p.notes}</p>
             </details>
-          )}
-          {p.sources?.length > 0 && (
-            <div className="small muted">Checked {p.verified || 'recently'} against {[...new Map(p.sources.map((u) => [new URL(u).hostname.replace('www.', ''), u])).entries()].slice(0, 3).map(([h, u], i) => <span key={u}>{i > 0 && ', '}<a href={u} target="_blank" rel="noreferrer">{h}</a></span>)}. Rates change; the venue's site wins.</div>
           )}
         </div>
       </div>

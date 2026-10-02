@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import { Stamp } from '../components/bits.jsx'
 
 export default function About() {
   return (
@@ -12,7 +11,6 @@ export default function About() {
       <h2>What you'll see here</h2>
       <ul>
         <li>Real venues at real addresses, with prices taken from each venue's own site.</li>
-        <li>Every session is labeled by how we know about it: <Stamp source="feed" /> comes straight from the venue's own calendar, <Stamp source="snapshot" /> was checked by hand against the venue's site, and <Stamp source="sample" /> is typical for that venue but not yet confirmed.</li>
         <li>We never show how full a class is, because no venue publishes that.</li>
       </ul>
 
