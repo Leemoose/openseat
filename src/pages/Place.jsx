@@ -5,14 +5,9 @@ import { SESSIONS } from '../data/sessions.js'
 import { HOODS, milesBetween, fmtMiles } from '../lib/geo.js'
 import { useStore } from '../lib/store.js'
 import { hoursList, isOpenNow, todayHours } from '../lib/hours.js'
-import { fmtRel, fmtTime, fmtPrice } from '../lib/format.js'
+import { fmtRel, fmtTime } from '../lib/format.js'
+import { offerFor } from '../lib/intent.js'
 import VenueMap from '../components/VenueMap.jsx'
-
-function money(p) {
-  if (p == null || p === '') return 'See site'
-  if (typeof p === 'number') return `$${p % 1 ? p.toFixed(2) : p}`
-  return String(p).startsWith('$') ? p : `$${p}`
-}
 
 export default function Place() {
   const { id } = useParams()
@@ -62,29 +57,6 @@ export default function Place() {
 
       <div className="grid two" style={{ marginTop: 24, alignItems: 'start' }}>
         <div className="stack">
-          {!p.fees?.length && !p.thin && (
-            <div className="card">
-              <h3>Rates</h3>
-              {/* Not an empty state to hide. "You cannot find out what this
-                  costs without calling" is exactly the problem this product
-                  exists to fix, so it gets said plainly. */}
-              <p className="small muted" style={{ marginTop: 8 }}>
-                This venue publishes no prices online. We checked the site and the booking system; you have to ask.
-              </p>
-            </div>
-          )}
-          {p.fees?.length > 0 && (
-            <div className="card">
-              <h3>Rates</h3>
-              <table className="fees">
-                <tbody>
-                  {p.fees.map((f, i) => (
-                    <tr key={i}><td>{f.label}{f.note && <div className="small muted">{f.note}</div>}</td><td className="amt">{money(f.price)}</td></tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
           {hoursList(p.hours).length > 0 && (
             <div className="card">
               <h3>Hours</h3>
@@ -103,7 +75,6 @@ export default function Place() {
                       <b>{pro.name}</b>
                       {pro.title && <div className="small muted">{pro.title}</div>}
                     </div>
-                    <div className="price">{pro.lessonPrice != null ? money(pro.lessonPrice) : ''}</div>
                   </div>
                 ))}
               </div>
@@ -120,7 +91,7 @@ export default function Place() {
                 {upcoming.map((s) => (
                   <Link key={s.id} to={`/s/${s.id}`} className="small between" style={{ textDecoration: 'none' }}>
                     <span><b>{s.title}</b><br /><span className="muted">{fmtRel(s.start)}, {fmtTime(s.start)}</span></span>
-                    <span className="price">{fmtPrice(s.price)}</span>
+                    <span className="price">{offerFor(s).short}</span>
                   </Link>
                 ))}
               </div>
@@ -131,8 +102,7 @@ export default function Place() {
               <h3>Programs</h3>
               <div className="stack" style={{ gap: 8, marginTop: 10 }}>
                 {p.sessions.map((s, i) => {
-                  // A program often has no day or no price; joining blanks left "· ·" on the line.
-                  const meta = [[s.day, s.time].filter(Boolean).join(' '), s.price != null ? money(s.price) : null].filter(Boolean).join(' · ')
+                  const meta = [s.day, s.time].filter(Boolean).join(' ')
                   return <div key={i} className="small"><b>{s.title}</b>{meta && <> · {meta}</>}{s.note && <div className="muted">{s.note}</div>}</div>
                 })}
               </div>
@@ -145,7 +115,6 @@ export default function Place() {
                 {nearby.map((x) => (
                   <Link key={x.id} to={`/p/${x.id}`} className="small between" style={{ textDecoration: 'none' }}>
                     <span><b>{x.name}</b><br /><span className="muted">{KIND_LABEL[x.kind] || 'Place'} · {fmtMiles(x.miles)} away</span></span>
-                    {x.fromPrice != null && <span className="price">${x.fromPrice % 1 ? x.fromPrice.toFixed(2) : x.fromPrice}</span>}
                   </Link>
                 ))}
               </div>

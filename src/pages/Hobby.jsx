@@ -52,10 +52,8 @@ export default function Hobby() {
   const view = sp.get('view') || defaultView
   const nearId = sp.get('near') || st.me.hood
   const radius = +(sp.get('r') || (rich.length ? 15 : 5))
-  const maxPrice = +(sp.get('max') || 0)
   const kind = sp.get('kind') || 'all'
   const beginner = sp.get('beg') === '1'
-  const freeOnly = sp.get('free') === '1'
   const openNow = sp.get('open') === '1'
   const here = gps || HOODS.find((h) => h.id === nearId) || HOODS[0]
 
@@ -71,11 +69,10 @@ export default function Hobby() {
   }
 
   const near = (x) => { const m = milesBetween(here, x); return { m, ok: m == null || m <= radius } }
-  const priceOk = (p) => !maxPrice || p == null || p <= maxPrice
 
   const seriesList = series
     .map((s) => ({ s, miles: near(s.venue).m, ok: near(s.venue).ok }))
-    .filter(({ s, ok }) => ok && (!beginner || s.beginner) && (!freeOnly || s.price === 0) && priceOk(s.price))
+    .filter(({ s, ok }) => ok && (!beginner || s.beginner))
   // "Start here" answers "what is the cheapest way to try this", so it leads
   // with price rather than with whichever class happens to run next. A $572
   // eight-week course at the top of a beginner list is the wrong first thing.
@@ -88,13 +85,13 @@ export default function Hobby() {
   const dayList = SESSIONS
     .filter((s) => s.hobby === hid)
     .map((s) => ({ s, miles: near(s.venue).m, ok: near(s.venue).ok }))
-    .filter(({ s, ok }) => ok && (!beginner || s.level === 'First time welcome') && (!freeOnly || s.price === 0) && priceOk(s.price))
+    .filter(({ s, ok }) => ok && (!beginner || s.level === 'First time welcome'))
   const byDay = groupByDay(dayList)
 
   const kinds = KIND_ORDER.filter((k) => places.some((p) => p.kind === k))
   const placeList = places
     .map((p) => ({ ...p, miles: near(p).m }))
-    .filter((p) => near(p).ok && (kind === 'all' || p.kind === kind) && priceOk(p.fromPrice) && (!openNow || isOpenNow(p.hours) === true))
+    .filter((p) => near(p).ok && (kind === 'all' || p.kind === kind) && (!openNow || isOpenNow(p.hours) === true))
     .sort((a, b) => (a.miles ?? 99) - (b.miles ?? 99))
   const placeGroups = kind === 'all' && kinds.length > 1
     ? kinds.map((k) => [k, placeList.filter((p) => p.kind === k)]).filter(([, l]) => l.length)
@@ -106,13 +103,12 @@ export default function Hobby() {
     ['calendar', 'Calendar', dayList.length],
   ].sort((a, b) => (a[0] === defaultView ? -1 : b[0] === defaultView ? 1 : 0))
 
-  const activeFilters = [beginner, freeOnly, openNow, maxPrice > 0].filter(Boolean).length
+  const activeFilters = [beginner, openNow].filter(Boolean).length
 
   // One sentence that answers "is this worth a click" before any filtering.
   const summary = [
     `${stats.places} ${stats.places === 1 ? 'place' : 'places'}`,
     stats.series ? `${stats.series} ${stats.series === 1 ? 'class' : 'classes'}` : null,
-    stats.free ? 'some free' : stats.from != null ? `from $${stats.from}` : null,
     stats.beginner ? `${stats.beginner} welcome first-timers` : null,
   ].filter(Boolean).join(' · ')
 
@@ -153,13 +149,9 @@ export default function Hobby() {
           Filters{activeFilters ? ` · ${activeFilters}` : ''}
         </button>
         <div className={`morefilt${openFilters ? ' open' : ''}`}>
-          <label className="field">Up to <b className="mono">{maxPrice ? `$${maxPrice}` : 'any $'}</b>
-            <input type="range" min="0" max={rich.length ? 150 : 120} step="5" value={maxPrice} onChange={(e) => setQ({ max: e.target.value })} />
-          </label>
           {view !== 'places' && <button className={`chip${beginner ? ' on' : ''}`} onClick={() => setQ({ beg: !beginner && '1' })}>First time welcome</button>}
-          {view !== 'places' && <button className={`chip${freeOnly ? ' on' : ''}`} onClick={() => setQ({ free: !freeOnly && '1' })}>Free</button>}
           {view === 'places' && rich.length > 0 && <button className={`chip${openNow ? ' on' : ''}`} onClick={() => setQ({ open: !openNow && '1' })}>Open now</button>}
-          {activeFilters > 0 && <button className="chip clear" onClick={() => setQ({ beg: null, free: null, open: null, max: null })}>Clear</button>}
+          {activeFilters > 0 && <button className="chip clear" onClick={() => setQ({ beg: null, open: null })}>Clear</button>}
         </div>
       </div>
 

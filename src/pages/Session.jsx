@@ -5,7 +5,7 @@ import { hobbyById } from '../data/hobbies.js'
 import { HOODS, milesBetween, fmtMiles } from '../lib/geo.js'
 import { useStore } from '../lib/store.js'
 import { seriesForSession } from '../lib/series.js'
-import { fmtDayLong, fmtTime, fmtPrice, weekdayName } from '../lib/format.js'
+import { fmtDayLong, fmtTime, weekdayName } from '../lib/format.js'
 import { offerFor, holdLink, recordHold, recordHoldView } from '../lib/intent.js'
 import { Seats, Stamp } from '../components/bits.jsx'
 import VenueMap from '../components/VenueMap.jsx'
@@ -44,7 +44,6 @@ export default function Session() {
         <p style={{ marginTop: 8, fontSize: '1.1rem' }}><b>{fmtDayLong(s.start)}</b>, {fmtTime(s.start)} to {fmtTime(s.end)}</p>
         <p className="muted">{s.venue.name} · {s.venue.address} · {fmtMiles(milesBetween(here, s.venue))} from {here.name}</p>
         <div className="row" style={{ marginTop: 16 }}>
-          <span className="price" style={{ fontSize: '1.4rem' }}>{fmtPrice(s.price)}</span>
           <Seats cap={s.cap} />
           <span className="chip">{s.level}</span>
         </div>
@@ -70,7 +69,7 @@ export default function Session() {
           </div>
           <div style={{ textAlign: 'right' }}>
             <div className="amt" style={{ marginBottom: 8 }}>
-              {offer.amount != null ? <>${offer.variant === 'sub' ? offer.amount : offer.amount.toFixed(2)}<small>{offer.unit}</small></> : <small>{offer.label}</small>}
+              ${offer.amount % 1 ? offer.amount.toFixed(2) : offer.amount}<small>{offer.unit}</small>
             </div>
             <a
               className="btn primary"

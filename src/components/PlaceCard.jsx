@@ -14,7 +14,6 @@ export default function PlaceCard({ p, miles, i = 0 }) {
           <h3 style={{ marginTop: 2 }}>{p.name}</h3>
           <div className="small muted">{p.address}{miles != null && <> · {fmtMiles(miles)}</>}</div>
         </div>
-        {p.fromPrice != null && <div style={{ textAlign: 'right', flex: 'none' }}><div className="tiny">{p.kind === 'course' ? 'round from' : 'from'}</div><div className="price">${p.fromPrice % 1 ? p.fromPrice.toFixed(2) : p.fromPrice}</div></div>}
       </div>
       <div className="row" style={{ marginTop: 10, gap: 8 }}>
         {open === true && <span className="tiny" style={{ color: 'var(--moss)' }}>● Open now</span>}

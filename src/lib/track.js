@@ -31,13 +31,15 @@ const SHEET_EVENTS = new Set(['$pageview', 'hold_click'])
 // contaminates both arms.
 //
 //   sub  a $10/month membership, hold as many seats as you like
-//   fee  a per-booking fee of 5% of what the class costs, nothing monthly
+//   fee  a per-booking fee of 5% of what the class costs, never under $5,
+//        and $5 flat when the class is free or its price is unknown
 //
 // The two numbers below are the levers. Everything on the site that shows a
 // price reads them from here.
 export const VARIANTS = ['sub', 'fee']
 export const SUB_PRICE = 10        // dollars per month
 export const FEE_RATE = 0.05       // share of the class price, per booking
+export const MIN_FEE = 5           // dollars, the floor on any per-booking fee
 
 // A visitor id and their arm live under their own key, outside the demo state
 // that "Reset demo" wipes.
@@ -111,7 +113,9 @@ function remember(ev) {
 }
 
 function send(payload) {
-  if (!ANALYTICS_KEY) {
+  // A local preview (npm run dev) never reports, so testing does not land in
+  // the live numbers.
+  if (!ANALYTICS_KEY || import.meta.env?.DEV) {
     if (import.meta.env?.DEV) console.debug('[track]', payload.event, payload.properties)
     return
   }
@@ -124,7 +128,7 @@ function send(payload) {
 }
 
 function sendToSheet(event, t, props) {
-  if (!SHEET_URL || !SHEET_EVENTS.has(event)) return
+  if (!SHEET_URL || !SHEET_EVENTS.has(event) || import.meta.env?.DEV) return
   const page = props.path || location.hash.replace(/^#/, '') || '/'
   const row = {
     visitor: t.id,

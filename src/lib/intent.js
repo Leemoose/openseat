@@ -7,7 +7,7 @@
 // built so that one constant turns a prototype gesture into a real signal,
 // with no backend.
 import { getState, updateStore } from './store.js'
-import { track, variant, SUB_PRICE, FEE_RATE } from './track.js'
+import { track, variant, SUB_PRICE, FEE_RATE, MIN_FEE } from './track.js'
 
 // Set this to a Tally or Google Form URL and every "hold my seat" tap opens it
 // with the session and the price they saw prefilled. Leave it empty and the
@@ -23,17 +23,20 @@ export const HOLD_EMAIL = 'connorito@gmail.com'
 
 // The promise, said once here and reused, so the hero, the pricing page and
 // the hold button cannot drift apart.
-export const PROMISE = 'The only place in Philadelphia that tells you what a first class actually costs.'
+export const PROMISE = 'Every beginner class in Philadelphia, in one place.'
 
 // The price a visitor is shown, which depends on the arm they were dealt.
 //
 //   sub  "$10/month, hold as many seats as you like"
-//   fee  "5% of the class price per seat", so $2.25 on a $45 class
+//   fee  "5% of the class price per seat, $5 minimum", so $5 on a $45 class
+//        and $6 on a $120 one. A free class, or one whose venue publishes no
+//        price, is $5 flat.
 //
 // Both arms sell the same thing (a seat held for you). Only the price model
-// differs, which is what the experiment isolates. The fee arm has no dollar
-// figure when a venue publishes no price, and says so rather than inventing
-// one.
+// differs, which is what the experiment isolates. The venue's own price is
+// never shown; it only sets the fee. `short` is what a card shows.
+const dollars = (n) => `$${n % 1 ? n.toFixed(2) : n}`
+
 export function offerFor(session) {
   const v = variant()
   const classPrice = typeof session?.price === 'number' ? session.price : null
@@ -43,22 +46,21 @@ export function offerFor(session) {
       amount: SUB_PRICE,
       unit: '/month',
       label: `$${SUB_PRICE}/month`,
+      short: `$${SUB_PRICE}/mo`,
       button: `Hold my seat, $${SUB_PRICE}/mo`,
       blurb: 'One membership, every seat we hold for you all month. Cancel any time.',
       classPrice,
     }
   }
-  const fee = classPrice != null ? Math.round(classPrice * FEE_RATE * 100) / 100 : null
-  const pct = `${Math.round(FEE_RATE * 100)}%`
+  const fee = classPrice ? Math.max(MIN_FEE, Math.round(classPrice * FEE_RATE * 100) / 100) : MIN_FEE
   return {
     variant: v,
     amount: fee,
     unit: '/seat',
-    label: fee != null ? `$${fee.toFixed(2)}/seat` : `${pct} of the class`,
-    button: fee != null ? `Hold my seat, $${fee.toFixed(2)}` : `Hold my seat, ${pct} of the class`,
-    blurb: fee != null
-      ? `${pct} of the $${classPrice} class, only when you book. Nothing monthly.`
-      : `${pct} of what the class costs, only when you book. Nothing monthly. This venue does not publish a price yet.`,
+    label: `${dollars(fee)}/seat`,
+    short: dollars(fee),
+    button: `Hold my seat, ${dollars(fee)}`,
+    blurb: 'One fee per seat, only when you book. Nothing monthly.',
     classPrice,
   }
 }

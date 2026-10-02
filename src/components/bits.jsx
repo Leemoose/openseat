@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { SOURCE_LABEL } from '../data/sessions.js'
-import { fmtTime, fmtRel, fmtPrice } from '../lib/format.js'
+import { fmtTime, fmtRel } from '../lib/format.js'
+import { offerFor } from '../lib/intent.js'
 import { fmtMiles } from '../lib/geo.js'
 
 export function Stamp({ source }) {
@@ -34,7 +35,7 @@ export function SessionCard({ s, miles, i = 0 }) {
         <div className="meta">{s.venue.name}{miles != null && <> · {fmtMiles(miles)}</>}{s.recurring && <> · every {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][s.weekday]}</>}</div>
         <div className="row">
           <Seats cap={s.cap} />
-          <span className="price">{fmtPrice(s.price)}</span>
+          <span className="price">{offerFor(s).short}</span>
         </div>
       </div>
     </Link>
