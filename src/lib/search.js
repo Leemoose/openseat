@@ -1,9 +1,8 @@
 // One flat client-side index over everything a visitor might type: a hobby, a
 // venue name, a class, a neighborhood. No backend, so this is built once at
 // module load and scored with plain string matching.
-import { HOBBIES } from '../data/hobbies.js'
 import { allPlacesFor, KIND_LABEL } from '../data/places.js'
-import { SERIES } from './series.js'
+import { SERIES, LIVE_HOBBIES as HOBBIES } from './series.js'
 
 function norm(s) { return String(s || '').toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim() }
 

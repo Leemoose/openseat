@@ -161,14 +161,3 @@ export function recordClickOut(placeId, sessionId, extra = {}) {
   updateStore({ clicks: [{ placeId, sessionId: sessionId || null, at: Date.now() }, ...clicks].slice(0, 200) })
   track('book_click', { place_id: placeId, session_id: sessionId || null, ...extra })
 }
-
-// The members-only Free tab. Same form as a hold, so a subscribe from here
-// lands in the same inbox, labelled with where it came from.
-export function subscribeLink(hobbyName) {
-  const what = `Membership, to see free ${hobbyName.toLowerCase()} classes`
-  if (HOLD_FORM_URL) return formLink(what, `$${SUB_PRICE}/month (sub)`)
-  const subject = encodeURIComponent(`Kindling membership: ${hobbyName}`)
-  return `mailto:${HOLD_EMAIL}?subject=${subject}&body=${encodeURIComponent(`I want a $${SUB_PRICE}/month membership to see free ${hobbyName.toLowerCase()} classes.\n\nMy name:\nBest email:\n`)}`
-}
-export const recordPaywallView = (hobby, free) => track('free_paywall_view', { hobby, free_classes: free })
-export const recordPaywallClick = (hobby, free) => track('free_paywall_click', { hobby, free_classes: free, price_label: `$${SUB_PRICE}/month` })

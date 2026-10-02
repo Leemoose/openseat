@@ -16,6 +16,10 @@ export const KIND_LABEL = {
 // Teaching venues first, retail last: the order a beginner needs them in.
 export const KIND_ORDER = ['studio', 'school', 'course', 'range', 'sim', 'academy', 'fitter', 'supply', 'shop', 'gallery', 'place']
 
+// A place's own program list, without the free ones (see SESSIONS).
+const isFree = (p) => p === 0 || /^\s*free\b/i.test(String(p ?? ''))
+export const paidPrograms = (p) => (p.sessions || []).filter((s) => !isFree(s.price))
+
 export function placesFor(hobby) { return PLACES[hobby] || [] }
 
 // One shape for both tiers, so the Places view does not need two code paths.

@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom'
-import { placeById, allPlacesFor, KIND_LABEL } from '../data/places.js'
+import { placeById, allPlacesFor, paidPrograms, KIND_LABEL } from '../data/places.js'
 import { hobbyById } from '../data/hobbies.js'
 import { SESSIONS } from '../data/sessions.js'
 import { HOODS, milesBetween, fmtMiles } from '../lib/geo.js'
@@ -7,13 +7,14 @@ import { useStore } from '../lib/store.js'
 import { hoursList, isOpenNow, todayHours } from '../lib/hours.js'
 import { fmtRel, fmtTime } from '../lib/format.js'
 import { PriceTag } from '../components/bits.jsx'
+import { isLiveHobby } from '../lib/series.js'
 import VenueMap from '../components/VenueMap.jsx'
 
 export default function Place() {
   const { id } = useParams()
   const p = placeById(id)
   const [st] = useStore()
-  if (!p) return <div className="empty">No such place. <Link to="/">Explore</Link></div>
+  if (!p || !isLiveHobby(p.hobby)) return <div className="empty">No such place. <Link to="/">Explore</Link></div>
   const hobby = hobbyById(p.hobby)
   const here = HOODS.find((h) => h.id === st.me.hood) || HOODS[0]
   const open = isOpenNow(p.hours)
@@ -97,11 +98,11 @@ export default function Place() {
               </div>
             </div>
           )}
-          {p.sessions?.length > 0 && upcoming.length === 0 && (
+          {paidPrograms(p).length > 0 && upcoming.length === 0 && (
             <div className="card">
               <h3>Programs</h3>
               <div className="stack" style={{ gap: 8, marginTop: 10 }}>
-                {p.sessions.map((s, i) => {
+                {paidPrograms(p).map((s, i) => {
                   const meta = [s.day, s.time].filter(Boolean).join(' ')
                   return <div key={i} className="small"><b>{s.title}</b>{meta && <> · {meta}</>}{s.note && <div className="muted">{s.note}</div>}</div>
                 })}

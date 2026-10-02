@@ -317,9 +317,6 @@ p { margin: 0; }
 
 /* The paid offer, and the attribution prompt that makes a fill countable. */
 .card.hold { border-color: var(--clay); border-width: 2px; }
-.modal-back { position: fixed; inset: 0; z-index: 100; background: color-mix(in srgb, var(--ink) 45%, transparent); display: grid; place-items: center; padding: 16px; }
-.modal { position: relative; width: 100%; max-width: 26rem; background: var(--paper); box-shadow: var(--shadow); }
-.modal-x { position: absolute; top: 8px; right: 10px; border: 0; background: none; font-size: 1.5rem; line-height: 1; color: var(--ink-3); cursor: pointer; }
 .card.hold .amt { font-family: var(--display); font-weight: 700; font-size: 2rem; line-height: 1; white-space: nowrap; }
 .card.hold .amt small { font-size: .8rem; font-weight: 600; color: var(--ink-3); margin-left: 2px; }
 .card.hold .fees td.amt { font-size: .92rem; font-weight: 600; }

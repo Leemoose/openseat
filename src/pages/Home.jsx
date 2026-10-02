@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom'
-import { HOBBIES } from '../data/hobbies.js'
 import { SESSIONS } from '../data/sessions.js'
 import { HOODS, milesBetween } from '../lib/geo.js'
 import { useStore } from '../lib/store.js'
-import { hobbyStats } from '../lib/series.js'
+import { hobbyStats, LIVE_HOBBIES } from '../lib/series.js'
 import { PROMISE } from '../lib/intent.js'
 import { SessionCard } from '../components/bits.jsx'
 import SearchBox from '../components/SearchBox.jsx'
@@ -11,7 +10,7 @@ import SearchBox from '../components/SearchBox.jsx'
 export default function Home() {
   const [st] = useStore()
   const here = HOODS.find((h) => h.id === st.me.hood) || HOODS[0]
-  const stats = Object.fromEntries(HOBBIES.map((h) => [h.id, hobbyStats(h.id)]))
+  const stats = Object.fromEntries(LIVE_HOBBIES.map((h) => [h.id, hobbyStats(h.id)]))
 
   // The fastest way to the hold button: a few beginner-friendly sessions that
   // are actually coming up, one click from the session page.
@@ -54,7 +53,7 @@ export default function Home() {
 
       <section className="sec" id="pick">
         <div className="sec-h"><h2>Pick something to try</h2></div>
-        <div className="tiles">{[...ranked(HOBBIES.filter((h) => h.primary)), ...ranked(HOBBIES.filter((h) => !h.primary))].map((h) => tile(h))}</div>
+        <div className="tiles">{[...ranked(LIVE_HOBBIES.filter((h) => h.primary)), ...ranked(LIVE_HOBBIES.filter((h) => !h.primary))].map((h) => tile(h))}</div>
       </section>
 
       {soon.length > 0 && (
