@@ -6,7 +6,7 @@ import { HOODS, milesBetween, fmtMiles } from '../lib/geo.js'
 import { useStore } from '../lib/store.js'
 import { seriesForSession } from '../lib/series.js'
 import { fmtDayLong, fmtTime, weekdayName } from '../lib/format.js'
-import { offerFor, holdLink, recordHold, recordHoldView } from '../lib/intent.js'
+import { offerFor, holdLink, recordHold, recordHoldView, dollars } from '../lib/intent.js'
 import { HobbyTag, Seats, Stamp } from '../components/bits.jsx'
 import VenueMap from '../components/VenueMap.jsx'
 import { toast } from '../App.jsx'
@@ -56,21 +56,26 @@ export default function Session() {
           it is the ask placed at the moment of intent instead of on a pricing
           page nobody reaches.
 
-          The price model is the experiment: half of visitors see a monthly
-          membership, half see a small per-booking fee. See lib/track.js. */}
+          The price model is the experiment: half of visitors meet a monthly
+          membership paywall, half pay the class plus a booking fee. Both still
+          pay for the class. See lib/intent.js. */}
       <div className="card hold reveal" style={{ marginTop: 18 }}>
         <div className="between" style={{ alignItems: 'flex-start', gap: 14, flexWrap: 'wrap' }}>
           <div style={{ flex: '1 1 20rem' }}>
-            <h3>Want us to hold a seat?</h3>
+            <h3>{offer.heading}</h3>
             <p className="small muted" style={{ marginTop: 6, maxWidth: '46ch' }}>
-              We reserve one at this session and tell you it is yours. No account, no
-              booking to work out, nothing to cancel by phone. Bring someone or come alone.
+              We reserve a seat at this session and tell you it is yours. No
+              booking system to work out, nothing to cancel by phone. Bring someone or come alone.
             </p>
             <p className="small" style={{ marginTop: 8, maxWidth: '46ch' }}>{offer.blurb}</p>
+            <table className="fees" style={{ marginTop: 10, maxWidth: '26rem' }}>
+              <tbody>{offer.lines.map(([k, v]) => <tr key={k}><td>{k}</td><td className="amt">{v}</td></tr>)}</tbody>
+            </table>
+            <p className="small muted" style={{ marginTop: 8, maxWidth: '46ch' }}>{offer.note}</p>
           </div>
           <div style={{ textAlign: 'right' }}>
             <div className="amt" style={{ marginBottom: 8 }}>
-              ${offer.amount % 1 ? offer.amount.toFixed(2) : offer.amount}<small>{offer.unit}</small>
+              {dollars(offer.amount)}<small>{offer.unit}</small>
             </div>
             <a
               className="btn primary"

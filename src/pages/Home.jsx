@@ -25,10 +25,10 @@ export default function Home() {
     return (B.fed - A.fed) || (B.real - A.real) || (B.places - A.places)
   })
 
-  const tile = (h, minor) => {
+  const tile = (h) => {
     const s = stats[h.id]
     return (
-      <Link key={h.id} to={`/h/${h.id}`} className={`tile${minor ? ' minor' : ''} reveal`} style={{ '--tint': h.tint }}>
+      <Link key={h.id} to={`/h/${h.id}`} className="tile reveal" style={{ '--tint': h.tint }}>
         <span className="g">{h.glyph}</span>
         <span>
           <h3>{h.name}</h3>
@@ -54,8 +54,7 @@ export default function Home() {
 
       <section className="sec" id="pick">
         <div className="sec-h"><h2>Pick something to try</h2></div>
-        <div className="tiles">{ranked(HOBBIES.filter((h) => h.primary)).map((h) => tile(h, false))}</div>
-        <div className="tiles" style={{ marginTop: 12 }}>{ranked(HOBBIES.filter((h) => !h.primary)).map((h) => tile(h, true))}</div>
+        <div className="tiles">{[...ranked(HOBBIES.filter((h) => h.primary)), ...ranked(HOBBIES.filter((h) => !h.primary))].map((h) => tile(h))}</div>
       </section>
 
       {soon.length > 0 && (

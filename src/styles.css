@@ -166,7 +166,7 @@ p { margin: 0; }
 
 /* hobby tiles */
 .tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-@media (min-width: 720px) { .tiles { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); } }
+@media (min-width: 720px) { .tiles { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); } }
 .tile { text-decoration: none; border: 1.5px solid var(--ink); border-radius: var(--radius); padding: 18px 14px 14px; min-height: 140px; display: flex; flex-direction: column; justify-content: space-between; background: var(--paper-2); box-shadow: var(--shadow); transition: transform .1s ease, box-shadow .1s ease; position: relative; overflow: hidden; }
 .tile:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--ink); }
 .tile .g { font-size: 2.4rem; line-height: 1; color: var(--tint); font-family: var(--display); }
@@ -321,4 +321,5 @@ p { margin: 0; }
 .card.hold { border-color: var(--clay); border-width: 2px; }
 .card.hold .amt { font-family: var(--display); font-weight: 700; font-size: 2rem; line-height: 1; white-space: nowrap; }
 .card.hold .amt small { font-size: .8rem; font-weight: 600; color: var(--ink-3); margin-left: 2px; }
+.card.hold .fees td.amt { font-size: .92rem; font-weight: 600; }
 .card.askwent { border-style: dashed; background: var(--paper-2); }

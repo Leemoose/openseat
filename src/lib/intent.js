@@ -26,41 +26,63 @@ export const HOLD_EMAIL = 'connorito@gmail.com'
 export const PROMISE = 'Every beginner class in Philadelphia, in one place.'
 
 // The price a visitor is shown, which depends on the arm they were dealt.
+// Either way the class itself still has to be paid for; the arms differ only
+// in how Kindling earns.
 //
-//   sub  "$10/month, hold as many seats as you like"
-//   fee  "5% of the class price per seat, $5 minimum", so $5 on a $45 class
-//        and $6 on a $120 one. A free class, or one whose venue publishes no
-//        price, is $5 flat.
+//   sub  A $10/month membership is the paywall: subscribe to book seats on
+//        Kindling, then pay each class's own price to the venue.
+//   fee  No membership. Holding a seat costs the class price plus a booking
+//        fee of 5% of it, never under $5. Kindling keeps the fee and the class
+//        price goes to the venue. When the venue publishes no price, only the
+//        fee is charged here and the class is paid at the venue.
 //
-// Both arms sell the same thing (a seat held for you). Only the price model
-// differs, which is what the experiment isolates. The venue's own price is
-// never shown; it only sets the fee. `short` is what a card shows.
-const dollars = (n) => `$${n % 1 ? n.toFixed(2) : n}`
+// `short` is what a card shows; `lines` is the breakdown on the class page.
+export const dollars = (n) => `$${n % 1 ? n.toFixed(2) : n}`
+const classLabel = (p) => (p == null ? 'Price set by venue' : p === 0 ? 'Free' : dollars(p))
 
 export function offerFor(session) {
   const v = variant()
   const classPrice = typeof session?.price === 'number' ? session.price : null
+  const venue = session?.venue?.name || 'the venue'
   if (v === 'sub') {
     return {
       variant: v,
       amount: SUB_PRICE,
       unit: '/month',
-      label: `$${SUB_PRICE}/month`,
-      short: `$${SUB_PRICE}/mo`,
-      button: `Hold my seat, $${SUB_PRICE}/mo`,
-      blurb: 'One membership, every seat we hold for you all month. Cancel any time.',
+      label: `$${SUB_PRICE}/month membership`,
+      short: classLabel(classPrice),
+      heading: 'Members book seats on Kindling',
+      button: `Subscribe for $${SUB_PRICE}/mo`,
+      blurb: 'One membership lets you book a seat at any class on Kindling, as many as you like. Cancel any time.',
+      lines: [
+        ['Kindling membership', `$${SUB_PRICE}/month`],
+        [`Class, paid to ${venue}`, classPrice == null ? 'Set by venue' : classPrice === 0 ? 'Free' : dollars(classPrice)],
+      ],
+      note: classPrice === 0
+        ? 'This class is free; the membership is what lets you book it.'
+        : 'The membership does not cover the class. You still pay the class price to the venue.',
       classPrice,
     }
   }
   const fee = classPrice ? Math.max(MIN_FEE, Math.round(classPrice * FEE_RATE * 100) / 100) : MIN_FEE
+  const total = classPrice != null ? Math.round((classPrice + fee) * 100) / 100 : null
   return {
     variant: v,
-    amount: fee,
+    fee,
+    amount: total ?? fee,
     unit: '/seat',
-    label: `${dollars(fee)}/seat`,
-    short: dollars(fee),
-    button: `Hold my seat, ${dollars(fee)}`,
-    blurb: 'One fee per seat, only when you book. Nothing monthly.',
+    label: total != null ? `${dollars(total)}/seat` : `${dollars(fee)} fee + class`,
+    short: total != null ? dollars(total) : `${dollars(fee)} + class`,
+    heading: 'Want us to hold a seat?',
+    button: `Hold my seat, ${dollars(total ?? fee)}`,
+    blurb: 'Pay once, only when you book. Nothing monthly.',
+    lines: [
+      [`Class at ${venue}`, classPrice == null ? 'Paid at venue' : classPrice === 0 ? 'Free' : dollars(classPrice)],
+      ['Kindling booking fee', dollars(fee)],
+    ],
+    note: total != null
+      ? `The class price goes to ${venue}; the booking fee is ours.`
+      : `${venue} has not published a price, so you pay the class there. Here you pay only the booking fee.`,
     classPrice,
   }
 }
@@ -98,7 +120,7 @@ function sessionProps(session) {
 // The card was rendered: the denominator for the hold rate.
 export function recordHoldView(session) {
   const offer = offerFor(session)
-  track('hold_view', { ...sessionProps(session), price_shown: offer.amount, price_label: offer.label })
+  track('hold_view', { ...sessionProps(session), price_shown: offer.amount, price_label: offer.label, fee: offer.fee ?? null })
 }
 
 // The button was tapped: the numerator, and the only paid-intent signal.
@@ -106,7 +128,7 @@ export function recordHold(session) {
   const offer = offerFor(session)
   const holds = getState().holds || []
   updateStore({ holds: [{ sessionId: session.id, variant: offer.variant, price: offer.amount, at: Date.now() }, ...holds] })
-  track('hold_click', { ...sessionProps(session), price_shown: offer.amount, price_label: offer.label })
+  track('hold_click', { ...sessionProps(session), price_shown: offer.amount, price_label: offer.label, fee: offer.fee ?? null })
 }
 
 // Attribution. Every path out of this site used to be an untracked _blank, so
