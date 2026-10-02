@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { HobbyTag, PriceTag, Stamp } from './bits.jsx'
+import { HobbyTag, PriceTag } from './bits.jsx'
 import { fmtClock, fmtRel, fmtTime, dayShort } from '../lib/format.js'
 import { fmtMiles } from '../lib/geo.js'
 
@@ -30,7 +30,6 @@ export default function SeriesCard({ s, miles, i = 0 }) {
         <HobbyTag hobby={s.hobby} />
         <div className="between" style={{ alignItems: 'flex-start' }}>
           <div className="title">{s.title}</div>
-          <Stamp source={s.source} />
         </div>
         <div className="meta">{s.venue.name}{miles != null && <> · {fmtMiles(miles)}</>}</div>
         <div className="row">

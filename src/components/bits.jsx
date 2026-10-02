@@ -1,14 +1,8 @@
 import { Link } from 'react-router-dom'
-import { SOURCE_LABEL } from '../data/sessions.js'
 import { fmtTime, fmtRel } from '../lib/format.js'
 import { offerFor } from '../lib/intent.js'
 import { hobbyById } from '../data/hobbies.js'
 import { fmtMiles } from '../lib/geo.js'
-
-export function Stamp({ source }) {
-  if (source !== 'feed') return null
-  return <span className={`stamp ${source}`}>{SOURCE_LABEL[source]}</span>
-}
 
 // Which hobby an event belongs to, drawn like the home page tiles. A venue
 // name ("Community Arts Center") rarely says it is a pottery class.
@@ -52,7 +46,6 @@ export function SessionCard({ s, miles, i = 0 }) {
         <HobbyTag hobby={s.hobby} />
         <div className="between" style={{ alignItems: 'flex-start' }}>
           <div className="title">{s.title}</div>
-          <Stamp source={s.source} />
         </div>
         <div className="meta">{s.venue.name}{miles != null && <> · {fmtMiles(miles)}</>}{s.recurring && <> · every {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][s.weekday]}</>}</div>
         <div className="row">

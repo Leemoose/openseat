@@ -225,4 +225,3 @@ export const FREE_SESSIONS = ALL_SESSIONS.filter((s) => s.price === 0)
 export const SESSIONS = hideFree() ? ALL_SESSIONS.filter((s) => s.price !== 0) : ALL_SESSIONS
 export const sessionById = (id) => ALL_SESSIONS.find((s) => s.id === id)
 
-export const SOURCE_LABEL = { feed: 'Live feed', snapshot: 'Snapshot', sample: 'Sample' }
