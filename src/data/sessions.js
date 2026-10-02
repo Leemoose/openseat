@@ -11,6 +11,7 @@
 import venues from './venues.json'
 import places from './places.json'
 import feed from './feed_sessions.json'
+import { countMeetings } from '../lib/meetings.js'
 
 // weekday: 0=Sun ... 6=Sat. time is "HH:MM" local. price 0 = free.
 const T = [
@@ -116,7 +117,7 @@ for (const pl of RICH) {
     if (LOGISTICS.test(s.title)) continue
     // cap null, not 999: a venue's class list almost never publishes capacity,
     // and "Open to all" is a claim we cannot make about an eight-wheel studio.
-    T.push({ v: pl.id, title: s.title, days, time, mins: 90, price: priceNum(s.price), cap: null, level: /beginner|intro|clinic|learn|new/i.test(s.title + ' ' + (s.note || '')) ? 'First time welcome' : 'Some experience', source: 'snapshot', note: [s.note, pl.verified && `Read from ${new URL(pl.url || 'https://x.invalid').hostname.replace('www.', '')} on ${pl.verified}.`].filter(Boolean).join(' '), url: pl.url })
+    T.push({ v: pl.id, title: s.title, days, time, mins: 90, price: priceNum(s.price), meetings: countMeetings(s.title, s.note), cap: null, level: /beginner|intro|clinic|learn|new/i.test(s.title + ' ' + (s.note || '')) ? 'First time welcome' : 'Some experience', source: 'snapshot', note: [s.note, pl.verified && `Read from ${new URL(pl.url || 'https://x.invalid').hostname.replace('www.', '')} on ${pl.verified}.`].filter(Boolean).join(' '), url: pl.url })
   }
 }
 
@@ -137,7 +138,7 @@ function make(tpl, date) {
   // A `sample` template is plausible, not verified, so its seat count was a
   // guess on top of a guess. Left in, it meant the only seat scarcity on the
   // site ("3 of 8 left") sat on the least real data, while every fed and
-  // researched session honestly read "Seats not published". Scarcity is what
+  // researched session showed no size at all. Scarcity is what
   // the open-seat mechanic and any per-fill charge rest on, so it has to come
   // from a source that publishes it. KilnFire is the only one that does.
   const cap = tpl.source === 'sample' ? null : tpl.cap
@@ -148,7 +149,7 @@ function make(tpl, date) {
   const taken = 0
   return {
     id, venueId: tpl.v, venue, hobby: venue.hobby, title: tpl.title, start, end, date, time: tpl.time, mins: tpl.mins,
-    price: tpl.price, cap, taken, level: tpl.level, source: tpl.source, note: tpl.note, url: tpl.url,
+    price: tpl.price, meetings: tpl.meetings > 1 ? tpl.meetings : null, cap, taken, level: tpl.level, source: tpl.source, note: tpl.note, url: tpl.url,
     recurring: !tpl.date, weekday: start.getDay(),
   }
 }
@@ -212,7 +213,8 @@ export function buildSessions(days = 28, from = new Date()) {
   return out.filter((s) => s.end.getTime() > now).sort((a, b) => a.start - b.start)
 }
 
-export const SESSIONS = buildSessions()
+// Free classes are left out entirely: Kindling earns on what people pay for,
+// and charging a fee or a membership to book something free reads as a trick.
+export const SESSIONS = buildSessions().filter((s) => s.price !== 0)
 export const sessionById = (id) => SESSIONS.find((s) => s.id === id)
 
-export const SOURCE_LABEL = { feed: 'Live feed', snapshot: 'Snapshot', sample: 'Sample' }

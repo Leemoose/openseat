@@ -26,7 +26,7 @@ SEED = os.path.join(os.path.dirname(ROOT), 'seed')
 CACHE_DIR = os.path.join(SEED, 'feed_cache')
 OUT = os.path.join(ROOT, 'src', 'data', 'feed_sessions.json')
 
-UA = 'OpenSeatPrototype/0.1 (+https://leemoose.github.io/openseat/; connorito@gmail.com)'
+UA = 'KindlingPrototype/0.1 (+https://leemoose.github.io/openseat/; connorito@gmail.com)'
 REQ_DELAY = 2.5      # seconds between requests to the same host
 MAX_PAGES = 6        # hard stop, so a bad cursor can never loop on a venue
 PER_PAGE = 50

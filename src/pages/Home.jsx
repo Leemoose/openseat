@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom'
-import { HOBBIES } from '../data/hobbies.js'
 import { SESSIONS } from '../data/sessions.js'
 import { HOODS, milesBetween } from '../lib/geo.js'
 import { useStore } from '../lib/store.js'
-import { hobbyStats } from '../lib/series.js'
+import { hobbyStats, LIVE_HOBBIES } from '../lib/series.js'
 import { PROMISE } from '../lib/intent.js'
 import { SessionCard } from '../components/bits.jsx'
 import SearchBox from '../components/SearchBox.jsx'
@@ -11,7 +10,7 @@ import SearchBox from '../components/SearchBox.jsx'
 export default function Home() {
   const [st] = useStore()
   const here = HOODS.find((h) => h.id === st.me.hood) || HOODS[0]
-  const stats = Object.fromEntries(HOBBIES.map((h) => [h.id, hobbyStats(h.id)]))
+  const stats = Object.fromEntries(LIVE_HOBBIES.map((h) => [h.id, hobbyStats(h.id)]))
 
   // The fastest way to the hold button: a few beginner-friendly sessions that
   // are actually coming up, one click from the session page.
@@ -25,12 +24,10 @@ export default function Home() {
     return (B.fed - A.fed) || (B.real - A.real) || (B.places - A.places)
   })
 
-  const tile = (h, minor) => {
+  const tile = (h) => {
     const s = stats[h.id]
-    const cost = s.free ? 'Some free' : s.from != null ? `From $${s.from}` : null
     return (
-      <Link key={h.id} to={`/h/${h.id}`} className={`tile${minor ? ' minor' : ''} reveal`} style={{ '--tint': h.tint }}>
-        {cost && <span className="n">{cost}</span>}
+      <Link key={h.id} to={`/h/${h.id}`} className="tile reveal" style={{ '--tint': h.tint }}>
         <span className="g">{h.glyph}</span>
         <span>
           <h3>{h.name}</h3>
@@ -55,9 +52,8 @@ export default function Home() {
       </section>
 
       <section className="sec" id="pick">
-        <div className="sec-h"><h2>Pick something to try</h2><span className="muted small">What it costs to walk in once</span></div>
-        <div className="tiles">{ranked(HOBBIES.filter((h) => h.primary)).map((h) => tile(h, false))}</div>
-        <div className="tiles" style={{ marginTop: 12 }}>{ranked(HOBBIES.filter((h) => !h.primary)).map((h) => tile(h, true))}</div>
+        <div className="sec-h"><h2>Pick something to try</h2></div>
+        <div className="tiles">{[...ranked(LIVE_HOBBIES.filter((h) => h.primary)), ...ranked(LIVE_HOBBIES.filter((h) => !h.primary))].map((h) => tile(h))}</div>
       </section>
 
       {soon.length > 0 && (
@@ -72,7 +68,7 @@ export default function Home() {
       <section className="sec">
         <div className="sec-h"><h2>How it works</h2></div>
         <div className="grid three steps">
-          <div className="card"><h3>1. Pick a class</h3><p className="small muted" style={{ marginTop: 6 }}>Real weekly sessions at Philly venues, with what a first visit actually costs.</p></div>
+          <div className="card"><h3>1. Pick a class</h3><p className="small muted" style={{ marginTop: 6 }}>Real weekly sessions at Philly studios, gyms and shops.</p></div>
           <div className="card"><h3>2. Tap Hold my seat</h3><p className="small muted" style={{ marginTop: 6 }}>Tell us who you are. No account, no booking system to figure out.</p></div>
           <div className="card"><h3>3. Just show up</h3><p className="small muted" style={{ marginTop: 6 }}>We confirm by email that your seat is held. Come alone or bring someone.</p></div>
         </div>

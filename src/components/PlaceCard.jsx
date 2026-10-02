@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { KIND_LABEL } from '../data/places.js'
+import { KIND_LABEL, paidPrograms } from '../data/places.js'
 import { fmtMiles } from '../lib/geo.js'
 import { isOpenNow, todayHours } from '../lib/hours.js'
 
@@ -14,7 +14,6 @@ export default function PlaceCard({ p, miles, i = 0 }) {
           <h3 style={{ marginTop: 2 }}>{p.name}</h3>
           <div className="small muted">{p.address}{miles != null && <> · {fmtMiles(miles)}</>}</div>
         </div>
-        {p.fromPrice != null && <div style={{ textAlign: 'right', flex: 'none' }}><div className="tiny">{p.kind === 'course' ? 'round from' : 'from'}</div><div className="price">${p.fromPrice % 1 ? p.fromPrice.toFixed(2) : p.fromPrice}</div></div>}
       </div>
       <div className="row" style={{ marginTop: 10, gap: 8 }}>
         {open === true && <span className="tiny" style={{ color: 'var(--moss)' }}>● Open now</span>}
@@ -23,7 +22,7 @@ export default function PlaceCard({ p, miles, i = 0 }) {
       </div>
       <div className="row" style={{ marginTop: 8, gap: 6 }}>
         {p.pros?.length > 0 && <span className="chip">{p.pros.length} {p.pros.length === 1 ? 'pro' : 'pros'} teach here</span>}
-        {p.sessions?.length > 0 && <span className="chip">{p.sessions.length} recurring</span>}
+        {paidPrograms(p).length > 0 && <span className="chip">{paidPrograms(p).length} recurring</span>}
         {p.range === true && <span className="chip">Range</span>}
       </div>
     </Link>

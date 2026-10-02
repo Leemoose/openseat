@@ -9,7 +9,7 @@ per Hold my seat tap, plus a **Funnel** tab counting unique visitors who
 
 ## Setup (about 5 minutes, once)
 
-1. Create a new Google Sheet (sheets.new) and name it, e.g. "OpenSeat funnel".
+1. Create a new Google Sheet (sheets.new) and name it, e.g. "Kindling funnel".
 2. **Extensions → Apps Script.** Delete what is in the editor, paste in all of
    `Code.gs` from this folder, and save.
 3. In the function dropdown at the top pick **setup**, press **Run**, and allow

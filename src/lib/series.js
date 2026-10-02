@@ -3,6 +3,7 @@
 // Collapsing back to one row per (venue, title) is what makes "the Tuesday thing"
 // visible instead of burying it in a date list.
 import { SESSIONS } from '../data/sessions.js'
+import { HOBBIES } from '../data/hobbies.js'
 import { placesFor } from '../data/places.js'
 import venues from '../data/venues.json'
 
@@ -31,7 +32,7 @@ export function buildSeries(sessions = SESSIONS) {
       e = {
         id: `${s.venueId}__${slug(s.title)}`,
         venueId: s.venueId, venue: s.venue, hobby: s.hobby, title: s.title,
-        price: s.price, cap: s.cap, level: s.level, source: s.source, url: s.url, note: s.note,
+        price: s.price, meetings: s.meetings, cap: s.cap, level: s.level, source: s.source, url: s.url, note: s.note,
         recurring: s.recurring, days: new Set(), times: new Set(), instances: [],
       }
       m.set(key, e)
@@ -60,6 +61,9 @@ export function buildSeries(sessions = SESSIONS) {
 }
 
 export const SERIES = buildSeries()
+// A hobby with no paid class left has nothing to book, so it is not shown.
+export const LIVE_HOBBIES = HOBBIES.filter((h) => SERIES.some((s) => s.hobby === h.id))
+export const isLiveHobby = (id) => LIVE_HOBBIES.some((h) => h.id === id)
 
 // How real a row's data is. Used to break ties so verified sessions lead an
 // otherwise equal list, and to rank the hobby tiles by depth of real data

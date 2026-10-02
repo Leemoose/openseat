@@ -5,9 +5,9 @@ import { hobbyById } from '../data/hobbies.js'
 import { HOODS, milesBetween, fmtMiles } from '../lib/geo.js'
 import { useStore } from '../lib/store.js'
 import { seriesForSession } from '../lib/series.js'
-import { fmtDayLong, fmtTime, fmtPrice, weekdayName } from '../lib/format.js'
-import { offerFor, holdLink, recordHold, recordHoldView, recordClickOut } from '../lib/intent.js'
-import { Seats, Stamp } from '../components/bits.jsx'
+import { fmtDayLong, fmtTime, weekdayName } from '../lib/format.js'
+import { offerFor, holdLink, recordHold, recordHoldView, dollars } from '../lib/intent.js'
+import { HobbyTag, Seats } from '../components/bits.jsx'
 import VenueMap from '../components/VenueMap.jsx'
 import { toast } from '../App.jsx'
 
@@ -27,7 +27,6 @@ export default function Session() {
   // "Book at Philadelphia" is what taking the first word of "Philadelphia Rock
   // Gym Fishtown" produces. The host is short, accurate and tells you where the
   // link goes, which is the point of the link.
-  const bookHost = (() => { try { return new URL(s.url).hostname.replace('www.', '') } catch { return null } })()
   const nextSame = SESSIONS.filter((x) => x.venueId === s.venueId && x.title === s.title && x.id !== s.id).slice(0, 3)
   const offer = offerFor(s)
 
@@ -38,18 +37,16 @@ export default function Session() {
       </div>
       <div className="band reveal" style={{ '--tint': hobby.tint, marginTop: 10 }}>
         <div className="row" style={{ marginBottom: 8 }}>
-          <Stamp source={s.source} />
+          <HobbyTag hobby={s.hobby} />
           {s.recurring && <span className="tiny">{series?.cadence || `Every ${weekdayName(s.weekday)}`}</span>}
         </div>
         <h1>{s.title}</h1>
         <p style={{ marginTop: 8, fontSize: '1.1rem' }}><b>{fmtDayLong(s.start)}</b>, {fmtTime(s.start)} to {fmtTime(s.end)}</p>
         <p className="muted">{s.venue.name} · {s.venue.address} · {fmtMiles(milesBetween(here, s.venue))} from {here.name}</p>
         <div className="row" style={{ marginTop: 16 }}>
-          <span className="price" style={{ fontSize: '1.4rem' }}>{fmtPrice(s.price)}</span>
           <Seats cap={s.cap} />
           <span className="chip">{s.level}</span>
         </div>
-        {s.note && <p className="small muted" style={{ marginTop: 14 }}>{s.note}</p>}
       </div>
 
       {/* The one thing worth charging for. Access to a calendar is free
@@ -58,21 +55,26 @@ export default function Session() {
           it is the ask placed at the moment of intent instead of on a pricing
           page nobody reaches.
 
-          The price model is the experiment: half of visitors see a monthly
-          membership, half see a small per-booking fee. See lib/track.js. */}
+          The price model is the experiment: half of visitors meet a monthly
+          membership paywall, half pay the class plus a booking fee. Both still
+          pay for the class. See lib/intent.js. */}
       <div className="card hold reveal" style={{ marginTop: 18 }}>
         <div className="between" style={{ alignItems: 'flex-start', gap: 14, flexWrap: 'wrap' }}>
           <div style={{ flex: '1 1 20rem' }}>
-            <h3>Want us to hold a seat?</h3>
+            <h3>{offer.heading}</h3>
             <p className="small muted" style={{ marginTop: 6, maxWidth: '46ch' }}>
-              We reserve one at this session and tell you it is yours. No account, no
-              booking to work out, nothing to cancel by phone. Bring someone or come alone.
+              We reserve a seat at this session and tell you it is yours. No
+              booking system to work out, nothing to cancel by phone. Bring someone or come alone.
             </p>
             <p className="small" style={{ marginTop: 8, maxWidth: '46ch' }}>{offer.blurb}</p>
+            <table className="fees" style={{ marginTop: 10, maxWidth: '26rem' }}>
+              <tbody>{offer.lines.map(([k, v]) => <tr key={k}><td>{k}</td><td className="amt">{v}</td></tr>)}</tbody>
+            </table>
+            <p className="small muted" style={{ marginTop: 8, maxWidth: '46ch' }}>{offer.note}</p>
           </div>
           <div style={{ textAlign: 'right' }}>
             <div className="amt" style={{ marginBottom: 8 }}>
-              {offer.amount != null ? <>${offer.variant === 'sub' ? offer.amount : offer.amount.toFixed(2)}<small>{offer.unit}</small></> : <small>{offer.label}</small>}
+              {dollars(offer.amount)}<small>{offer.unit}</small>
             </div>
             <a
               className="btn primary"
@@ -88,14 +90,6 @@ export default function Session() {
           who taps this, which is the only honest way to find out whether it is worth building.
         </p>
       </div>
-      {/* The venue link stays, demoted to a line, so the hold button is the one
-          obvious action and still nobody is stranded without a way to book.
-          Clicks on it are counted too: they are intent the hold rate misses. */}
-      {s.url && (
-        <p className="small muted" style={{ marginTop: 10 }}>
-          Rather book it yourself? <a href={s.url} target="_blank" rel="noreferrer" onClick={() => recordClickOut(s.venueId, s.id, { hobby: s.hobby, source: s.source })}>Go to {bookHost || 'the venue'} ↗</a>
-        </p>
-      )}
 
       <div className="grid two" style={{ marginTop: 24 }}>
         <VenueMap venues={[s.venue]} tint={hobby.tint} center={s.venue} zoom={14} />

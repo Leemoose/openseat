@@ -1,26 +1,20 @@
 import { Link, useParams } from 'react-router-dom'
-import { placeById, allPlacesFor, KIND_LABEL } from '../data/places.js'
+import { placeById, allPlacesFor, paidPrograms, KIND_LABEL } from '../data/places.js'
 import { hobbyById } from '../data/hobbies.js'
 import { SESSIONS } from '../data/sessions.js'
 import { HOODS, milesBetween, fmtMiles } from '../lib/geo.js'
 import { useStore } from '../lib/store.js'
 import { hoursList, isOpenNow, todayHours } from '../lib/hours.js'
-import { fmtRel, fmtTime, fmtPrice } from '../lib/format.js'
-import { Stamp } from '../components/bits.jsx'
-import { recordClickOut } from '../lib/intent.js'
+import { fmtRel, fmtTime } from '../lib/format.js'
+import { PriceTag } from '../components/bits.jsx'
+import { isLiveHobby } from '../lib/series.js'
 import VenueMap from '../components/VenueMap.jsx'
-
-function money(p) {
-  if (p == null || p === '') return 'See site'
-  if (typeof p === 'number') return `$${p % 1 ? p.toFixed(2) : p}`
-  return String(p).startsWith('$') ? p : `$${p}`
-}
 
 export default function Place() {
   const { id } = useParams()
   const p = placeById(id)
   const [st] = useStore()
-  if (!p) return <div className="empty">No such place. <Link to="/">Explore</Link></div>
+  if (!p || !isLiveHobby(p.hobby)) return <div className="empty">No such place. <Link to="/">Explore</Link></div>
   const hobby = hobbyById(p.hobby)
   const here = HOODS.find((h) => h.id === st.me.hood) || HOODS[0]
   const open = isOpenNow(p.hours)
@@ -51,7 +45,6 @@ export default function Place() {
           <span className="chip" style={{ background: 'var(--paper)' }}>{KIND_LABEL[p.kind] || p.kind}</span>
           {open === true && <span className="tiny" style={{ color: 'var(--moss)' }}>● Open now</span>}
           {open === false && <span className="tiny">○ Closed now</span>}
-          {p.verified && <Stamp source="snapshot" />}
         </div>
         <h1>{p.name}</h1>
         <p className="muted" style={{ marginTop: 8 }}>{p.address}{p.lat != null && <> · {fmtMiles(milesBetween(here, p))} from {here.name}</>}</p>
@@ -61,42 +54,10 @@ export default function Place() {
         {today && today.text.length <= 80 && <p style={{ marginTop: 6 }}><b>Today:</b> {today.text}</p>}
         {today && today.text.length > 80 && <p className="small muted" style={{ marginTop: 6 }}>Hours vary, see below.</p>}
         {facts.length > 0 && <div className="chips" style={{ marginTop: 12 }}>{facts.map((f) => <span key={f} className="chip">{f}</span>)}</div>}
-        <div className="row" style={{ marginTop: 18 }}>
-          {/* `booking` is sometimes a system name ("Sawyer") and sometimes a
-              paragraph explaining that the venue runs two of them. A button is
-              not the place for the paragraph; it goes to the research notes. */}
-          {p.url && <a className="btn primary" href={p.url} target="_blank" rel="noreferrer" onClick={() => recordClickOut(p.id, null, { hobby: p.hobby, from: 'place' })}>
-            {p.booking && p.booking.length <= 28 ? `Book (${p.booking}) ↗` : 'Book on their site ↗'}
-          </a>}
-          {p.phone && <a className="btn" href={`tel:${p.phone.replace(/[^\d+]/g, '')}`}>{p.phone}</a>}
-        </div>
       </div>
 
       <div className="grid two" style={{ marginTop: 24, alignItems: 'start' }}>
         <div className="stack">
-          {!p.fees?.length && !p.thin && (
-            <div className="card">
-              <h3>Rates</h3>
-              {/* Not an empty state to hide. "You cannot find out what this
-                  costs without calling" is exactly the problem this product
-                  exists to fix, so it gets said plainly. */}
-              <p className="small muted" style={{ marginTop: 8 }}>
-                This venue publishes no prices online. We checked the site and the booking system; you have to ask.
-              </p>
-            </div>
-          )}
-          {p.fees?.length > 0 && (
-            <div className="card">
-              <h3>Rates</h3>
-              <table className="fees">
-                <tbody>
-                  {p.fees.map((f, i) => (
-                    <tr key={i}><td>{f.label}{f.note && <div className="small muted">{f.note}</div>}</td><td className="amt">{money(f.price)}</td></tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
           {hoursList(p.hours).length > 0 && (
             <div className="card">
               <h3>Hours</h3>
@@ -114,9 +75,7 @@ export default function Place() {
                     <div>
                       <b>{pro.name}</b>
                       {pro.title && <div className="small muted">{pro.title}</div>}
-                      {pro.url && <a className="small" href={pro.url} target="_blank" rel="noreferrer">Lesson info ↗</a>}
                     </div>
-                    <div className="price">{pro.lessonPrice != null ? money(pro.lessonPrice) : ''}</div>
                   </div>
                 ))}
               </div>
@@ -133,19 +92,18 @@ export default function Place() {
                 {upcoming.map((s) => (
                   <Link key={s.id} to={`/s/${s.id}`} className="small between" style={{ textDecoration: 'none' }}>
                     <span><b>{s.title}</b><br /><span className="muted">{fmtRel(s.start)}, {fmtTime(s.start)}</span></span>
-                    <span className="price">{fmtPrice(s.price)}</span>
+                    <PriceTag s={s} />
                   </Link>
                 ))}
               </div>
             </div>
           )}
-          {p.sessions?.length > 0 && upcoming.length === 0 && (
+          {paidPrograms(p).length > 0 && upcoming.length === 0 && (
             <div className="card">
               <h3>Programs</h3>
               <div className="stack" style={{ gap: 8, marginTop: 10 }}>
-                {p.sessions.map((s, i) => {
-                  // A program often has no day or no price; joining blanks left "· ·" on the line.
-                  const meta = [[s.day, s.time].filter(Boolean).join(' '), s.price != null ? money(s.price) : null].filter(Boolean).join(' · ')
+                {paidPrograms(p).map((s, i) => {
+                  const meta = [s.day, s.time].filter(Boolean).join(' ')
                   return <div key={i} className="small"><b>{s.title}</b>{meta && <> · {meta}</>}{s.note && <div className="muted">{s.note}</div>}</div>
                 })}
               </div>
@@ -158,24 +116,11 @@ export default function Place() {
                 {nearby.map((x) => (
                   <Link key={x.id} to={`/p/${x.id}`} className="small between" style={{ textDecoration: 'none' }}>
                     <span><b>{x.name}</b><br /><span className="muted">{KIND_LABEL[x.kind] || 'Place'} · {fmtMiles(x.miles)} away</span></span>
-                    {x.fromPrice != null && <span className="price">${x.fromPrice % 1 ? x.fromPrice.toFixed(2) : x.fromPrice}</span>}
                   </Link>
                 ))}
               </div>
               <Link className="small" to={`/h/${p.hobby}`} style={{ display: 'inline-block', marginTop: 10 }}>All {hobby.name.toLowerCase()} places →</Link>
             </div>
-          )}
-          {p.notes && (
-            <details className="notes">
-              <summary>Research notes</summary>
-              {/* Written by whoever checked this venue, kept verbatim rather
-                  than smoothed into marketing copy. Half of what is useful about
-                  a venue is the caveat. */}
-              <p className="small muted">{p.notes}</p>
-            </details>
-          )}
-          {p.sources?.length > 0 && (
-            <div className="small muted">Checked {p.verified || 'recently'} against {[...new Map(p.sources.map((u) => [new URL(u).hostname.replace('www.', ''), u])).entries()].slice(0, 3).map(([h, u], i) => <span key={u}>{i > 0 && ', '}<a href={u} target="_blank" rel="noreferrer">{h}</a></span>)}. Rates change; the venue's site wins.</div>
           )}
         </div>
       </div>

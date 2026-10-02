@@ -28,7 +28,7 @@ export default function App() {
     <>
       <header className="hdr">
         <div className="wrap">
-          <Link to="/" className="logo"><i /> <span>Open<b>Seat</b></span><span className="tag">Philly beta</span></Link>
+          <Link to="/" className="logo"><i /> <span>Kindling</span><span className="tag">Philly beta</span></Link>
           <SearchBox big />
           <nav className="nav">
             <NavLink to="/about">How it works</NavLink>
@@ -38,7 +38,7 @@ export default function App() {
       <main className="wrap page">
         <Outlet />
         <footer className="foot">
-          <span>OpenSeat is in early beta in Philadelphia.</span>
+          <span>Kindling is in early beta in Philadelphia.</span>
           <Link to="/about">How it works</Link>
         </footer>
       </main>

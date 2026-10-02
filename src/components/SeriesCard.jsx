@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
-import { Stamp } from './bits.jsx'
-import { fmtClock, fmtRel, fmtTime, fmtPrice, dayShort } from '../lib/format.js'
+import { HobbyTag, PriceTag } from './bits.jsx'
+import { fmtClock, fmtRel, fmtTime, dayShort } from '../lib/format.js'
 import { fmtMiles } from '../lib/geo.js'
 
 // The card for a repeating class. The left rail carries the pattern ("TUE THU")
@@ -27,14 +27,14 @@ export default function SeriesCard({ s, miles, i = 0 }) {
         <div className="d">{pattern(s.days, s.recurring)}</div>
       </div>
       <div className="bd">
+        <HobbyTag hobby={s.hobby} />
         <div className="between" style={{ alignItems: 'flex-start' }}>
           <div className="title">{s.title}</div>
-          <Stamp source={s.source} />
         </div>
         <div className="meta">{s.venue.name}{miles != null && <> · {fmtMiles(miles)}</>}</div>
         <div className="row">
           {s.beginner && <span className="chip beg">First time welcome</span>}
-          <span className="price">{fmtPrice(s.price)}</span>
+          <PriceTag s={s.next} />
         </div>
         <div className="nx">Next {fmtRel(s.next.start).toLowerCase()}, {fmtTime(s.next.start)}{s.count > 1 && <> · {s.count} times in 4 weeks</>}</div>
       </div>
