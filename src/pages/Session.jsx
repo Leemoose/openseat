@@ -6,7 +6,7 @@ import { HOODS, milesBetween, fmtMiles } from '../lib/geo.js'
 import { useStore } from '../lib/store.js'
 import { seriesForSession } from '../lib/series.js'
 import { fmtDayLong, fmtTime, fmtPrice, weekdayName } from '../lib/format.js'
-import { offerFor, holdLink, recordHold, recordHoldView, recordClickOut } from '../lib/intent.js'
+import { offerFor, holdLink, recordHold, recordHoldView } from '../lib/intent.js'
 import { Seats, Stamp } from '../components/bits.jsx'
 import VenueMap from '../components/VenueMap.jsx'
 import { toast } from '../App.jsx'
@@ -27,7 +27,6 @@ export default function Session() {
   // "Book at Philadelphia" is what taking the first word of "Philadelphia Rock
   // Gym Fishtown" produces. The host is short, accurate and tells you where the
   // link goes, which is the point of the link.
-  const bookHost = (() => { try { return new URL(s.url).hostname.replace('www.', '') } catch { return null } })()
   const nextSame = SESSIONS.filter((x) => x.venueId === s.venueId && x.title === s.title && x.id !== s.id).slice(0, 3)
   const offer = offerFor(s)
 
@@ -87,14 +86,6 @@ export default function Session() {
           who taps this, which is the only honest way to find out whether it is worth building.
         </p>
       </div>
-      {/* The venue link stays, demoted to a line, so the hold button is the one
-          obvious action and still nobody is stranded without a way to book.
-          Clicks on it are counted too: they are intent the hold rate misses. */}
-      {s.url && (
-        <p className="small muted" style={{ marginTop: 10 }}>
-          Rather book it yourself? <a href={s.url} target="_blank" rel="noreferrer" onClick={() => recordClickOut(s.venueId, s.id, { hobby: s.hobby, source: s.source })}>Go to {bookHost || 'the venue'} ↗</a>
-        </p>
-      )}
 
       <div className="grid two" style={{ marginTop: 24 }}>
         <VenueMap venues={[s.venue]} tint={hobby.tint} center={s.venue} zoom={14} />

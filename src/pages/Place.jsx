@@ -152,15 +152,6 @@ export default function Place() {
               <Link className="small" to={`/h/${p.hobby}`} style={{ display: 'inline-block', marginTop: 10 }}>All {hobby.name.toLowerCase()} places →</Link>
             </div>
           )}
-          {p.notes && (
-            <details className="notes">
-              <summary>Research notes</summary>
-              {/* Written by whoever checked this venue, kept verbatim rather
-                  than smoothed into marketing copy. Half of what is useful about
-                  a venue is the caveat. */}
-              <p className="small muted">{p.notes}</p>
-            </details>
-          )}
         </div>
       </div>
     </>
