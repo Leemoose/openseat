@@ -7,7 +7,7 @@ import { useStore } from '../lib/store.js'
 import { seriesForSession } from '../lib/series.js'
 import { fmtDayLong, fmtTime, weekdayName } from '../lib/format.js'
 import { offerFor, holdLink, recordHold, recordHoldView } from '../lib/intent.js'
-import { Seats, Stamp } from '../components/bits.jsx'
+import { HobbyTag, Seats, Stamp } from '../components/bits.jsx'
 import VenueMap from '../components/VenueMap.jsx'
 import { toast } from '../App.jsx'
 
@@ -37,6 +37,7 @@ export default function Session() {
       </div>
       <div className="band reveal" style={{ '--tint': hobby.tint, marginTop: 10 }}>
         <div className="row" style={{ marginBottom: 8 }}>
+          <HobbyTag hobby={s.hobby} />
           <Stamp source={s.source} />
           {s.recurring && <span className="tiny">{series?.cadence || `Every ${weekdayName(s.weekday)}`}</span>}
         </div>

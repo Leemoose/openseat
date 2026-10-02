@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Stamp } from './bits.jsx'
+import { HobbyTag, Stamp } from './bits.jsx'
 import { fmtClock, fmtRel, fmtTime, dayShort } from '../lib/format.js'
 import { offerFor } from '../lib/intent.js'
 import { fmtMiles } from '../lib/geo.js'
@@ -28,6 +28,7 @@ export default function SeriesCard({ s, miles, i = 0 }) {
         <div className="d">{pattern(s.days, s.recurring)}</div>
       </div>
       <div className="bd">
+        <HobbyTag hobby={s.hobby} />
         <div className="between" style={{ alignItems: 'flex-start' }}>
           <div className="title">{s.title}</div>
           <Stamp source={s.source} />
