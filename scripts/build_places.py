@@ -9,7 +9,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SEED = os.path.join(os.path.dirname(ROOT), 'seed')
 OUT = os.path.join(ROOT, 'src', 'data', 'places.json')
 CACHE = os.path.join(SEED, 'geocache.json')
-UA = 'OpenSeatPrototype/0.1 (connorito@gmail.com)'
+UA = 'KindlingPrototype/0.1 (connorito@gmail.com)'
 
 # A bare filename resolves inside seed/. A name containing "/" resolves against
 # the project root, so a research folder can be read directly and there is no

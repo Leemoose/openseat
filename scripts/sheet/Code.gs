@@ -1,4 +1,4 @@
-// Live funnel sheet for OpenSeat. Paste this whole file into the Google Sheet's
+// Live funnel sheet for Kindling. Paste this whole file into the Google Sheet's
 // Extensions > Apps Script editor. Setup steps are in scripts/sheet/README.md.
 //
 // The site POSTs one JSON object per event to this script's web app URL, and
@@ -38,7 +38,7 @@ function setup() {
   f.clear()
   const visitors = `Events!B2:B`
   const live = `Events!K2:K=$E$2`
-  f.getRange('A1').setValue('OpenSeat funnel (live)').setFontWeight('bold').setFontSize(14)
+  f.getRange('A1').setValue('Kindling funnel (live)').setFontWeight('bold').setFontSize(14)
   f.getRange('D2:E2').setValues([['Counting site:', LIVE_SITE]])
   f.getRange('A3:C3').setValues([['Step', 'People', '% of visitors']]).setFontWeight('bold')
   // ROWS(UNIQUE(...)), not COUNTUNIQUE: when FILTER finds nothing it returns
