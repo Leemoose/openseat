@@ -78,6 +78,12 @@ export function identity() {
   const forced = q.get('v')
   if (forced && VARIANTS.includes(forced) && t.variant !== forced) { t.variant = forced; t.forced = true; changed = true }
   if (!t.variant) { t.variant = VARIANTS[Math.floor(Math.random() * VARIANTS.length)]; changed = true }
+  // ?team=1 marks this browser as one of ours, and nothing it does is sent
+  // anywhere, so the numbers are only the people we are testing with. Sticky
+  // until ?team=0.
+  const team = q.get('team')
+  if (team === '1' && !t.team) { t.team = true; changed = true }
+  if (team === '0' && t.team) { delete t.team; changed = true }
   // Where they came from, kept from the first landing so every later event
   // can be split by source. Post ?src=reddit and ?src=wharton links.
   const src = q.get('src')
@@ -169,6 +175,7 @@ export function track(event, props = {}) {
     },
   }
   remember({ event, at: ev.timestamp, ...props })
+  if (t.team) return
   send(ev)
   sendToSheet(event, t, props)
 }
