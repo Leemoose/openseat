@@ -135,6 +135,7 @@ p { margin: 0; }
 .seats .bar i { display: block; height: 100%; background: var(--clay); }
 .price { font-family: var(--display); font-weight: 600; font-size: 1.05rem; }
 .pricetag { display: inline-flex; flex-direction: column; align-items: flex-end; text-align: right; line-height: 1.2; }
+.row > .pricetag { margin-left: auto; }
 .pricetag .commit { font-size: .72rem; color: var(--ink-3); white-space: nowrap; }
 
 /* layout helpers */

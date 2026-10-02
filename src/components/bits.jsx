@@ -30,7 +30,7 @@ export function Seats({ cap }) {
   // already is comes from nowhere: no calendar, feed or booking page we read
   // exposes it. So this says how big the room is and stops, rather than
   // rendering "3 of 8 left" off a number we made up.
-  if (cap == null) return <span className="seats muted">Seats not published</span>
+  if (cap == null) return null
   if (cap >= 999) return <span className="seats">Open to all</span>
   return <span className="seats">Room for {cap}</span>
 }

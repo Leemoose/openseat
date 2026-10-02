@@ -139,7 +139,7 @@ function make(tpl, date) {
   // A `sample` template is plausible, not verified, so its seat count was a
   // guess on top of a guess. Left in, it meant the only seat scarcity on the
   // site ("3 of 8 left") sat on the least real data, while every fed and
-  // researched session honestly read "Seats not published". Scarcity is what
+  // researched session showed no size at all. Scarcity is what
   // the open-seat mechanic and any per-fill charge rest on, so it has to come
   // from a source that publishes it. KilnFire is the only one that does.
   const cap = tpl.source === 'sample' ? null : tpl.cap
